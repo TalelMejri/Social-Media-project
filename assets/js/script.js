@@ -1,11 +1,12 @@
 /********************** Preloader ***********************/
 
+const loading_val = 125;
 function loader(){
     document.querySelector('.preloader').classList.add('enter-out');
 }
 
 function fadeOut(){
-  setInterval(loader,5000);
+  setInterval(loader,loading_val);
 }
 
 window.onload = fadeOut();
@@ -83,7 +84,7 @@ function aos_init() {
 }
 
 function let_it_animated(){
-  setInterval(aos_init,5000);
+  setInterval(aos_init,loading_val);
 }
 
 let_it_animated();
