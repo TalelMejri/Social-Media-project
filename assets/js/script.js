@@ -5,7 +5,7 @@ function loader(){
 }
 
 function fadeOut(){
-  setInterval(loader,10);
+  setInterval(loader,5000);
 }
 
 window.onload = fadeOut();
@@ -83,7 +83,7 @@ function aos_init() {
 }
 
 function let_it_animated(){
-  setInterval(aos_init,10);
+  setInterval(aos_init,5000);
 }
 
 let_it_animated();
