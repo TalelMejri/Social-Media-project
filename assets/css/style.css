@@ -159,7 +159,7 @@ header ul li a{
  font-size: 18px;
  font-weight: 700;
  color: #4fc3dc;
- /* transition: 0.3s; */
+  transition: 0.3s;
 }
 
 header ul li a.choise_link
