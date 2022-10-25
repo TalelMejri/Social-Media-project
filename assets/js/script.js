@@ -15,7 +15,7 @@ window.onload = fadeOut();
 
 /*********** Link choise **********/
 
-   let links=document.querySelectorAll('a');
+   let links=document.querySelectorAll('.link_navbar');
     links.forEach(link=>{
         link.addEventListener('click',function(){
             links.forEach(link_choice=>{
