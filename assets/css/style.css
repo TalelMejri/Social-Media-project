@@ -356,7 +356,7 @@ font-size: 14px;
   width: 250px;
   height: 190px;
   background: linear-gradient(60deg,#000,#434343);
-  border-radius: 10px;
+  border-radius: 20%;
   box-shadow: rgba(0,0,0,.7) 0px 4px 12px;
 }
 
@@ -366,7 +366,7 @@ font-size: 14px;
   z-index: 1;
   margin: 0 auto;
   position: relative;
-  border-radius: 10px;
+  border-radius: 20%;
   transition: 1s;
   box-shadow: rgba(0,0,0,.7) 0px 4px 12px;
 }
@@ -374,7 +374,8 @@ font-size: 14px;
 .card_box img{
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 20%;
+  margin-left: -10px;
 }
 
 .container_box .content_box{
