@@ -349,6 +349,9 @@ font-size: 14px;
 
 
 /**** Thanks */
+.thank{
+  background:url(../image/hero-bg.png);
+}
 .container_box{
   width: 250px;
   height: 190px;
@@ -358,8 +361,8 @@ font-size: 14px;
 }
 
 .container_box .card_box{
-  width: 100%;
-  height: 100%;
+  width: 250px;
+  height: 190px;
   z-index: 1;
   margin: 0 auto;
   position: relative;
