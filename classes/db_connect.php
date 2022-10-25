@@ -13,8 +13,7 @@
                 parent::__construct($dsn,self::DB_USER,self::DB_PASS);
                 $this->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
-                $this->query('SET NAMES UTF8');
-                echo "jwha behyy";
+                $this->query('SET NAMES UTF8');     
             }catch(Exception $e){
                 echo 'connect failed :'.$e->getMessage();
             }
