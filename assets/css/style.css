@@ -523,3 +523,63 @@ footer .all_link :hover{
   color: #fff;
 }
 
+/**** login */
+
+.back_rotate{
+  position: relative;
+  background-color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hidden{
+  display: none !important;
+}
+
+
+.back_rotate:before {
+  content: "";
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  transform: translateY(-50%);
+  background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  transition: 1.8s ease-in-out;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+@media (max-width: 870px) {
+  .back_rotate {
+    min-height: 800px;
+    height: 100vh;
+  }
+  .back_rotate:before {
+    width: 1500px;
+    height: 1500px;
+    transform: translateX(-50%);
+    left: 30%;
+    bottom: 68%;
+    right: initial;
+    top: initial;
+    transition: 2s ease-in-out;
+  }
+
+}
+
+@media (max-width: 570px) {
+
+  .back_rotate {
+    padding: 1.5rem;
+  }
+
+  .back_rotate:before {
+    bottom: 72%;
+    left: 50%;
+  }
+
+}
+
+

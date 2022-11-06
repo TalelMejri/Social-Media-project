@@ -13,7 +13,8 @@ window.onload = fadeOut();
 
 /******************************************************/
 
-/** cursor  */
+/******************** Cursor  ******************/
+
 var timer;
 const cursor =document.querySelector('.cursor');
 document.addEventListener("mousemove",(e)=>{
@@ -34,7 +35,8 @@ document.addEventListener("mousemove",(e)=>{
 document.addEventListener("mouseout",()=>{
   cursor.style.display="none";
 })
-/************************* */
+
+/***************************************/
 
 /*********** Link choise **********/
 
