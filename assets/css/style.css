@@ -5,6 +5,43 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/***************** Global ************************/
+
+.cursor{
+  z-index: 999;
+  background: #2696E8;
+  position: fixed ;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 20px #2696Eb,
+   0 0 60px  #2696Eb,
+   0 0 100px #2696Eb;
+   animation:  colors 5s infinite;
+}
+
+@keyframes colors {
+
+  0%{
+    filter: hue-rotate(0deg);
+  }
+  100%{
+    filter: hue-rotate(360deg);
+  }
+
+}
+
+.cursor::before{
+  content: '';
+  position: absolute;
+  background: #2696E8;
+  width: 2px;
+  height:2px;
+  opacity: 0.2;
+  transform: translate(-30%,-30%);
+}
+
 html{
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -23,6 +60,8 @@ html::-webkit-scrollbar-thumb {
   background: #ff2d75;
   border-radius:2rem;
 }
+
+/*********************************************/
 
 
 /************************  Partie Preloader   *****************************/
@@ -138,6 +177,10 @@ html::-webkit-scrollbar-thumb {
 
 /***** header **********************************/
 
+.navbar-brand img{
+  object-fit: cover;
+}
+
 header{
  height: 100vh;
 }
@@ -159,7 +202,7 @@ header .navbar-nav li a{
  font-size: 18px;
  font-weight: 700;
  color: #4fc3dc ;
-  transition: 0.3s;
+ transition: 0.3s;
 }
 
 header ul li a.choise_link
@@ -174,11 +217,6 @@ header ul li a.choise_link
   transition: 0.5s;
 }
 
-@media (min-width: 991px) {
-  .navbar-nav {
-      margin-left: 500px !important;
-  }
-}
 
 .intro_text{
   color:#ff2d75;
@@ -232,6 +270,7 @@ header ul li a.choise_link
 /*****************************************************************/
 
 /******* SERVICE *******/
+
 #service{
   height: 100%;
   position: relative;
@@ -310,9 +349,11 @@ header ul li a.choise_link
  .box:hover  {
   color: #fff!important;
 }
+
 /********************************************/
 
 /*** count ****/
+
 .box_count{
   padding:70px 0 60px;
 }

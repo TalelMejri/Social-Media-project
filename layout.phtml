@@ -16,6 +16,7 @@
     <title><?=$page_titel?></title>
 </head>
 <body>
+ 
 <?php if(!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name']) && !$show): ?>
   
   <div class="preloader">
@@ -28,7 +29,7 @@
     </div>
 
      <header>
-       
+     <div class="cursor"></div>
         <nav data-aos="fade-down" data-aos-delay="90" class="mb-5 navbar navbar-expand-lg text-uppercase fixed-top ">
             <div class="container">
                 <div class="circle position-absolute">
@@ -68,8 +69,8 @@
             </div>
         </nav>
         <div class="container-fluid py-5 " >
-            <div class="d-flex py-5  ">
-                <div class="col-xl-12 col-md-12 col-lg-12 py-5">
+            <div class="d-flex justify-content-center py-5  ">
+                <div class="col-xl-12  py-5">
                     <div class="row py-5">
                             <div class="col-lg-6 py-5" >
                                 <div class="py-4  text-center">
@@ -134,6 +135,18 @@
                         </p>
                          <h3  class="titre_box">ADD photo</h3>
                          <p class="description">Share your Photo with your friend</p>
+                </div>
+             </div>
+
+             <div class="col-md-4 mb-2" data-aos="fade-right" data-aos-delay="500">
+                <div class="box orange text-center">
+                         <p class="icon"> 
+                          <span class="fa-stack fa-2x">
+                            <i class="fas fa-sharp fa-stack-1x fa-solid fa-image"></i>
+                         </span>
+                        </p>
+                         <h3  class="titre_box">Take Certificat</h3>
+                         <p class="description">You wanna certficat in pho,js,html and css</p>
                 </div>
              </div>
 

@@ -1,6 +1,6 @@
 /********************** Preloader ***********************/
 
-const loading_val = 100;
+const loading_val = 20;
 function loader(){
     document.querySelector('.preloader').classList.add('enter-out');
 }
@@ -12,6 +12,29 @@ function fadeOut(){
 window.onload = fadeOut();
 
 /******************************************************/
+
+/** cursor  */
+var timer;
+const cursor =document.querySelector('.cursor');
+document.addEventListener("mousemove",(e)=>{
+  let x=e.pageX;
+  let y=e.pageY;
+  cursor.style.top=y+'px';
+  cursor.style.left=x+'px';
+  cursor.style.display="block";
+
+  function mouseStopped(){
+    cursor.style.display="none";
+  }
+
+  clearTimeout(timer);
+  timer=setTimeout(mouseStopped,3000);
+})
+
+document.addEventListener("mouseout",()=>{
+  cursor.style.display="none";
+})
+/************************* */
 
 /*********** Link choise **********/
 
