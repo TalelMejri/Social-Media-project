@@ -15,7 +15,18 @@
       <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <?php else:?>
+    <?php endif; ?>
+    <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?>
+      <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">
+      <link rel="stylesheet" href="../assets/css/style.css">
+      <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+      <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+      <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+    <?php else: ?>
       <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">
       <link rel="stylesheet" href="./assets/css/style.css">
       <link href="./assets/vendor/aos/aos.css" rel="stylesheet">
@@ -25,12 +36,13 @@
       <link href="./assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
-    <?php endif; ?>
+      <?php endif; ?>
     <title><?=$page_titel?></title>
 </head>
 <body>
  
-<?php if(!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name']) && !$show): ?>
+
+ <?php if(!isset($_SESSION['id']) && !isset($_SESSION['idUser']) && !$show): ?>
   
   <div class="preloader">
         <p class="content-preloader">
@@ -208,7 +220,7 @@
                  <div class="box_count text-center">
                      <i class="fa-solid fa-users" style="color: #ee6c20;"></i>
                    <div>
-                    <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
+                    <span data-purecounter-start="0" data-purecounter-end="<?=$NbrUser?>" data-purecounter-duration="2" class="purecounter"></span>
                      <p>Our Users</p>
                   </div>
                </div>
@@ -352,7 +364,7 @@
                       <div class="mb-3">
                       <textarea placeholder="Go ahead , we are listening" required class="shadow rounded" style="outline:none;border:none;padding:10px" name="messages" cols="20"  rows="10"  ></textarea>
                     </div>
-                        <button style="width:100%" name="submit" type="submit" class="mb-4 btn">Send</button>
+                        <button style="width:100%" name="submit" type="submit" class="button">Send</button>
                         </div>  
                         <div class="col-sm-6 text-center">
                               <div class="row text-center">
@@ -487,6 +499,11 @@
    </footer>
 
    <?php endif;?>
+
+   <?php if(isset($_SESSION['idUser']) && !$show):?>
+      <?php include $template .".phtml"; ?>
+  <?php endif;?>
+
     <?php if($show): ?>
          <?php include $template.".phtml"; ?>
     <?php endif; ?>
