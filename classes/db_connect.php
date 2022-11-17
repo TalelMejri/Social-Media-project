@@ -18,9 +18,12 @@
                 echo 'connect failed :'.$e->getMessage();
             }
          }
-
+      /* pour eviter a chaque fois execute et prepare */
+         public function launchQuery(String $sql,array $param=[]):PDOStatement{
+            $stmt=parent::prepare($sql);
+            $stmt->execute($param);
+            return $stmt;
+        }
     }
-
-
 
 ?>
