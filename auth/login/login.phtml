@@ -1,7 +1,5 @@
 <style>
-input{
-  height:60px;
-}
+
 img{
   height:100%;
   width:100%;
@@ -19,25 +17,36 @@ img{
 <div class="d-flex p-3 m-4 justify-content-center">   
     <div class="col-xl-10 col-md-12 col-lg-12">
           <div class="row shadow-lg rounded">
-                <div class="col-lg-6 d-none d-lg-block bg-secondary">
-                    <img src="../../assets/image/log.svg" alt="">
+                <div class="col-lg-6 d-none d-lg-block ">
+                    <img src="../../assets/image/122140-log-in.gif" alt="">
                 </div>
                 <div class=" col-lg-6 py-5">
                       <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-5">Welcome Back !</h1>
                       </div>
                     <form action="<?=$_SERVER['PHP_SELF'] ?>" method="POST">
-                          <?php if(array_key_exists('type',$_GET)): ?>
+                    <?php if(array_key_exists('verfiy',$_GET)): ?>
+                              <div class="alert alert-<?=$_GET['color']?>" role="alert">
+                                 <?= $_GET['verfiy'] ?>
+                               </div>
+                          <?php endif;?>
+                          <?php if(array_key_exists('msg',$_GET)): ?>
                               <div class="alert alert-<?=$_GET['type']?>" role="alert">
                                  <?= $_GET['msg'] ?>
                                </div>
                           <?php endif;?>
+                          <?php if(array_key_exists('mesage_renvoyer',$_GET)): ?>
+                              <div class="alert alert-<?=$_GET['typ']?>" role="alert">
+                                 <h3><?= $_GET['mesage_renvoyer'] ?></h3>
+                                 <h5><?= $_GET['mesage_renvoyer1'] ?></h5>
+                               </div>
+                          <?php endif;?>
                       <div class="mb-4">
-                          <input  type="text" placeholder="Entrer Email Address..." name="email" class="form-control" id="exampleInputEmail1">
+                          <input  type="text" placeholder="Entrer Email Address..." name="email" class="form-control mb-2" id="exampleInputEmail1">
                       </div>
                       <div class="mb-5 ">
                         <div class="input-group d-flex">
-                        <input type="password" id="pass" class="form-control" name="password" placeholder="Entrer Your Password">
+                        <input type="password" id="pass" class="form-control mb-2" name="password" placeholder="Entrer Your Password">
                          <span class="input-group-btn">
                            <button id="changer_visible" class="btn btn-primary" type="button">
                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" class="eye hidden">
@@ -53,10 +62,10 @@ img{
                         </span>
                       </div> 
                       </div>
-                          <button style="font-size:19px" type="submit" name="submit" class="btn btn-primary btn-block w-100 rounded-pill">Login</button>
+                          <button style="font-size:19px" type="submit" name="submit" class="btn btn-primary btn-block w-100 rounded-pill mb-5">Login</button>
                       </form>
                       <hr>
-                      <div class="fin text-center py-4 mb-1">
+                      <div class="fin text-center py-4 ">
                               <a class="small text-decoration-none" href="../forgotPassword">Forgot Password ?</a>
                        </div>
                        <div class="fin text-center">
