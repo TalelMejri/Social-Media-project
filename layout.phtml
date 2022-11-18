@@ -17,6 +17,7 @@
       <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <?php endif; ?>
     <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?>
+      <script src="../assets/js/script.js"></script>
       <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">
       <link rel="stylesheet" href="../assets/css/style.css">
       <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
@@ -52,9 +53,7 @@
            <span>O</span>
         </p>
     </div>
-  
      <header>
-   
         <nav data-aos="fade-down" data-aos-delay="90" class="mb-5 navbar navbar-expand-lg text-uppercase fixed-top ">
             <div class="container">
                 <div class="circle position-absolute">
@@ -93,17 +92,16 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid py-5 " >
-            <div class="d-flex justify-content-center py-5  ">
-                <div class="col-xl-12  py-5">
-                    <div class="row py-5">
+        <div class="container" >
+            <div class="landing-page py-5">
+                    <div class="row py-5 ">
                             <div class="col-lg-6 py-5" >
-                                <div class="py-4  text-center">
-                                <div data-aos="fade-down" data-aos-delay="90">
-                                  <div class="intro_text">
+                                <div class="py-4">
+                                <div class="py-5 mt-5" data-aos="fade-down " data-aos-delay="90">
+                                  <div class="intro_text text-center">
                                     <h1 >You Make the World a better Place </h1>
                                     <h2 >Just By being in it</h2>
-                                        <h3>Join Us </h3>
+                                        <h3 > Join Us </h3>
                                         <div class="py-4 d-flex  justify-content-center">
                                             <div class="mx-4">
                                               <a  href="./auth/login/ "><button  class="button">Sign In</button></a>
@@ -116,11 +114,10 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-lg-6 d-lg-block d-none text-center py-5">
-                                    <img src="./assets/image/intro.jpg"  data-aos="zoom-out" data-aos-delay="50" class="rounded img-thumbnail shadow-sm" width="400px" height="500px"  alt="">
+                            <div class="col-lg-6 d-lg-block d-none text-center">
+                            <lottie-player src="https://assets8.lottiefiles.com/private_files/lf30_1Fy94C.json" data-aos="zoom-out" data-aos-delay="50"   speed="1"  style="width: 100%; height: 100%;"  loop  autoplay></lottie-player>
                             </div>
                     </div>
-                </div>
             </div>
         </div>    
     </header>
@@ -500,9 +497,107 @@
 
    <?php endif;?>
 
-   <?php if(isset($_SESSION['idUser']) && !$show):?>
-      <?php include $template .".phtml"; ?>
-  <?php endif;?>
+   <?php if(isset($_SESSION['idUser']) && !$show &&!isset($_SESSION['id'])):?>
+       <main style="background:whitesmoke">
+            <div class="p-2">
+                <div class="navbar_user position-fixed p-2 mb-5 fixed-top shadow-lg container-fuild d-flex justify-content-around">
+                    <div>
+                       <img src="../assets/image/logo_final.png" alt="" width="55px" height="55px">
+                    </div>
+                    <div class="text-center py-4">
+                            Welcome 
+                    </div>
+                    <div> 
+                        <div>
+                            <div class="d-flex flex-column text-center ">
+                                 <div class="show_profil"> <img onclick="toasty()" class=" rounded-circle img-thumbnail shadow-sm"  width="60px" height="60px" src="..<?=$_SESSION['avatarUser']?>" > </div>
+                                 <span class="font-weight-bold"><?=strtoupper($_SESSION['nameUser'])?></span>    
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="position-fixed end-0 mt-5 py-5 p-2" style="z-index: 11">
+                <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="true">
+                   <div class="toast-header">
+                     <strong class="me-auto">Settings </strong>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                   <div class="toast-body">
+                     <div class="mosule d-flex justify-content-center">
+                        <img src="..<?=$_SESSION['avatarUser'];?>" width="70px" height="50px" class="rounded img-thumbnail shadow-sm" alt="">
+                         <div class="body py-3 px-2">
+                            <p class="m-0"><?=$_SESSION['nameUser'];?><?=$_SESSION['lastnameUser'];?></p>
+                             <p class="font-weight-normal text-muted"><?=$_SESSION['emailUser'];?></p>
+                        </div>
+                    </div>
+                    
+                 <ul class="list-unstyled flex-column ps-0 mx-5">
+                <li class=" py-2">
+                  <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                      <span style="font-size:15px">Home</span> 
+                  </button>
+                  <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                      <li><a href="../profiluser"  class="link-dark rounded">Home<i class="fa-solid fa-user px-2"></i></a></li>
+                      <li><a href="../message"  class="link-dark rounded">Chat<i class="fa-solid fa-comment px-2"></i></a></li>
+                    </ul>
+                  </div>
+                </li>
+           <li class="">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                <span style="font-size:15px">Book</span> 
+             </button>
+             <div class="collapse" id="dashboard-collapse">
+               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                 <li><a href="../allbook_foruser" class="link-dark rounded">List All Book<i class="fa-solid fa-list px-2"></i></a></li>
+                 <li><a href="../listfavoritebook" class="link-dark rounded">Favorite Book<i class="mx-2 fa-solid fa-heart"></i></a></li>
+                 <li><a href="../book_acheter_user" class="link-dark rounded">Book issue<i class="fa-solid fa-clipboard-list px-2"></i></i></a></li>
+               </ul>
+                        </div>           
+             </li>
+            <div class=" py-2">
+      <div class="row mt-2">
+        <div class="col-lg-12 text-center">
+       <a href="##"> Confidentialité  · Conditions générales  · Publicités  · Choix publicitaires   · Cookies  ·   · BIZO © 2022</a>
+        </div>
+       
+        </div>
+          
+      </div>
+ </div>
+
+
+
+
+
+                   </div>
+              </div>
+            </div>
+              </div>  
+              
+            
+             <!-- <div class="ProfilUser">
+                    <div class="name">
+                      <div class="col-xl-2 ">
+                        <div class="row gap-4">
+                           <div class="col-lg-4">
+                                <img src="..<?=$_SESSION['avatarUser']?>"  width="50px" height="50px" alt="">
+                           </div>
+                            <div class="col-lg-4 text-center">
+                              <div class="col-lg-12">
+                              <span> <?=strtoupper($_SESSION['nameUser'])?></span><span><?=strtoupper($_SESSION['lastnameUser'])?></span>
+                              </div>
+                              <div class="col-lg-12">
+                              <span> <?=$_SESSION['emailUser']?></span>
+                              </div>
+                           </div>
+                        </div>
+                        </div>
+                    </div>
+               </div>
+            </div>-->
+            </main>
+   <?php endif;?>
 
     <?php if($show): ?>
          <?php include $template.".phtml"; ?>
@@ -510,6 +605,18 @@
 
     
 </body>
+<script>
+  var option=
+   {
+    animation:true,
+    delay:5000000000000
+   };
+   function toasty(){
+    var toastelement=document.querySelector('.toast');
+    var toastcreate=new bootstrap.Toast(toastelement,option);
+    toastcreate.show();
+   }
+</script>
 
 <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="./assets/vendor/aos/aos.js"></script>
@@ -520,4 +627,5 @@
 <script src="./assets/vendor/php-email-form/validate.js"></script>
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 <script src="./assets/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </html>

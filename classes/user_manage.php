@@ -90,7 +90,7 @@
             else{
                 $_SESSION['idUser']=$user['iduser'];
                 $_SESSION['nameUser']=$user['name'];
-                $_SESSION['lastnameUser']=$user['lastname'];
+                $_SESSION['lastnameUser']=$user['last_name'];
                 $_SESSION['emailUser']=$user['email'];
                 $_SESSION['passwordUser']=$user['password'];
                 $_SESSION['avatarUser']=$user['photo_user'];
