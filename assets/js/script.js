@@ -74,6 +74,22 @@ logo_bizo.addEventListener("click",()=>{
 /****************** */
 
 
+/** profil user */
+
+var option=
+   {
+    animation:true,
+    delay:2000
+   };
+   function toasty(){
+    var toastelement=document.querySelector('.toast');
+    var toastcreate=new bootstrap.Toast(toastelement,option);
+    toastcreate.show();
+   }
+
+/******************************* */
+
+
 /*new Swiper('.testimonials-slider', {
     speed: 600,
     loop: true,
