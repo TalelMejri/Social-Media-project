@@ -40,7 +40,7 @@
       <?php endif; ?>
     <title><?=$page_titel?></title>
 </head>
-<body>
+<body >
  
 
  <?php if(!isset($_SESSION['id']) && !isset($_SESSION['idUser']) && !$show): ?>
@@ -497,27 +497,104 @@
 
    <?php endif;?>
 
-   <?php if(isset($_SESSION['idUser']) && !$show &&!isset($_SESSION['id'])):?>
-       <main style="background:whitesmoke">
-            <div class="p-2">
-                <div class="navbar_user position-fixed p-2 mb-5 fixed-top shadow-lg container-fuild d-flex justify-content-around">
-                    <div>
+   <?php if(isset($_SESSION['idUser']) && !$show && !isset($_SESSION['id'])):?>
+               <article>
+               <?php
+                // include "./classes/classes.php";
+                 $user=new user_manager();
+                 $all_notif=$user->get_notif($_SESSION['idUser']); 
+                 $length_notif=$user->lenght_notif($_SESSION['idUser']);
+                 ?>
+                <input type="hidden" id="checkUser" value="<?=isset($_SESSION['idUser']) ? 1 : 0?>">
+                <div class="navbar_user position-fixed p-2 mb-5 fixed-top shadow-lg container-fluid d-flex justify-content-between">
+                    <div class="mt-3 mx-1">
                        <img src="../assets/image/logo_final.png" alt="" width="55px" height="55px">
                     </div>
-                    <div class="text-center py-4">
-                            Welcome 
-                    </div>
-                    <div> 
-                        <div>
+                    <div class="d-flex gap-4 mx-2">
+                        <div class="mt-4">
+                              <span class="px-3 mt-5" style="cursor:pointer;position:relative" > 
+                                  <span class=" position-relative" id="liveToastBtn" onclick="toasty('notif')">
+                                  <i style="font-size:25px" id="text"  class=" fa-solid fa-bell"></i>
+                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                         <?=$length_notif?>
+                                       </span>
+                                 </span>
+                             </span>
+                         
+                             </div>
+                             <div class="mt-4">
+                                <a href="#" class="text-decoration-none text-dark"> <i  style="font-size:25px" id="text"  class="fa-solid fa-message"></i></a> 
+                             </div>
                             <div class="d-flex flex-column text-center ">
-                                 <div class="show_profil"> <img onclick="toasty()" class=" rounded-circle img-thumbnail shadow-sm"  width="60px" height="60px" src="..<?=$_SESSION['avatarUser']?>" > </div>
-                                 <span class="font-weight-bold"><?=strtoupper($_SESSION['nameUser'])?></span>    
+                                 <div class="show_profil"> <img  onclick="toasty('profil')" class=" rounded-circle img-thumbnail shadow-sm"  width="60px" height="60px" src="..<?=$_SESSION['avatarUser']?>" > </div>
                             </div>
-                        </div>
-                       
                     </div>
-                    <div class="position-fixed end-0 mt-5 py-5 p-2" style="z-index: 11">
-                <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="true">
+              </div>
+  
+              <main>
+                 <div class="container-fluid p-4">
+                    <div class="left">
+                    <a class="profile">
+                <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
+            
+            <div class="handle">
+                <h4><?=$_SESSION['nameUser'] ." ".$_SESSION['lastnameUser']?></h4>
+            </div>
+          </a>
+
+          <div class="sidebar">
+          <a href="../ProfilUser/" class="menu-item ">
+                 <span> <i class="fa-solid fa-house-user p-2"></i></span><h3>Accueil</h3>
+             </a>
+             <a href="../listamis/" class="menu-item ">
+                 <span> <i class="fa-solid fa-user p-2"></i></span><h3>Amis</h3>
+             </a>
+             <a class="menu-item ">
+                 <span>   <i class="fa-sharp fa-solid fa-bookmark p-2"></i></span><h3>Enregistrement</h3>
+             </a>
+             
+             <a class="menu-item ">
+                 <span><i class="fa-solid fa-certificate p-2"></i></span><h3>Certificat</h3>
+             </a>
+             </div>
+                    </div>
+                    <div class="middle">
+                      
+                           <?php include $template.".phtml"; ?>
+                    </div>
+                    <div class="right">
+                    <?php  
+                            include "../get_all_user/index.php";                
+                    ?>
+                  </div>
+                  <?php
+                 $user=new user_manager();
+                 $all_notif=$user->get_notif($_SESSION['idUser']); 
+                 ?>
+              <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                      <div id="liveToast"  class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                          <strong class="me-auto">Notification</strong>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                        <?php foreach($all_notif as $message):  ?>
+                            <div class="card mb-2">
+                           <div class="card-header">
+                               <?=$message['description']?>
+                              <span style="cursor:pointer" class="float-end ">
+                             <a class="text-decoration-none text-danger" href="../delete_notif.php?id=<?=$message['id']?>">X</a>
+                       </span>
+                    </div>
+              </div>
+        <?php endforeach; ?>
+                        </div>
+                      </div>
+              </div>
+   
+                    
+              <div class="position-fixed bottom-0 end-0 p-2" style="z-index: 11">
+                <div role="alert" aria-live="assertive" id="profil" aria-atomic="true" class="toast" >
                    <div class="toast-header">
                      <strong class="me-auto">Settings </strong>
                           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -534,69 +611,60 @@
                  <ul class="list-unstyled flex-column ps-0 mx-5">
                 <li class=" py-2">
                   <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                      <span style="font-size:15px">Home</span> 
+                      <span style="font-size:18px"> <i class="fa-solid fa-gear px-2"></i>  Parametres </span> 
                   </button>
                   <div class="collapse show" id="home-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                      <li><a href="../profiluser"  class="link-dark rounded">Home<i class="fa-solid fa-user px-2"></i></a></li>
-                      <li><a href="../message"  class="link-dark rounded">Chat<i class="fa-solid fa-comment px-2"></i></a></li>
+                    <li><a href="../profiluser"  class="link-dark rounded">Changer Password <i class="fa-solid fa-lock px-2"></i></a></li>
+                      <li><a href="../profiluser"  class="link-dark rounded">Edit Profil<i class="fa-solid fa-pen-to-square px-2"></i></a></li>
+                      <li><a href="../message"  class="link-dark rounded">Langue<i class="fa-solid fa-globe px-2"></i></a></li>
                     </ul>
                   </div>
                 </li>
            <li class="">
              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                <span style="font-size:15px">Book</span> 
+                <span style="font-size:18px"><i class="fa-solid fa-moon px-2"></i>Affichage</span> 
              </button>
              <div class="collapse" id="dashboard-collapse">
                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                 <li><a href="../allbook_foruser" class="link-dark rounded">List All Book<i class="fa-solid fa-list px-2"></i></a></li>
-                 <li><a href="../listfavoritebook" class="link-dark rounded">Favorite Book<i class="mx-2 fa-solid fa-heart"></i></a></li>
-                 <li><a href="../book_acheter_user" class="link-dark rounded">Book issue<i class="fa-solid fa-clipboard-list px-2"></i></i></a></li>
+                   <form action="../Changervisibilite/" method="POST">
+                          <p style="font-size:15px;text-align:center">Chose Your Mode :</p>
+                           <input type="hidden" name="id" value="<?=$_SESSION['idUser']?>">
+                           <input type="hidden" id="mode" value=<?=$mode_visibiltes?>>
+                          <div class="text-center mb-2">
+                           <?php if($mode_visibiltes==1): ?> 
+                            <input type="radio" checked  name="mode"> <span class="px-2"><i class="fa-solid fa-moon px-2"></i>Sombre</span> 
+                            <input type="radio"  name="mode"><span class="px-2"><i class="fa-sharp fa-solid fa-lightbulb px-2"></i>Clair</span>
+                          </div>
+                          <?php else:?>
+                            <input type="radio"  name="mode"> <span class="px-2"><i class="fa-solid fa-moon px-2"></i>Sombre</span> 
+                            <input type="radio" checked  name="mode"><span class="px-2"><i class="fa-sharp fa-solid fa-lightbulb px-2"></i>Clair</span>
+                            <?php endif; ?>
+                           <div class="text-center">
+                             <button name="submit" class="btn btn-primary">Changer</button>
+                           </div>
+                   </form>
                </ul>
-                        </div>           
+             </div>           
              </li>
+             <button class="btn btn-white align-items-center rounded mx-4">
+                <a class="link-dark rounded text-decoration-none" href="../logout.php"><span style="font-size:18px">Log out <i class="fa-solid fa-right-from-bracket"></i> </span> </a>
+             </button>
             <div class=" py-2">
       <div class="row mt-2">
         <div class="col-lg-12 text-center">
        <a href="##"> Confidentialité  · Conditions générales  · Publicités  · Choix publicitaires   · Cookies  ·   · BIZO © 2022</a>
-        </div>
-       
-        </div>
-          
+             </div>
+            </div>               
+          </div>
       </div>
- </div>
-
-
-
-
-
-                   </div>
+        </div>
               </div>
-            </div>
-              </div>  
-              
-            
-             <!-- <div class="ProfilUser">
-                    <div class="name">
-                      <div class="col-xl-2 ">
-                        <div class="row gap-4">
-                           <div class="col-lg-4">
-                                <img src="..<?=$_SESSION['avatarUser']?>"  width="50px" height="50px" alt="">
-                           </div>
-                            <div class="col-lg-4 text-center">
-                              <div class="col-lg-12">
-                              <span> <?=strtoupper($_SESSION['nameUser'])?></span><span><?=strtoupper($_SESSION['lastnameUser'])?></span>
-                              </div>
-                              <div class="col-lg-12">
-                              <span> <?=$_SESSION['emailUser']?></span>
-                              </div>
-                           </div>
-                        </div>
-                        </div>
-                    </div>
-               </div>
-            </div>-->
-            </main>
+                 </div>
+              </main>
+           
+              </article>
+
    <?php endif;?>
 
     <?php if($show): ?>
@@ -606,18 +674,39 @@
     
 </body>
 <script>
-  var option=
+let mode=document.querySelector('#mode').value;
+let checkUser=document.querySelector('#checkUser').value;
+let navbar=document.querySelector('.navbar_user');
+if(mode==1 && checkUser==1 ){
+var all_text = document.querySelectorAll("#text");
+for (var i=0; i<all_text.length; i++) {
+  all_text[i].style.color='white';
+}
+  navbar.setAttribute('id', 'navbar');
+  document.body.style.backgroundColor = "#000";
+}else{
+  document.body.style.backgroundColor = "whitesmoke";
+}
+
+var option=
    {
     animation:true,
     delay:5000000000000
    };
-   function toasty(){
-    var toastelement=document.querySelector('.toast');
-    var toastcreate=new bootstrap.Toast(toastelement,option);
-    toastcreate.show();
-   }
-</script>
+   
+function toasty(param){
+  if(param=='notif'){
+  var toastelement=document.querySelector('#liveToast');
+  var toastcreate=new bootstrap.Toast(toastelement,option);
+  toastcreate.show();
+  } else{
+   var toastelement=document.querySelector('#profil');
+   var toastcreate=new bootstrap.Toast(toastelement,option);
+   toastcreate.show();
+  }
+}
 
+</script>
 <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="./assets/vendor/aos/aos.js"></script>
 <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -628,4 +717,6 @@
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 <script src="./assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
+
 </html>
