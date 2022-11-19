@@ -1,8 +1,8 @@
 /********************** Preloader ***********************/
 
-const loading_val = 100;
+const loading_val = 4000 ;
 function loader(){
-    document.querySelector('.preloader').classList.add('enter-out');
+    document.querySelector('.preloader')?.classList.add('enter-out');
 }
 
 function fadeOut(){
@@ -17,6 +17,7 @@ window.onload = fadeOut();
 
 var timer;
 const cursor =document.querySelector('.cursor');
+if(cursor){
 document.addEventListener("mousemove",(e)=>{
   let x=e.pageX;
   let y=e.pageY;
@@ -35,6 +36,7 @@ document.addEventListener("mousemove",(e)=>{
 document.addEventListener("mouseout",()=>{
   cursor.style.display="none";
 })
+}
 
 /***************************************/
 
@@ -50,7 +52,6 @@ document.addEventListener("mouseout",()=>{
         })
     })
 
-
 /**********************************/
 
 
@@ -58,25 +59,28 @@ document.addEventListener("mouseout",()=>{
 
 window.addEventListener('scroll',function(){
     const header=this.document.querySelector('.navbar');
-    header.classList.toggle('sticky',window.scrollY>20);
+    header?.classList.toggle('sticky',window.scrollY>20);
 })
 
 /*************back to top ***************/
 
 let logo_bizo=document.querySelector('.navbar-brand');
+if(logo_bizo){
 logo_bizo.addEventListener("click",()=>{
         window.scrollTo({
         top:"0",
         behavior:"smooth",  
     });
 });
+}
+/*******************/
 
-/****************** */
+
 
 
 /** profil user */
 
-var option=
+/*var option=
    {
     animation:true,
     delay:2000
@@ -85,10 +89,25 @@ var option=
     var toastelement=document.querySelector('.toast');
     var toastcreate=new bootstrap.Toast(toastelement,option);
     toastcreate.show();
-   }
+   }*/
 
 /******************************* */
+let link_sidebar=document.querySelectorAll('.menu-item');
+link_sidebar.forEach(link=>{
+    link.addEventListener('click',function(){
+      link_sidebar.forEach(link_choice=>{
+            link_choice.classList.remove('active');
+            this.classList.add('active');
+        })
+    })
+})
 
+
+
+
+/** side bar user */
+
+/******************************* */
 
 /*new Swiper('.testimonials-slider', {
     speed: 600,
