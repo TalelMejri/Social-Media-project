@@ -1,0 +1,45 @@
+<?php if($user->get_invi_user($_SESSION['idUser'])): ?>
+ <h4 id="text">Invitations</h4>
+ <?php endif; ?>
+ <?php
+    foreach($user->get_invi_user($_SESSION['idUser']) as $value):
+        
+    ?>
+        <?php $user_inviter=$user->get_user($value['id_user1']); ?>
+        <div class="mosule d-flex justify-content-center mb-2">
+                     <img src="..<?=$user_inviter['photo_user'];?>" width="70px" height="40px" class="rounded img-thumbnail shadow-sm" alt="">
+                      <div class="body py-3 px-2">
+                      <p class="m-0" id="text"><?=$user_inviter['name'];?><?=$user_inviter['last_name'];?></p>
+                    <p class="font-weight-normal text-muted"><?=$user_inviter['email'];?></p>
+     </div>
+                     
+  </div>
+  <div class="d-flex justify-content-center gap-3">
+                  <a href="index.php?id_confirmer=<?=$user_inviter['iduser']?>"><button class="btn btn-primary px-2">Confirmer</button></a>
+                  <a href="index.php?id_cancel=<?=$user_inviter['iduser']?>"><button  class="btn btn-secondary">Annuler</button></a>
+ </div>
+    <?php endforeach; ?>
+
+
+<h3 class="py-3" id="text">List Des Amis :</h3>
+ <?php
+    foreach($all_user as $value):
+ ?>
+   <?php if(!$user->check_friend_invi($_SESSION['idUser'],$value['iduser'])) :?>
+<div class="mosule d-flex justify-content-center mb-2">
+                     <img src="..<?=$value['photo_user'];?>" width="70px" height="40px" class="rounded img-thumbnail shadow-sm" alt="">
+                      <div class="body py-3 px-2">
+                      <p  id="text" class="m-0"><?=$value['name'];?><?=$value['last_name'];?></p>
+                    <p class="font-weight-normal text-muted"><?=$value['email'];?></p>
+     </div>
+                     
+  </div>
+  <div class="d-flex justify-content-center gap-3">
+                  <a href="index.php?id_ajouter=<?=$value['iduser']?>"><button class="btn btn-primary px-2">Ajouter</button></a>
+                  <a href="index.php?id_cancel=<?=$value['iduser']?>"><button  class="btn btn-secondary">Cancel</button></a>
+ </div>
+<hr>
+<?php endif; ?>
+ <?php endforeach; ?>
+
+ 
