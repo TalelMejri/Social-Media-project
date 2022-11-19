@@ -28,7 +28,10 @@
                 'corbe'=>0,
                 'role'=>0
             ]);
-            return $this->pdo->lastInsertId();
+             $id_user=$this->pdo->lastInsertId();
+             $sql="INSERT INTO visibilite_users (idUser,affichage,langue) VALUES (:id,:aff,:lang)";
+             $this->pdo->launchQuery($sql,['id'=>$id_user,'aff'=>0,'lang'=>'en']);
+             return $id_user;
         }
 
         public function validateUser_email(String $email,String $token){
@@ -131,6 +134,83 @@
                 ]
             );
         }
+
+         public function getModeAffichage(int $id){
+            $sql="SELECT affichage from  visibilite_users where idUser=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            $value=$query->fetch();
+            return $value['affichage'];
+        }
+
+         public function changer_visib(int $id){
+            $chose=$this->getModeAffichage($id);
+            $sql="UPDATE visibilite_users SET affichage=:aff where idUser=:id";
+            $this->pdo->launchQuery($sql,['aff'=>!$chose,'id'=>$id]);
+        }
+
+         public function get_all_users(int $id){
+            $sql="SELECT * from users where role=:role AND idUser!=:id";
+            $query=$this->pdo->launchQuery($sql,['role'=>0,'id'=>$id]);
+            return $query->fetchAll();
+        }
+
+         public function get_user(int $id){
+            $sql="SELECT * from users where role=:role AND idUser=:id";
+            $query=$this->pdo->launchQuery($sql,['role'=>0,'id'=>$id]);
+            return $query->fetch();
+        }
+
+         public function Ajouter_ami(int $id1 ,int $id2){
+            $sql="INSERT into friends (id_user1,id_user2,statu) VALUES (:id1,:id2,:statu)";
+            $this->pdo->launchQuery($sql,['id1'=>$id1,'id2'=>$id2,'statu'=>0]);
+        }
+
+         public function check_friend_invi(int $id1 ,int $id2){
+            $sql="SELECT * from friends where id_user1=:id1 AND id_user2=:id2 OR id_user1=:id2 AND id_user2=:id1";
+            $query=$this->pdo->launchQuery($sql,['id1'=>$id1,'id2'=>$id2]);
+            return $query->fetch();
+        }
+
+         public function get_invi_user(int $id1){
+            $sql="SELECT * from friends where id_user2=:id1 and  statu=:st";
+            $query= $this->pdo->launchQuery($sql,['id1'=>$id1,'st'=>0]);
+            return $query->fetchAll();
+        }
+
+         public function accepter_ami(int $id1 ,int $id2){
+            $sql="UPDATE friends SET statu=:st where id_user1=:id1 and id_user2=:id2";
+            $this->pdo->launchQuery($sql,['st'=>1,'id1'=>$id1,'id2'=>$id2]);
+        }
+
+         public function add_notification(int $id,String $desc){
+            $sql="INSERT INTO notification (id_user_current,description) VALUES (:id,:notif)";
+            $this->pdo->launchQuery($sql,['id'=>$id,'notif'=>$desc]);
+        }
+
+         public function get_notif(int $id){
+            $sql="SELECT * from notification where id_user_current=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            return $query;
+        }
+
+         public function lenght_notif(int $id){
+            $sql="SELECT count(id) from notification where id_user_current=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            $value=$query->fetch();
+            return $value['count(id)'];
+         }
+
+
+         public function delete_notif_by_id(int $id){
+            $sql="DELETE from notification where id=:id";
+            $this->pdo->launchQuery($sql,['id'=>$id]);
+         }
+
+         public function get_all_friend(int $id){
+            $sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser  and u1.iduser=$id ";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetchAll();
+         }
 
     }
 ?>
