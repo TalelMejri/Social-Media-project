@@ -1,4 +1,12 @@
-<?php if($user->get_invi_user($_SESSION['idUser'])): ?>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Invitation</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Ajouter Ami</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+  <?php if($user->get_invi_user($_SESSION['idUser'])): ?>
  <h4 id="text">Invitations</h4>
  <?php endif; ?>
  <?php
@@ -19,27 +27,39 @@
                   <a href="index.php?id_cancel=<?=$user_inviter['iduser']?>"><button  class="btn btn-secondary">Annuler</button></a>
  </div>
     <?php endforeach; ?>
-
-
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+   
 <h3 class="py-3" id="text">List Des Amis :</h3>
  <?php
     foreach($all_user as $value):
  ?>
    <?php if(!$user->check_friend_invi($_SESSION['idUser'],$value['iduser'])) :?>
-<div class="mosule d-flex justify-content-center mb-2">
+    
+      <div class="mosule d-flex justify-content-center mb-2">
                      <img src="..<?=$value['photo_user'];?>" width="70px" height="40px" class="rounded img-thumbnail shadow-sm" alt="">
                       <div class="body py-3 px-2">
-                      <p  id="text" class="m-0"><?=$value['name'];?><?=$value['last_name'];?></p>
-                    <p class="font-weight-normal text-muted"><?=$value['email'];?></p>
+                         <p  id="text" class="m-0"><?=$value['name'];?><?=$value['last_name'];?></p>
+                         <p class="font-weight-normal text-muted"><?=$value['email'];?></p>
+                      </div>
      </div>
-                     
-  </div>
-  <div class="d-flex justify-content-center gap-3">
-                  <a href="index.php?id_ajouter=<?=$value['iduser']?>"><button class="btn btn-primary px-2">Ajouter</button></a>
+      <div class="d-flex justify-content-center gap-3">
+                  <a href="index.php?id_ajouter=<?=$value['iduser']?>">
+                           <button class="btn btn-primary px-2">
+                                Ajouter
+                            </button>
+                  </a>
                   <a href="index.php?id_cancel=<?=$value['iduser']?>"><button  class="btn btn-secondary">Cancel</button></a>
- </div>
+      </div>
 <hr>
 <?php endif; ?>
  <?php endforeach; ?>
+
+  </div>
+</div>
+
+
+
+
 
  
