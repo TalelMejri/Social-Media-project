@@ -166,7 +166,7 @@
         }
 
          public function check_friend_invi(int $id1 ,int $id2){
-            $sql="SELECT * from friends where id_user1=:id1 AND id_user2=:id2 OR id_user1=:id2 AND id_user2=:id1";
+            $sql="SELECT * from friends where id_user1=:id1 AND id_user2=:id2 OR id_user1=:id2 AND id_user2=:id1 ";
             $query=$this->pdo->launchQuery($sql,['id1'=>$id1,'id2'=>$id2]);
             return $query->fetch();
         }
@@ -206,11 +206,25 @@
             $this->pdo->launchQuery($sql,['id'=>$id]);
          }
 
-         public function get_all_friend(int $id){
-            $sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser  and u1.iduser=$id ";
-            $query=$this->pdo->launchQuery($sql);
+         public function get_all_friend(int $id){   
+            /*$sql="
+              select u.* , u2.* from friends f JOIN      
+                users u on f.id_user1 = u.iduser JOIN     
+                users u2 on f.id_user2 = u2.iduser WHERE         
+              statu = 1 AND (f.id_user1 = :id OR f.id_user2 = :id);        
+            ";*/
+            $sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser and u1.iduser=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
             return $query->fetchAll();
          }
+
+         public function get_user_filter_friend(int $id,int $id2){
+            $sql="SELECT * from friends where id_user1=$id and id_user2=$id2 or id_user1=$id2 and id_user2=$id and statu=1";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetch();
+         }
+
+        
 
     }
 ?>
