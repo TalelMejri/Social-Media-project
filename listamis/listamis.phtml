@@ -1,3 +1,4 @@
+
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
   <thead>
      <tr>
@@ -6,13 +7,13 @@
         <th>email</th>
      </tr>
      </thead>
-       <?php if($all_friends=='vide'): ?>
+       <?php if($all_user_filter=='vide'): ?>
         <tbody>
-        <tr>
-          <td>Empty</td>
-     </tr>
+        <tr >
+          <td colspan="3" class="text-center">Empty</td>
+        </tr>
         <?php else: ?>
-      <?php foreach($all_friends as $value): ?>
+      <?php foreach($all_user_filter as $value): ?>
      <tbody>
         <tr>
           <td><?=$value['iduser']?></td>
