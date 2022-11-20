@@ -647,9 +647,6 @@ main .container-fluid{
   position: relative;
 }
 
-main{
-  overflow: scroll;
-}
 
 .middle{
   overflow-y: scroll;
@@ -787,8 +784,6 @@ main .container-fluid .left .profile{
   margin: 0.7rem 0;
 }
 
-
-
 .middle .feed .action-buttons{
   display: flex;
   justify-content: space-between;
@@ -818,9 +813,6 @@ main .container-fluid .left .profile{
 .middle .liked-by p{
   margin-left: 0.5rem;
 }
-main{
-  overflow-y: hidden;
-}
 @media (max-width:992px) {
  
   main .container-fluid{
@@ -840,6 +832,11 @@ main{
   main .container-fluid .right{
       display: none;
   }
+}
+
+#body_notification{
+  max-height: 200px;
+  overflow-y: scroll;
 }
 
 
