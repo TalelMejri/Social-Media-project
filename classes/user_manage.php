@@ -221,7 +221,28 @@
          public function get_user_filter_friend(int $id,int $id2){
             $sql="SELECT * from friends where id_user1=$id and id_user2=$id2 or id_user1=$id2 and id_user2=$id and statu=1";
             $query=$this->pdo->launchQuery($sql);
-            return $query->fetch();
+             $verifier=$query->fetch();
+             if($verifier){
+                return true;
+             }else{
+                return false;
+             }
+         }
+
+         public function Add_Story(String $file,int $id,String $date){
+            $sql="INSERT INTO story (file,id_user,created_at) VALUES (:file,:id,:date)";
+            $this->pdo->launchQuery($sql,['file'=>$file,'id'=>$id,'date'=>$date]);
+         }
+
+         public function get_all_story(){
+            $sql="SELECT * from story s,users u where u.iduser=s.id_user ";
+            $query=$this->pdo->launchQuery($sql);
+            $data= $query->fetchAll();
+            $toReturn = array();
+            foreach ($data as $key => $value) {
+                $toReturn[$value['id_user']][] = $value;
+            }
+            return $toReturn;
          }
 
         
