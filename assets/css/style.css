@@ -643,13 +643,13 @@ main{
 main .container-fluid{
   display: grid;
   grid-template-columns:18vw auto 20vw ;
-  column-gap: 2rem;
-  position: relative;
+  column-gap: 1rem;
+ /* position: relative;*/
 }
 
 
 .middle{
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 100vh;
 }
 
@@ -822,7 +822,6 @@ main .container-fluid .left .profile{
   main .container-fluid .left{
       grid-column: 3/4;
       position: fixed;
-      bottom: 0;
       right: 0;
   }
   main .container-fluid .middle{
@@ -839,10 +838,8 @@ main .container-fluid .left .profile{
   overflow-y: scroll;
 }
 
-
-
-
-
-
-
+.all_story_for_user{
+  max-height: 500px;
+  overflow-y: auto;
+}
 
