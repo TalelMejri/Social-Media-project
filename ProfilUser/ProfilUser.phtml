@@ -1,30 +1,141 @@
-            <div class="stories">
-                     <div class="story">
-                         <div class="profile-photo">
-                                <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
+<style>
+
+  .all_story{
+      overflow-x: auto;
+      overscroll-behavior: contain;
+      border: 1px solid #fff;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 2rem;
+      width: 100%;
+  }
+ .story-container{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 5rem;
+  grid-gap: 2rem;
+}
+
+.story-container .content,.story-container .content-myself{
+  display: grid;
+  grid-gap: 0.5rem;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease-in;
+}
+
+.story-container .content:hover{
+  transform: scale(1.1);
+}
+
+.story-container .content .img-container{
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50px;
+  background:
+  radial-gradient(rgba(0,0,0,0.15) 60%,transparent 0) , radial-gradient(white 65%,transparent 0),linear-gradient(to top right,blue,red);
+}
+
+.story-container .content-add .img-container{
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  background:gray;
+}
+
+.story-container .content-myself .img-container{
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50px;
+  background:
+  radial-gradient(rgba(0,0,0,0.15) 60%,transparent 0) , radial-gradient(white 65%,transparent 0),linear-gradient(to top right,black,white);
+}
+.story-container .content .img-container img,.story-container .content-add .img-container img,.story-container .content-myself .img-container img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: circle(42%);
+}
+
+.slide{
+  border-radius: 30px;
+}
+
+
+</style>
+        <div class="all_story">
+          <div class="story-container">
+                     <div class="content-add">
+                         <div class="img-container">
+                                <img type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" src="../assets/image/add.png" width="70px" height="70px" alt="">
                          </div>
-                         <p class="name">Talel Mejri</p>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Add Story</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="index.php" method="POST" enctype="multipart/form-data">
+                                    <label> File : </label>
+                                    <input type="file" name="avatar" class="form-control">
+                                    <button class="btn btn-primary float-end mt-2 mx-2" name="save" >ADD file</button>
+                                    <button type="button" class="btn btn-secondary float-end mt-2 " data-bs-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                          <p class="text-container">Add Story</p>
                      </div>
+ 
+                     <?php foreach($all_user as $k=>$str):
+                        ?>
 
-                     <div class="story">
-                        <div class="profile-photo">
-                               <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
-                        </div>
-                        <p class="name">Talel Mejri</p>
-                    </div>
+                      <div class="<?= $k==$_SESSION['idUser'] ? 'content-myself' : 'content' ?>">
+                      
+                         <?php if($user->get_user_filter_friend($k,$_SESSION['idUser']) || $k==$_SESSION['idUser']): ?> 
+                              <div class="img-container">
+                                   <img data-bs-toggle="modal" data-bs-target="#exampleModal<?=$k?>" src="<?='../'.userFromId($k)['photo_user']?>" width="70px" height="70px" alt="img">
+                             </div>
+                              <p class="text-container"><?=userFromId($k)['name']?></p>
+                         <?php endif;?>
 
-                    <div class="story">
-                        <div class="profile-photo">
-                               <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
-                        </div>
-                        <p class="name">Talel Mejri</p>
-                    </div>
+                     </div>
+                     <div class="modal fade" id="exampleModal<?=$k?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <h5 class="modal-title" id="exampleModalLabel"><?=userFromId($k)['name']?></h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                             </div>
+                                 <div class="all_story_for_user">
+                                    <div class="modal-body mx-5" >
+                                      
+                                      <?php  foreach($str as $value ){ ?>
+                                              <img class="slide mx-5"  data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['id']?>" src="<?=$value['file']?>" width="70%" height="70%" alt="">    
+                                      <?php  } ?>
+                                  
+                                    </div>
+                                </div>  
+                      </div>
+                  </div>
+              </div>
+            <?php endforeach; ?>
+            
+
                 </div>
-
+                </div>
                 <form class="create-post">
-                     <div class="profile-photo">
-                            <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
-                     </div>
                      <input type="text" placeholder="shhhhhhhhhhhh" id="create-post">
                      <input type="submit" value="post" class="btn btn-primary">
                 </form>
@@ -78,3 +189,22 @@
                         </div>
                     </div>
                 </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("slide");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex >= slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 3000); 
+}
+
+</script>
