@@ -28,19 +28,15 @@
                           <p class="text-container">Add Story</p>
                      </div>
  
-                     <?php foreach($all_user as $k=>$str):
-                        ?>
-
-                      <div class="<?= $k==$_SESSION['idUser'] ? 'content-myself' : 'content' ?>">
-                      
-                         <?php if($user->get_user_filter_friend($k,$_SESSION['idUser']) || $k==$_SESSION['idUser']): ?> 
-                              <div class="img-container">
+                     <?php foreach($all_user as $k=>$str): ?>
+                         <?php  if($user->get_user_filter_friend($k,$_SESSION['idUser']) ||  $k==$_SESSION['idUser'] ): ?> 
+                          <div class="<?= $k==$_SESSION['idUser'] ? 'content-myself' : 'content' ?>">  
+                            <div class="img-container">
                                    <img data-bs-toggle="modal" data-bs-target="#exampleModal<?=$k?>" src="<?='../'.userFromId($k)['photo_user']?>" width="70px" height="70px" alt="img">
                              </div>
                               <p class="text-container"><?=userFromId($k)['name']?></p>
-                         <?php endif;?>
-
-                     </div>
+                              </div>
+                         <?php  endif;?>
                      <div class="modal fade" id="exampleModal<?=$k?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                      <div class="modal-dialog">
                          <div class="modal-content">
@@ -50,26 +46,82 @@
                              </div>
                                  <div class="all_story_for_user">
                                     <div class="modal-body mx-5" >
-                                      
+                                   
                                       <?php  foreach($str as $value ){ ?>
-                                              <img class="slide"  data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['id']?>" src="<?=$value['file']?>" width="70%" height="70%" alt="">    
+                                              <img class="slide" src="<?=$value['file']?>" width="70%" height="70%" alt="">     
                                       <?php  } ?>
-                                  
+                                      <?php // if( userFromId($k)['iduser']==$_SESSION['idUser']){?>
+                                          <!--<a href="?idstory=?>"><button class="btn btn-danger">Delete cette story</button></a> -->
+                                      <?php // } ?>
+                                 
                                     </div>
                                 </div>  
                       </div>
                   </div>
               </div>
             <?php endforeach; ?>
-            
-
+            </div>
+          </div>
+      <div class="container">
+        <div class="wrapper">
+          <section class="post">
+            <p class="header">
+               <span> Create Post</span>
+            </p>
+            <form action="index.php" method="POST" enctype="multipart/form-data">
+              <div class="content">
+                <img src="..<?=$_SESSION['avatarUser']?>" alt="logo">
+                <div class="details">
+                  <p><?=strtoupper($_SESSION['nameUser'])?></p>
                 </div>
-                </div>
-                <form class="create-post">
-                     <input type="text" placeholder="shhhhhhhhhhhh" id="create-post">
-                     <input type="submit" value="post" class="btn btn-primary">
-                </form>
-
+              </div>
+              <textarea class="textarea" placeholder="What's on your mind ,<?=($_SESSION['nameUser'])?>" spellcheck="false" required></textarea>
+              <p>Theme :</p>
+              <div class="theme d-flex justify-content-center mb-2">
+                 <div class="color-circle" style="background-color:white;">
+                      <p >white</p>    
+                  </div>
+                  <div class="color-circle" style="background-color:red;">
+                      <p>Red</p>   
+                  </div>
+                  <div class="color-circle"  style="background-color:blue;">
+                      <p>Blue</p>
+                  </div>
+              </div>
+              <input type="hidden" name="color_pub" id="color">
+              <script>
+                let text=document.querySelector(".textarea");
+                let color_changer=document.querySelector("#color");
+                let color_circle=document.querySelectorAll('.color-circle');
+                color_circle.forEach(color_current=>{
+                   color_current.style.display="none";
+                } )
+                color_circle.forEach(color_current=>{
+                 color_current.addEventListener('click',function(){
+                    color_circle.forEach(color_choice=>{
+                       color_choice.classList.remove('active');
+                       this.classList.add('active');
+                       color=this.innerHTML;
+                       color_changer.value=color;
+                       text.style.backgroundColor=color;
+                       if(color=='red' || color=="blue"){
+                        text.style.color='white';
+                      }else if(color=="white"){
+                        text.style.color='#000';
+                      }
+                   })
+                })
+              })
+              </script>
+                 <input type="file" class="form-control w-50" name="avatar">
+                 <div class="text-center mt-2">
+                 <button name="add" class="btn btn-outline-primary">Post</button>
+                 </div>
+            </form>
+          </section>
+        </div>
+      </div>
+     
                 <div class="feeds">
                     <div class="feed">
                         <div class="head">
@@ -82,43 +134,18 @@
                                     <small>dubai,15minuets</small>
                                 </div>
                             </div>
-                            <span class="edit"><i class="fa-brands fa-github"></i></span>                        </div>
+                            <span class="edit">4<i class="fa-brands fa-github"></i></span>  
+                        </div>                    
                         <div class="photo">
-                                <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
+                                <img src="..<?=$_SESSION['avatarUser']?>" width="100%" height="100%" alt="">
                         </div>
 
-                        <div class="action-button">
-                            <div class="interraction-buttons">
-                                <span><i class="fa-brands fa-github"></i></span>  
-                                <span><i class="fa-brands fa-github"></i></span>  
-                                <span><i class="fa-brands fa-github"></i></span>  
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="fa-brands fa-github"></i></span>  
-                            </div>
-                        </div>
-                        <div class="liked-by">
-                             <span>
-                                  <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">     </span>
-                               <span>      <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">     </span>
-                               <span>     <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">     </span>
-                               <button type="button" class="btn btn-secondary"
-        data-bs-toggle="popover" data-bs-placement="right"
-        data-bs-custom-class="custom-popover"
-        data-bs-title="Custom popover"
-        data-bs-content="This popover is themed via CSS variables.">
-  Custom popover
-</button>
-
-                                 <p>Like by <b>talel mejri</b>and 2.23others</p>
-                                 <p><b>Lana rose</b>hello ma maaaan</p>    
-                            </span>
-                        </div>
-                        <div class="comments">
-                             view all 277 comments
-                        </div>
+     
                     </div>
                 </div>
+
+
+       
 <script>
 
 let slideIndex = 0;
@@ -131,9 +158,29 @@ function showSlides() {
     slides[i].style.display = "none";
   }
   slideIndex++;
-  if (slideIndex >= slides.length) {slideIndex = 1}
+  if (slideIndex > slides.length) {slideIndex = 1}
   slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 3000); 
+  setTimeout(showSlides, 2000); 
 }
 
 </script>
+                   <!--<div class="action-button">
+                            <div class="interraction-buttons">
+                                <span><i class="fa-brands fa-github"></i></span>  
+                                <span><i class="fa-brands fa-github"></i></span>  
+                                <span><i class="fa-brands fa-github"></i></span>  
+                            </div>
+                            <div class="bookmark">
+                                <span><i class="fa-brands fa-github"></i></span>  
+                            </div>
+                        </div>
+                        <div class="liked-by">
+                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                                 <p>Like by <b>talel mejri</b>and 2.23others</p>
+                                 <p><b>Lana rose</b>hello ma maaaan</p>    
+                        </div>
+                        <div class="comments">
+                             view all 277 comments
+                        </div>-->
