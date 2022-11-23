@@ -27,7 +27,7 @@
 
     }
     $all_user=$user->get_all_story();
-
+    
     function userFromId($id){
         $user=new user_manager();
         return $user->get_user($id);
