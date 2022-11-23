@@ -10,34 +10,46 @@
       <link rel="stylesheet" href="../../assets/css/style.css">
       <link rel="icon" href="../../assets/image/logo_final.png" type="image/x-icon">
       <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
-      <!-- <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+       <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      <!--<script src="../../assets/js/bootstrap.js"></script>
+      <script src="../../assets/js/bootstrap.min.js"></script>
+      <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
     <?php endif; ?>
     <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?>
       <script src="../assets/js/script.js"></script>
       <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">
+      <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="../assets/css/style.css">
       <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
       <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      <!--<script src="../assets/js/bootstrap.js"></script>
+      <script src="../assets/js/bootstrap.min.js"></script>
+      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <?php else: ?>
       <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">
       <link rel="stylesheet" href="./assets/css/style.css">
       <link href="./assets/vendor/aos/aos.css" rel="stylesheet">
+      <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <script src="./assets/vendor/aos/aos.js"></script>
       <script src="./assets/js/script.js"></script>
+     <!-- <script src="./assets/js/bootstrap.js"></script>
+      <script src="./assets/js/bootstrap.min.js"></script>
+      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
       <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="./assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
       <?php endif; ?>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
     <title><?=$page_titel?></title>
 </head>
 <body >
@@ -45,9 +57,9 @@
 
  <?php if(!isset($_SESSION['id']) && !isset($_SESSION['idUser']) && !$show): ?>
   
-  <div class="preloader">
+  <div class="preloader" >
         <p class="content-preloader">
-           <span>B</span>
+           <span >B</span>
            <span>I</span>
            <span>Z</span>
            <span>O</span>
@@ -552,26 +564,29 @@
              <a class="menu-item ">
                  <span>   <i class="fa-sharp fa-solid fa-bookmark p-2"></i></span><h3>Enregistrement</h3>
              </a>
-             
              <a class="menu-item ">
                  <span><i class="fa-solid fa-certificate p-2"></i></span><h3>Certificat</h3>
              </a>
+             <a  href="../get_all_user/index.php?changer" class="menu-item">
+                <span> <i class="fa-solid fa-user-plus"></i></span><h3>ADD Friend</h3>
+             </a>
              </div>
-                    </div>
+          </div>
                     <div class="middle">
-                      
                            <?php include $template.".phtml"; ?>
                     </div>
                     <div class="right">
-                    <?php  
-                            include "../get_all_user/index.php";                
-                    ?>
-                  </div>
+                        <?php  
+                        if(!isset($_GET['changer'])){
+                            include "../get_all_user/index.php"  ;
+                        }            
+                         ?>
+                    </div>
                   <?php
                  $user=new user_manager();
                  $all_notif=$user->get_notif($_SESSION['idUser']); 
                  ?>
-              <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+              <div class="position-fixed bottom-0 end-0 p-3" id="body_notif" style="z-index: 11">
                       <div id="liveToast"  class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
                           <strong class="me-auto">Notification</strong>
@@ -595,7 +610,7 @@
               </div>
    
                     
-              <div class="position-fixed bottom-0 end-0 p-2" style="z-index: 11">
+              <div class="position-fixed bottom-0 end-0 p-2" id="side_profil" style="z-index: 11">
                 <div role="alert" aria-live="assertive" id="profil" aria-atomic="true" class="toast" >
                    <div class="toast-header">
                      <strong class="me-auto">Settings </strong>
@@ -709,6 +724,7 @@ function toasty(param){
 }
 
 </script>
+<script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
