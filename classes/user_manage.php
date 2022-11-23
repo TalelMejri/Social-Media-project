@@ -213,13 +213,14 @@
                 users u2 on f.id_user2 = u2.iduser WHERE         
               statu = 1 AND (f.id_user1 = :id OR f.id_user2 = :id);        
             ";*/
-            $sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser and u1.iduser=:id";
-            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            //$sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser and u1.iduser=:id";
+            $sql="SELECT DISTINCT u.name,u.iduser,u.email from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
          }
 
          public function get_user_filter_friend(int $id,int $id2){
-            $sql="SELECT * from friends where id_user1=$id and id_user2=$id2 or id_user1=$id2 and id_user2=$id and statu=1";
+            $sql="SELECT * from friends where (id_user1=$id and id_user2=$id2 and statu=1) or (id_user1=$id2 and id_user2=$id and statu=1) ";
             $query=$this->pdo->launchQuery($sql);
              $verifier=$query->fetch();
              if($verifier){
@@ -243,6 +244,18 @@
                 $toReturn[$value['id_user']][] = $value;
             }
             return $toReturn;
+         }
+
+
+         public function addPub(String $date,String $desc,String $avatar,int $id){
+            $sql="INSERT INTO pub ( `date`, `description`, `avatar`, `id_user`) VALUES(:date,:desc,:avatar,:id)";
+             $this->pdo->launchQuery($sql,[
+                'date'=>$date,
+                'desc'=>$desc,
+                'avatar'=>$avatar,
+                'id'=>$id
+             ]);
+            return $this->pdo->lastInsertId();
          }
 
         
