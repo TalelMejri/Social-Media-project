@@ -24,10 +24,41 @@
             $avatar='./storage_story/'.$file->getfilename();
             $user->Add_Story($avatar,$_SESSION['idUser'],$date);
         }
-
     }
+
+    if(isset($_POST['add'])){
+        extract($_POST);
+        $file=new File('./pub_photo/',$_FILES['avatar']);
+        $avatarupload=0;
+        if(strlen($_FILES['avatar']['name'])){
+        if(!$file->uploadImage()){
+            echo "<script>alert('File not upload');</script>";
+        }
+        else if(!$file->size()){
+            echo "<script>alert('size File ');</script>";
+        }
+        $avatar='./pub_photo/'.$file->getfilename();
+        $avatarupload=1;
+        }
+        $date=date('y/m/d');
+        if($avatarupload==0){
+            if(empty($color_pub)){
+                $user->addPub($date,$description,'',$_SESSION['idUser']);
+            }else{
+                $user->addPub($date,$description,'',$_SESSION['idUser'],$color_pub);
+            }
+        }else{
+            if(empty($color_pub)){
+                $user->addPub($date,$description,$avatar,$_SESSION['idUser']);
+            }else{
+                $user->addPub($date,$description,$avatar,$_SESSION['idUser'],$color_pub);
+            }
+        }
+    }
+
     $all_user=$user->get_all_story();
-    
+    $all_pub=$user->get_all_pub();
+
     function userFromId($id){
         $user=new user_manager();
         return $user->get_user($id);
