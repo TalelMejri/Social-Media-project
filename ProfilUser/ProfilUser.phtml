@@ -1,7 +1,6 @@
-<style>
-
-</style>
+       
         <div class="all_story">
+       
           <div class="story-container">
                      <div class="content-add">
                          <div class="img-container">
@@ -62,7 +61,7 @@
             <?php endforeach; ?>
             </div>
           </div>
-      <div class="container">
+      <div class="container_post">
         <div class="wrapper">
           <section class="post">
             <p class="header">
@@ -70,49 +69,28 @@
             </p>
             <form action="index.php" method="POST" enctype="multipart/form-data">
               <div class="content">
-                <img src="..<?=$_SESSION['avatarUser']?>" alt="logo">
+                <img class="rounded" src="..<?=$_SESSION['avatarUser']?>" alt="logo">
                 <div class="details">
                   <p><?=strtoupper($_SESSION['nameUser'])?></p>
                 </div>
               </div>
-              <textarea class="textarea" placeholder="What's on your mind ,<?=($_SESSION['nameUser'])?>" spellcheck="false" required></textarea>
+           
+              <textarea class="textarea" name="description" placeholder="What's on your mind ,<?=($_SESSION['nameUser'])?>"  required></textarea>
               <p>Theme :</p>
               <div class="theme d-flex justify-content-center mb-2">
-                 <div class="color-circle" style="background-color:white;">
-                      <p >white</p>    
-                  </div>
-                  <div class="color-circle" style="background-color:red;">
-                      <p>Red</p>   
-                  </div>
-                  <div class="color-circle"  style="background-color:blue;">
-                      <p>Blue</p>
-                  </div>
+          
+                 <span class="color-circle color1">
+                           
+                  </span>
+                  <span class="color-circle color2">
+                      
+                  </span>
+                  <span class="color-circle color3">
+                      
+                  </span>
               </div>
               <input type="hidden" name="color_pub" id="color">
-              <script>
-                let text=document.querySelector(".textarea");
-                let color_changer=document.querySelector("#color");
-                let color_circle=document.querySelectorAll('.color-circle');
-                color_circle.forEach(color_current=>{
-                   color_current.style.display="none";
-                } )
-                color_circle.forEach(color_current=>{
-                 color_current.addEventListener('click',function(){
-                    color_circle.forEach(color_choice=>{
-                       color_choice.classList.remove('active');
-                       this.classList.add('active');
-                       color=this.innerHTML;
-                       color_changer.value=color;
-                       text.style.backgroundColor=color;
-                       if(color=='red' || color=="blue"){
-                        text.style.color='white';
-                      }else if(color=="white"){
-                        text.style.color='#000';
-                      }
-                   })
-                })
-              })
-              </script>
+             
                  <input type="file" class="form-control w-50" name="avatar">
                  <div class="text-center mt-2">
                  <button name="add" class="btn btn-outline-primary">Post</button>
@@ -121,33 +99,90 @@
           </section>
         </div>
       </div>
-     
+      <?php foreach($all_pub as $value): ?>
+        <?php if($user->get_user_filter_friend($value['iduser'],$_SESSION['idUser']) ||  $value['iduser']==$_SESSION['idUser'] ): ?>
                 <div class="feeds">
                     <div class="feed">
                         <div class="head">
                             <div class="user">
                                 <div class="profile-photo">
-                                       <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
+                                       <img class="rounded" src="..<?=$value['photo_user']?>"  width="70px" height="70px" alt="">
                                 </div>
                                 <div class="ingo">
-                                    <h3>taleleleel</h3>
-                                    <small>dubai,15minuets</small>
+                                    <h3><?=$value['name']?></h3>
+                                    <small><?=$value['date']?></small>
                                 </div>
                             </div>
-                            <span class="edit">4<i class="fa-brands fa-github"></i></span>  
-                        </div>                    
+                            <?php if( $value['iduser']==$_SESSION['idUser'] ): ?>
+                                <span class="edit">4<i class="fa-brands fa-github"></i></span>  
+                            <?php endif; ?>
+                        </div>     
+                         <div class="decription mt-2 rounded" style="background-color:<?=$value['theme']!='' ? $value['theme'] : ''?>">
+                             <?=$value['description']?>
+                         </div>               
+                        <?php if($value['avatar']!=''): ?>
                         <div class="photo">
-                                <img src="..<?=$_SESSION['avatarUser']?>" width="100%" height="100%" alt="">
+                                <div>
+                                    <img src="<?=$value['avatar']?>"   alt="">
+                                </div>
                         </div>
-
-     
+                        <?php endif; ?>
+                        <div class="action-button">
+                            <div class="interraction-buttons">
+                                <span>d<i class="fa-brands fa-github"></i></span>  
+                                <span>d<i class="fa-brands fa-github"></i></span>  
+                                <span>d<i class="fa-brands fa-github"></i></span>  
+                            </div>
+                            <div class="bookmark">
+                                <span>d<i class="fa-brands fa-github"></i></span>  
+                            </div>
+                        </div>
+                        <div class="liked-by">
+                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
+                                 <p>Like by <b>talel mejri</b>and 2.23others</p>
+                                 <p><b>Lana rose</b>hello ma maaaan</p>    
+                        </div>
+                        <div class="comments">
+                             view all 277 comments
+                        </div>
                     </div>
+                    
                 </div>
+                <?php endif; ?>
+                <?php endforeach; ?>
+    
+    <script>
 
-
-       
-<script>
-
+                let text=document.querySelector(".textarea");
+                let color_changer=document.querySelector("#color");
+                let color_circle=document.querySelectorAll('.color-circle');
+                color_circle.forEach(color_current=>{
+                 color_current.addEventListener('click',function(){
+                    color_circle.forEach(color_choice=>{
+                       color_choice.classList.remove('active');
+                       this.classList.add('active');
+                       color=this.classList +" ";
+                       choice=color.substr(18,1);
+                      if(choice==3){
+                          color_changer.value="#2696E8";
+                          color_changer.value="#2696E8";
+                          text.style.backgroundColor="#2696E8";
+                      }
+                       else if(choice==2){
+                          color_changer.value="#ff2d75";
+                          color_changer.value="#ff2d75";
+                          text.style.backgroundColor="#ff2d75";
+                       }else if(choice==1){
+                        color_changer.value="#fff";
+                          color_changer.value="#fff";
+                          text.style.backgroundColor="#fff";
+                       }
+                   })
+                })
+              })
+             
 let slideIndex = 0;
 showSlides();
 
@@ -163,24 +198,7 @@ function showSlides() {
   setTimeout(showSlides, 2000); 
 }
 
+
+
 </script>
-                   <!--<div class="action-button">
-                            <div class="interraction-buttons">
-                                <span><i class="fa-brands fa-github"></i></span>  
-                                <span><i class="fa-brands fa-github"></i></span>  
-                                <span><i class="fa-brands fa-github"></i></span>  
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="fa-brands fa-github"></i></span>  
-                            </div>
-                        </div>
-                        <div class="liked-by">
-                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                               <span><img src="..<?=5//$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                                 <p>Like by <b>talel mejri</b>and 2.23others</p>
-                                 <p><b>Lana rose</b>hello ma maaaan</p>    
-                        </div>
-                        <div class="comments">
-                             view all 277 comments
-                        </div>-->
+
