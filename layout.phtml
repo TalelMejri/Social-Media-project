@@ -20,30 +20,33 @@
       <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
     <?php endif; ?>
     <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?>
-      <script src="../assets/js/script.js"></script>
       <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">
-      <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="../assets/css/style.css">
       <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+      <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <script src="../assets/js/script.js"></script>
+      <script src="../assets/vendor/aos/aos.js"></script>
+      <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+      <script src="../assets/js/bootstrap.js"></script>
+      <script src="../assets/js/bootstrap.min.js"></script>
+      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-      <!--<script src="../assets/js/bootstrap.js"></script>
-      <script src="../assets/js/bootstrap.min.js"></script>
-      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <?php else: ?>
       <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">
       <link rel="stylesheet" href="./assets/css/style.css">
       <link href="./assets/vendor/aos/aos.css" rel="stylesheet">
       <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <script src="./assets/vendor/aos/aos.js"></script>
       <script src="./assets/js/script.js"></script>
-     <!-- <script src="./assets/js/bootstrap.js"></script>
+      <script src="./assets/vendor/aos/aos.js"></script>
+      <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
+      <script src="./assets/js/bootstrap.js"></script>
       <script src="./assets/js/bootstrap.min.js"></script>
       <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="./assets/vendor/remixicon/remixicon.css" rel="stylesheet">
       <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
@@ -510,6 +513,7 @@
    <?php endif;?>
 
    <?php if(isset($_SESSION['idUser']) && !$show && !isset($_SESSION['id'])):?>
+
                <article>
                <?php
                 // include "./classes/classes.php";
@@ -544,6 +548,32 @@
               </div>
   
               <main>
+              <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class=" btn_menu"   >Menu</button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                              <h5 id="offcanvasRightLabel">Menu</h5>
+                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                               <div class="offcanvas-body">
+                                   <div class="sidebar_small">
+                                        <a href="../ProfilUser/" class="menu-item">
+                                         <span> <i class="fa-solid fa-house-user p-2"></i></span><h3>Accueil</h3>
+                                        </a>
+                                        <a href="../listamis/" class="menu-item ">
+                                            <span> <i class="fa-solid fa-user p-2"></i></span><h3>Amis</h3>
+                                        </a>
+                                        <a class="menu-item ">
+                                            <span><i class="fa-sharp fa-solid fa-bookmark p-2"></i></span><h3>Enregistrement</h3>
+                                        </a>
+                                        <a class="menu-item ">
+                                            <span><i class="fa-solid fa-certificate p-2"></i></span><h3>Certificat</h3>
+                                        </a>
+                                        <a class="menu-item"  href="../get_all_user/index.php?changer" >
+                                           <span> <i class="fa-solid fa-user-plus p-2"></i></span><h3>ADD Friend</h3>
+                                        </a>
+                                  </div>
+                              </div>
+                    </div>
                  <div class="container-fluid p-4">
                     <div class="left">
                     <a class="profile">
@@ -555,7 +585,7 @@
           </a>
 
           <div class="sidebar">
-          <a href="../ProfilUser/" class="menu-item ">
+            <a href="../ProfilUser/" class="menu-item">
                  <span> <i class="fa-solid fa-house-user p-2"></i></span><h3>Accueil</h3>
              </a>
              <a href="../listamis/" class="menu-item ">
@@ -570,7 +600,7 @@
              <a  href="../get_all_user/index.php?changer" class="menu-item">
                 <span> <i class="fa-solid fa-user-plus"></i></span><h3>ADD Friend</h3>
              </a>
-             </div>
+          </div>
           </div>
                     <div class="middle">
                            <?php include $template.".phtml"; ?>
@@ -691,8 +721,8 @@
     
 </body>
 <script>
-let mode=document.querySelector('#mode').value;
-let checkUser=document.querySelector('#checkUser').value;
+let mode=document.querySelector('#mode')?.value;
+let checkUser=document.querySelector('#checkUser')?.value;
 let navbar=document.querySelector('.navbar_user');
 if(mode==1 && checkUser==1 ){
 var all_text = document.querySelectorAll("#text");
@@ -705,26 +735,19 @@ for (var i=0; i<all_text.length; i++) {
   document.body.style.backgroundColor = "whitesmoke";
 }
 
-var option=
-   {
-    animation:true,
-    delay:5000000000000
-   };
-   
-function toasty(param){
-  if(param=='notif'){
-  var toastelement=document.querySelector('#liveToast');
-  var toastcreate=new bootstrap.Toast(toastelement,option);
-  toastcreate.show();
-  } else{
-   var toastelement=document.querySelector('#profil');
-   var toastcreate=new bootstrap.Toast(toastelement,option);
-   toastcreate.show();
-  }
-}
+let link_sidebar=document.querySelectorAll('.menu-item');
+link_sidebar.forEach(link=>{
+    link.addEventListener('click',function(){
+      link_sidebar.forEach(link_choice=>{
+            link_choice.classList.remove('active');
+            this.classList.add('active');
+        })
+    })
+})
 
+  
 </script>
-<script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
