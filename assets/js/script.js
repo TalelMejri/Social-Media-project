@@ -1,6 +1,6 @@
 /********************** Preloader ***********************/
 
-const loading_val = 4000 ;
+const loading_val = 1 ;
 function loader(){
     document.querySelector('.preloader')?.classList.add('enter-out');
 }
@@ -73,8 +73,7 @@ logo_bizo.addEventListener("click",()=>{
     });
 });
 }
-/*******************/
-
+/****************************************/
 
 
 
@@ -91,27 +90,55 @@ logo_bizo.addEventListener("click",()=>{
     toastcreate.show();
    }*/
 
-/******************************* */
-let link_sidebar=document.querySelectorAll('.menu-item');
-link_sidebar.forEach(link=>{
-    link.addEventListener('click',function(){
-      link_sidebar.forEach(link_choice=>{
-            link_choice.classList.remove('active');
-            this.classList.add('active');
-        })
-    })
+
+/** user theme */
+/*
+let text=document.querySelector(".textarea");
+let color_changer=document.querySelector("#color");
+let color_circle=document.querySelectorAll('.color-circle');
+
+color_circle.forEach(color_current=>{
+ color_current.addEventListener('click',function(){
+    color_circle.forEach(color_choice=>{
+       color_choice.classList.remove('active');
+       this.classList.add('active');
+       color=this.innerHTML;
+       color_changer.value=color;
+       text.style.backgroundColor=color;
+       if(color=='red' || color=="blue"){
+        text.style.color='white';
+      }else if(color=="white"){
+        text.style.color='#000';
+      }
+  })
 })
+})*/
 
-
-
-
-
-
+/******************************* */
 
 /** side bar user */
 
 /******************************* */
 
+
+
+var option=
+   {
+    animation:true,
+    delay:5000000000000
+   };
+   
+function toasty(param){
+  if(param=='notif'){
+  var toastelement=document.querySelector('#liveToast');
+  var toastcreate=new bootstrap.Toast(toastelement,option);
+  toastcreate.show();
+  } else{
+   var toastelement=document.querySelector('#profil');
+   var toastcreate=new bootstrap.Toast(toastelement,option);
+   toastcreate.show();
+  }
+}
 /*new Swiper('.testimonials-slider', {
     speed: 600,
     loop: true,
