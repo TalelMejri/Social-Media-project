@@ -672,8 +672,7 @@ main .container-fluid .left .profile{
 }
 
 .left .sidebar .menu-item{
-  display: flex;
-  justify-content: center;
+
   height: 4rem;
   cursor: pointer;
   translate: all 300ms ease-in;
@@ -686,6 +685,7 @@ main .container-fluid .left .profile{
 
 .left .sidebar i{
   font-size: 1.4rem;
+  margin-top: 15px;
   color: gray;
   margin-left: 2rem;
   position: relative;
@@ -1022,9 +1022,6 @@ form textarea{
   text-align: center;
 }
 
-
-
-
 @media screen and (max-width:1200px) {
 
   .container-fluid{
@@ -1046,6 +1043,10 @@ form textarea{
 
   .sidebar h3{
       display: none;
+  }
+
+  .sidebar i{
+      text-align: center !important; 
   }
 
   .left .btn{
@@ -1267,10 +1268,13 @@ form textarea{
    .left .sidebar{
     display: flex;
     position: relative;
-    margin-left: 15px;
     background-color: whitesmoke!important;
-    width: 100% !important;
     justify-content: center;
+    margin-left: -15px;
+  }
+
+  .left .sidebar i{
+    font-size: 15px;
   }
 
   .middle .feed .decription {
