@@ -51,17 +51,22 @@
                 $sql="INSERT INTO like_pub (id_user,id_pub,liked) VALUES (:iduser,:id_pub,:liked)";
                 $this->pdo->launchQuery($sql,['iduser'=>$iduser,'id_pub'=>$idpub,'liked'=>true]);
             }else{
-                $sql="UPDATE like_pub SET liked=:liked_new where id_pub=:id_pub AND id_user=:id_user";
-                $this->pdo->launchQuery($sql,['liked_new'=>!$user['liked'],'id_pub'=>$idpub,'id_user'=>$iduser]);
-                /*$sql="DELETE from like_pub where id_pub=:id_pub AND id_user=:id_user ";
-                $this->pdo->launchQuery($sql,['id_pub'=>$idpub,'id_user'=>$iduser]);*/
+                /*$sql="UPDATE like_pub SET liked=:liked_new where id_pub=:id_pub AND id_user=:id_user";
+                $this->pdo->launchQuery($sql,['liked_new'=>!$user['liked'],'id_pub'=>$idpub,'id_user'=>$iduser]);*/
+                $sql="DELETE from like_pub where id_pub=:id_pub AND id_user=:id_user ";
+                $this->pdo->launchQuery($sql,['id_pub'=>$idpub,'id_user'=>$iduser]);
             }
         }
 
         public function get_user_liked(int $id,int $idpub){
-            $sql="SELECT liked from like_pub where id_user=:id AND id_pub=:id_pub";
+            $sql="SELECT * from like_pub where id_user=:id AND id_pub=:id_pub";
             $query= $this->pdo->launchQuery($sql,['id'=>$id,'id_pub'=>$idpub]);
-            return $query->fetch();
+            $verified= $query->fetch();
+            if(!$verified){
+                return false;
+            }
+            return true;
+
         }
 
         public function somme_like(int $id){
@@ -87,7 +92,11 @@
         public function get_pub_byiduser_idpub(int $id,int $idpub){
             $sql="SELECT * from save where id_user=:id AND id_pub=:idpub";
             $query= $this->pdo->launchQuery($sql,['id'=>$id,'idpub'=>$idpub]);
-            return $query->fetch();
+            $verified= $query->fetch();
+            if(!$verified){
+                return false;
+            }
+            return true;
         }
 
         public function get_all_pub_save(int $id){
@@ -131,6 +140,20 @@
                
             
         }
+
+
+        public function deletePub(int $id){
+            $sql="DELETE from pub where id=:id";
+            $this->pdo->launchQuery($sql,['id'=>$id]);
+        }
+
+        public function addComment(int $id,String $desc,int $id_pub){
+            $sql="INSERT INTO comments (id_user,description,idpup) VALUES (:id,:desc,:pub)";
+            $this->pdo->launchQuery($sql,['id'=>$id,'desc'=>$desc,'pub'=>$id_pub]);
+        }
+       
+
+        
 
     }
 
