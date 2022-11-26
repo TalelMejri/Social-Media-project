@@ -1022,6 +1022,20 @@ form textarea{
   text-align: center;
 }
 
+/*.reglage{
+  cursor: pointer;
+}
+
+.reglage:hover{
+  transform: translate(500);
+}
+*/
+.all_comments{
+  display: none;
+}
+.all_comments.active{
+  display: block;
+}
 @media screen and (max-width:1200px) {
 
   .container-fluid{
