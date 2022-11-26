@@ -76,7 +76,6 @@
     if(isset($_POST['save_pub'])){
         extract($_POST);
         $pub->save_pub($_SESSION['idUser'],$idpub);
-
     }
 
 
@@ -92,8 +91,8 @@
         else if(!$file->size()){
             echo "<script>alert('size File ');</script>";
         }
-        $avatar='./pub_photo/'.$file->getfilename();
-        $avatarupload=1;
+            $avatar='./pub_photo/'.$file->getfilename();
+            $avatarupload=1;
         }
 
         if(!$avatarupload){
@@ -103,8 +102,21 @@
         }
       
     }
-    
 
+
+    if(isset($_GET['delete_pub'])){
+        $pub->deletePub($_GET['delete_pub']);
+
+    }
+
+    if(isset($_POST['add_comment'])){
+        extract($_POST);
+        $value=(int)$pub;
+       /* var_dump(gettype($value));
+        exit;*/
+        $pub->addComment($_SESSION['idUser'],$comment,$value);
+    }
+    
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
     $show=false;
     $template="ProfilUser";
