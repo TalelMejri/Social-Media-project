@@ -545,6 +545,7 @@ footer .all_link :hover{
   background-color: whitesmoke ;
   /*animation: change_background 2s infinite;*/
 }
+
 #navbar{
    background-color: #000;
    box-shadow: 0 0 0 10px #4fc3dc44,0 0 10px #4fc3dc,0 0 15px #4fc3dc !important;
@@ -632,7 +633,6 @@ a{
 text-decoration: none !important;
 }
 
-
 main{
   position: relative;
   top: 100px !important;
@@ -651,7 +651,6 @@ main .container-fluid{
 }
 
 main .container-fluid .left  {
-  height: max-content;
   position: sticky;
   padding: var(--sicky-top-left);
 }
@@ -674,10 +673,10 @@ main .container-fluid .left .profile{
 
 .left .sidebar .menu-item{
   display: flex;
-  align-items: center;
+  justify-content: center;
   height: 4rem;
   cursor: pointer;
-  translate: all 300ms ease;
+  translate: all 300ms ease-in;
   position: relative;
 }
 
@@ -730,7 +729,6 @@ main .container-fluid .left .profile{
   overflow-y: scroll;
 }
 
-
 .all_story_for_user{
   max-height: 500px;
   overflow-y: auto;
@@ -742,7 +740,7 @@ main .container-fluid .left .profile{
   height: 4rem;
   object-fit: cover;
   clip-path: circle(42%);
-  }
+ }
 
   
 .story-container .content .img-container{
@@ -828,6 +826,14 @@ main .container-fluid .left .profile{
   border-bottom: 1px solid #bfbfbf;
 }
 
+.like_btn{
+  cursor: pointer;
+}
+
+#react{
+  border-top: 1px solid #bfbfbf;
+}
+
 .middle .feed .user{
   display: flex;
   gap: 1rem;
@@ -836,7 +842,7 @@ main .container-fluid .left .profile{
 .middle .feed .photo {
   width: 56%;
   height: 40%;
-   margin-left: 20%;
+  margin-left: 20%;
   padding-bottom: 10px;
 }
 
@@ -845,7 +851,6 @@ main .container-fluid .left .profile{
   height: 100%;
   border-radius: 25px;
 }
-
 
 .middle .liked-by {
   display: flex;
@@ -883,7 +888,6 @@ main .container-fluid .left .profile{
   left: 40%;
   display: none;
   animation: scroll .5s infinite ease;
-
 }
 
 @keyframes scroll {
@@ -1018,11 +1022,8 @@ form textarea{
   text-align: center;
 }
 
-.sidebar_small{
-  display: grid;
-  justify-content:center;
-  margin-top: 60px;
-}
+
+
 
 @media screen and (max-width:1200px) {
 
@@ -1091,11 +1092,7 @@ form textarea{
 @media (max-width:500px) {
 
   main .container-fluid{
-    grid-template-columns: 0 auto 3rem;
-  }
- 
- .left .sidebar .menu-item:last-child{
-     display: block;
+    grid-template-columns: 0 100% 0;
   }
 
   .middle .feed .photo {
@@ -1173,6 +1170,22 @@ form textarea{
      margin-left: 0;
   }
 
+  .left{
+    display:block;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    position: sticky;
+  }
+ 
+   .left .sidebar{
+    display: flex;
+    background-color: whitesmoke!important;
+    width: 100% !important;
+    justify-content: center;
+  }
+
 }
 
 @media (max-width:450px) {
@@ -1196,10 +1209,6 @@ form textarea{
     justify-content: center;
    }
 
-   .left {
-     display: none;
-   }
-
    .middle .feed  .photo {
     margin-left: 0;
   }
@@ -1213,6 +1222,22 @@ form textarea{
 
   .btn_menu{
     display: block;
+  }
+
+  .left{
+    display:block;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    position: sticky;
+  }
+ 
+   .left .sidebar{
+    display: flex;
+    background-color: whitesmoke!important;
+    width: 100% !important;
+    justify-content: center;
   }
 
 }
@@ -1230,6 +1255,22 @@ form textarea{
   .middle .feed .user{
     display: flex;
     gap: 8px;
+  }
+
+  .left{
+    display:block;
+    bottom: 0;
+    width: 100%;
+    position: relative;
+  }
+ 
+   .left .sidebar{
+    display: flex;
+    position: relative;
+    margin-left: 15px;
+    background-color: whitesmoke!important;
+    width: 100% !important;
+    justify-content: center;
   }
 
   .middle .feed .decription {

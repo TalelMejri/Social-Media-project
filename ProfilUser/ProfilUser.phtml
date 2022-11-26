@@ -67,7 +67,7 @@
             <p class="header">
                <span> Create Post</span>
             </p>
-            <form action="index.php" method="POST" enctype="multipart/form-data">
+            <form action="index.php" method="POST" enctype="multipart/form-data" >
               <div class="content">
                 <img class="rounded" src="..<?=$_SESSION['avatarUser']?>" alt="logo">
                 <div class="details">
@@ -89,8 +89,7 @@
                       
                   </span>
               </div>
-              <input type="hidden" name="color_pub" id="color">
-             
+                 <input type="hidden" name="color_pub" id="color">
                  <input type="file" class="form-control w-50" name="avatar">
                  <div class="text-center mt-2">
                  <button name="add" class="btn btn-outline-primary">Post</button>
@@ -113,9 +112,72 @@
                                     <small><?=$value['date']?></small>
                                 </div>
                             </div>
+                        <div>
+                        <div class="modal fade" id="exampleModalee<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                             </div>
+                                             <div class="modal-body mx-5" >
+                                                  <div class="user">
+                                                      <div class="profile-photo">
+                                                             <img class="rounded" src="..<?=$value['photo_user']?>"  width="70px" height="70px" alt="">
+                                                      </div>
+                                                      <div class="ingo">
+                                                          <h3><?=$value['name']?></h3>
+                                                          <small><?=$value['date']?></small>
+                                                      </div>
+                                                  </div>
+                                              <form action="index.php" method="Post" enctype="multipart/form-data">
+                                                
+                                              <input type="hidden" name="idpub" value="<?=$value['id']?>">
+                                              <input type="text" name="color_edit" id="color_edit" value="<?=!isset($color_edit) ? $value['theme'] : $color_edit?>">
+                                                <div class="row mb-2 container">
+                                                  <div class="col-md-4 mt-2 mb-2">
+                                                  <p>Theme :</p>
+                                                    <div class="theme d-flex justify-content-center mb-2">
+                                                        <span class="color-circle color1">
+                           
+                                                        </span>
+                                                        <span class="color-circle color2">
+                      
+                                                        </span>
+                                                        <span class="color-circle color3">
+                      
+                                                        </span>
+                                                   </div>
+
+                                                  </div>
+                                                  <div class="col-lg-4">
+                                                     <input class="form-control" type="text" name="desc" id="id_desc" value="<?=$value['description']?>">
+                                                  </div>
+                                                  <div class="col-lg-4 mt-2">
+                                                      <?php if($value['avatar']!=''): ?>
+                                                        <input type="text" name="color_edite" id="color_avatar" value="<?=!isset($color_edit) ? $value['theme'] : $color_edit?>">
+                                                        <div class="photo">
+                                                              <div>
+                                                                  <img src="<?=$value['avatar']?>"   alt="">
+                                                              </div>
+                                                        </div>
+                                                      <?php endif; ?>
+                                                      <input class="form-control mt-2" type="file" name="avatar" >
+                                                  </div>
+                                              </div>
+                                              <button class="btn btn-warning" name="edit">Edit</button>
+                                              </form>
+                                            </div>
+                                       </div>
+                                 </div>
+                             </div>
                             <?php if( $value['iduser']==$_SESSION['idUser'] ): ?>
-                                <span class="edit">4<i class="fa-brands fa-github"></i></span>  
+                              <div class="reglage_pub">
+                                <span data-bs-toggle="modal" data-bs-target="#exampleModalee<?=$value['id']?>" class="edit">edit<i class="fa-brands fa-github"></i></span> 
+                                <span class="edit px-2">X<i class="fa-brands fa-github"></i></span> 
+                              </div>
                             <?php endif; ?>
+                        </div> 
                         </div>     
                          <div class="decription mt-2 rounded" style="background-color:<?=$value['theme']!='' ? $value['theme'] : ''?>">
                              <?=$value['description']?>
@@ -127,37 +189,48 @@
                                 </div>
                         </div>
                         <?php endif; ?>
-                        <div class="action-button">
-                            <div class="interraction-buttons">
-                                <span>d<i class="fa-brands fa-github"></i></span>  
-                                <span>d<i class="fa-brands fa-github"></i></span>  
-                                <span>d<i class="fa-brands fa-github"></i></span>  
-                            </div>
-                            <div class="bookmark">
-                                <span>d<i class="fa-brands fa-github"></i></span>  
-                            </div>
-                        </div>
-                        <div class="liked-by">
-                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                               <span><img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt=""></span>
-                                 <p>Like by <b>talel mejri</b>and 2.23others</p>
-                                 <p><b>Lana rose</b>hello ma maaaan</p>    
+                      <div id="react" class="d-flex mb-2 justify-content-around py-2 ">
+                        <div class="like_btn">
+                          <form action="index.php" method="POST">
+                              <input type="hidden" name="idpub" value="<?=$value['id']?>">
+                              <input type="hidden" name="id_user" value="<?=$value['id_user']?>">
+                              <?php $name=$pub->name_user_like_pub($value['id']) ?>
+                              <?php $verified=$pub->get_user_liked($_SESSION['idUser'],$value['id']); ?>
+                              <?php $check_verified=isset($verified) ? 1 : 0 ?>
+                              <?php $nombre=$pub->somme_like($value['id']); ?>
+                              <button class="btn btn-primary" type="submit" name="like"><i class="<?= $check_verified==0 ? 'fa-regular' : 'fa-solid '?> fa-thumbs-up px-2"></i><?= $nombre ?></button> 
+                          </form>
+                           
                         </div>
                         <div class="comments">
-                             view all 277 comments
+                            comments_icon
                         </div>
+                        <div class="enregistrer">
+                        <form action="index.php" method="POST">
+                            <input type="hidden" name="idpub" value="<?=$value['id']?>">
+                            <?php $verified= $pub->get_pub_byiduser_idpub($_SESSION['idUser'],$value['id']); ?>
+                            <button name="save_pub"><?= $verified ? 'déja' : 'Add ' ?></button>
+                        </form>
+                        </div>
+                      </div>
+                      <div class="liked-by">
+                               <?php foreach( $pub->get_user_liked_pub($value['id']) as $value) : ?>
+                                 <span><img src="..<?=$value['photo_user']?>" width="70px" height="70px" alt=""></span>
+                               <?php endforeach; ?>
+                                <p> <?= isset($name['name']) ? '<b>Like by</b> '.$name['name'] : '' ?>  </b> <?= $nombre > 2  ? 'and '. $nombre .' others' : '' ?> </p> 
+                            </div>
                     </div>
-                    
                 </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
-    
-    <script>
 
+    <script>
                 let text=document.querySelector(".textarea");
+                let desc=document.querySelector("#id_desc"); 
                 let color_changer=document.querySelector("#color");
                 let color_circle=document.querySelectorAll('.color-circle');
+                let color_edit=document?.querySelector('#color_edit');
+                let color_avatar=document.querySelector('#color_avatar');
                 color_circle.forEach(color_current=>{
                  color_current.addEventListener('click',function(){
                     color_circle.forEach(color_choice=>{
@@ -167,16 +240,22 @@
                        choice=color.substr(18,1);
                       if(choice==3){
                           color_changer.value="#2696E8";
-                          color_changer.value="#2696E8";
+                          color_edit.value="#2696E8";
                           text.style.backgroundColor="#2696E8";
+                          desc.style.backgroundColor="#2696E8";
+                          color_avatar.value="#2696E8";
                       }
                        else if(choice==2){
                           color_changer.value="#ff2d75";
-                          color_changer.value="#ff2d75";
+                          color_avatar.value="#ff2d75";
+                          color_edit.value="#ff2d75";
+                          desc.style.backgroundColor="#ff2d75";
                           text.style.backgroundColor="#ff2d75";
                        }else if(choice==1){
-                        color_changer.value="#fff";
+                          color_avatar.value="#fff";
                           color_changer.value="#fff";
+                          desc.style.backgroundColor="#fff";
+                          color_edit.value="#fff";
                           text.style.backgroundColor="#fff";
                        }
                    })
@@ -197,8 +276,6 @@ function showSlides() {
   slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 2000); 
 }
-
-
 
 </script>
 

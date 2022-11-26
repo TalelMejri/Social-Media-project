@@ -230,41 +230,6 @@
              }
          }
 
-         public function Add_Story(String $file,int $id,String $date){
-            $sql="INSERT INTO story (file,id_user,created_at) VALUES (:file,:id,:date)";
-            $this->pdo->launchQuery($sql,['file'=>$file,'id'=>$id,'date'=>$date]);
-         }
-
-         public function get_all_story(){
-            $sql="SELECT * from story s,users u where u.iduser=s.id_user ";
-            $query=$this->pdo->launchQuery($sql);
-            $data= $query->fetchAll();
-            $toReturn = array();
-            foreach ($data as $key => $value) {
-                $toReturn[$value['id_user']][] = $value;
-            }
-            return $toReturn;
-         }
-
-
-         public function addPub(String $date,String $desc,String $avatar='',int $id,String $theme=''){
-            $sql="INSERT INTO pub ( `date`, `description`, `avatar`,`theme`, `id_user`) VALUES(:date,:desc,:avatar,:theme,:id)";
-             $this->pdo->launchQuery($sql,[
-                'date'=>$date,
-                'desc'=>$desc,
-                'avatar'=>$avatar,
-                'theme'=>$theme,
-                'id'=>$id
-             ]);
-            return $this->pdo->lastInsertId();
-         }
-
-         public function get_all_pub(){
-            $sql="SELECT * from pub p,users u where u.iduser=p.id_user order by p.date  ";
-            $query=$this->pdo->launchQuery($sql);
-            return $query->fetchAll();
-         }
-
         
 
     }

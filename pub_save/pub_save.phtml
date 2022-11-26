@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+     <th>
+       <tr>
+         <td>description</td>
+         <td>avatar</td>
+        </tr>
+     </th>
+     </thead>
+     <tbody>
+    <?php foreach($all_pub as $value): ?>
+        <tr>
+            <td><?=$value['description']?></td>
+            <td><?=!$value['avatar'] ? '' : $value['avatar']?></td>
+        </tr>
+    <?php endforeach?>
+    </tbody>
+     
+</table>

@@ -6,6 +6,7 @@
         exit;
     }
     $user=new user_manager();
+    $pub=new pub_manage();
     if(isset($_POST['save'])){
 
         extract($_POST);
@@ -22,7 +23,7 @@
         else{
             $date= date('y/m/d');
             $avatar='./storage_story/'.$file->getfilename();
-            $user->Add_Story($avatar,$_SESSION['idUser'],$date);
+            $pub->Add_Story($avatar,$_SESSION['idUser'],$date);
         }
     }
 
@@ -43,26 +44,66 @@
         $date=date('y/m/d');
         if($avatarupload==0){
             if(empty($color_pub)){
-                $user->addPub($date,$description,'',$_SESSION['idUser']);
+                $pub->addPub($date,$description,'',$_SESSION['idUser']);
             }else{
-                $user->addPub($date,$description,'',$_SESSION['idUser'],$color_pub);
+                $pub->addPub($date,$description,'',$_SESSION['idUser'],$color_pub);
             }
         }else{
             if(empty($color_pub)){
-                $user->addPub($date,$description,$avatar,$_SESSION['idUser']);
+                $pub->addPub($date,$description,$avatar,$_SESSION['idUser']);
             }else{
-                $user->addPub($date,$description,$avatar,$_SESSION['idUser'],$color_pub);
+                $pub->addPub($date,$description,$avatar,$_SESSION['idUser'],$color_pub);
             }
         }
     }
 
-    $all_user=$user->get_all_story();
-    $all_pub=$user->get_all_pub();
+    $all_user=$pub->get_all_story();
+    $all_pub=$pub->get_all_pub();
 
     function userFromId($id){
         $user=new user_manager();
         return $user->get_user($id);
     }
+
+    if(isset($_POST['like'])){
+        extract($_POST);
+        $pub->AddlikePub($idpub,$_SESSION['idUser']);
+        if($id_user!=$_SESSION['idUser']){
+             $user->add_notification($id_user,$_SESSION['nameUser'].'like your pub');
+        }
+    }
+
+    if(isset($_POST['save_pub'])){
+        extract($_POST);
+        $pub->save_pub($_SESSION['idUser'],$idpub);
+
+    }
+
+
+    if(isset($_POST['edit'])){
+        extract($_POST);
+
+        $file=new File('./pub_photo/',$_FILES['avatar']);
+        $avatarupload=0;
+        if(strlen($_FILES['avatar']['name'])){
+        if(!$file->uploadImage()){
+            echo "<script>alert('File not upload');</script>";
+        }
+        else if(!$file->size()){
+            echo "<script>alert('size File ');</script>";
+        }
+        $avatar='./pub_photo/'.$file->getfilename();
+        $avatarupload=1;
+        }
+
+        if(!$avatarupload){
+            $pub->edit_pub($_SESSION['idUser'],$idpub,'',$color_edit,$desc);
+        }else{
+            $pub->edit_pub($_SESSION['idUser'],$idpub,$avatar,$color_edit,$desc);
+        }
+      
+    }
+    
 
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
     $show=false;
