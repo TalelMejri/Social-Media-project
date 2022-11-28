@@ -58,23 +58,9 @@
             }
         }
 
-        public function get_user_liked(int $id,int $idpub){
-            $sql="SELECT * from like_pub where id_user=:id AND id_pub=:id_pub";
-            $query= $this->pdo->launchQuery($sql,['id'=>$id,'id_pub'=>$idpub]);
-            $verified= $query->fetch();
-            if(!$verified){
-                return false;
-            }
-            return true;
+      
 
-        }
-
-        public function somme_like(int $id){
-            $sql="SELECT sum(liked) from like_pub where id_pub=:id";
-            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
-            $value=$query->fetch();
-            return $value['sum(liked)'];
-        }
+     
 
         public function save_pub(int $id,int $idpub){
             $sql="SELECT * from save where id_user=:id AND id_pub=:idpub";
@@ -89,33 +75,14 @@
             }
         }
 
-        public function get_pub_byiduser_idpub(int $id,int $idpub){
-            $sql="SELECT * from save where id_user=:id AND id_pub=:idpub";
-            $query= $this->pdo->launchQuery($sql,['id'=>$id,'idpub'=>$idpub]);
-            $verified= $query->fetch();
-            if(!$verified){
-                return false;
-            }
-            return true;
-        }
-
+      
         public function get_all_pub_save(int $id){
             $sql="SELECT * from save s,pub p where s.id_pub=p.id and s.id_user=:id";
             $query=$this->pdo->launchQuery($sql,['id'=>$id]);
             return $query->fetchAll();
         }
 
-        public function get_user_liked_pub(int $idpub){
-            $sql="SELECT u.name,u.photo_user from users u,like_pub l where l.id_user=u.iduser and l.id_pub=:id and l.liked=1";
-            $query=$this->pdo->launchQuery($sql,['id'=>$idpub]);
-            return $query->fetchAll();
-        }
-
-        public function name_user_like_pub(int $idpub){
-            $sql="SELECT u.name from users u,like_pub l where l.id_user=u.iduser and l.id_pub=:id and l.liked=1 limit 1";
-            $query=$this->pdo->launchQuery($sql,['id'=>$idpub]);
-            return $query->fetch();
-        }
+       
 
         public function edit_pub(int $id,int $idpub,String $avatar='',String $theme,String $desc,){
                 if($avatar==''){
@@ -136,9 +103,7 @@
                         'avatar'=>$avatar,
                         'desc'=>$desc
                     ]);
-                }
-               
-            
+                }  
         }
 
 
@@ -147,10 +112,7 @@
             $this->pdo->launchQuery($sql,['id'=>$id]);
         }
 
-        public function addComment(int $id,String $desc,int $id_pub){
-            $sql="INSERT INTO comments (id_user,description,idpup) VALUES (:id,:desc,:pub)";
-            $this->pdo->launchQuery($sql,['id'=>$id,'desc'=>$desc,'pub'=>$id_pub]);
-        }
+      
        
 
         

@@ -1,5 +1,4 @@
-<?php 
-     
+<?php   
     class user_manager{
         
         private $pdo;
@@ -78,7 +77,6 @@
             }
         }
     
-
         public function loginUser(String $email,String $password){
             $sql="SELECT * from users where email=:email AND role=:role";
             $query=$this->pdo->launchQuery($sql,['email'=>$email,'role'=>0]);
@@ -229,6 +227,87 @@
                 return false;
              }
          }
+
+         public function addComment(int $id,String $desc,int $pub){
+            $sql="INSERT INTO comments (id_user,description,idpub) VALUES (:id,:desc,:idpub)";
+            $this->pdo->launchQuery($sql,['id'=>$id,'desc'=>$desc,'idpub'=>$pub]);
+        } 
+
+        public function get_comment_idpub(int $id){
+            $sql="SELECT * from comments c,users u where c.id_user=u.iduser and c.idpub=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            return $query->fetchAll();
+        }
+
+        public function update_comment(int $idcomment,String $desc){
+            $sql="UPDATE comments SET description=:desc where id_comments=:id";
+            $this->pdo->launchQuery($sql,['id'=>$idcomment,'desc'=>$desc]);
+        }
+
+        public function somme_comment_by_id_pub(int $id_pub){
+            $sql="SELECT count(idpub) from comments where idpub=:id";
+            $user=$this->pdo->launchQuery($sql,['id'=>$id_pub]);
+            $value=$user->fetch();
+            return $value['count(idpub)'];
+        }
+
+        public function delete_comment(int $idcomment){
+            $sql="DELETE from comments where id_comments=:id";
+            $this->pdo->launchQuery($sql,['id'=>$idcomment]);
+        }
+
+        public function check_comment(int $iduser,int $idcomment,int $idpub){
+            $sql="SELECT * from comments where id_comments=:idcom and id_user=:iduser and idpub=:idpub";
+            $user=$this->pdo->launchQuery($sql,['idcom'=>$idcomment,'iduser'=>$iduser,'idpub'=>$idpub]);
+            return $user;
+        }
+
+        public function get_iduser_byidpub_created(int $idpub,int $iduser){
+            $sql="SELECT * from pub p,users u  where p.id_user=u.iduser and u.iduser=:iduser and p.id=:idpub";
+            $user=$this->pdo->launchQuery($sql,['idpub'=>$idpub,'iduser'=>$iduser]);
+            return $user->fetch();
+        }
+        
+        public function get_user_liked(int $id,int $idpub){
+            $sql="SELECT * from like_pub where id_user=:id AND id_pub=:id_pub";
+            $query= $this->pdo->launchQuery($sql,['id'=>$id,'id_pub'=>$idpub]);
+            $verified= $query->fetch();
+            if(!$verified){
+                return false;
+            }
+            return true;
+
+        }
+
+        public function somme_like(int $id){
+            $sql="SELECT sum(liked) from like_pub where id_pub=:id";
+            $query=$this->pdo->launchQuery($sql,['id'=>$id]);
+            $value=$query->fetch();
+            return $value['sum(liked)'];
+        }
+
+        public function get_pub_byiduser_idpub(int $id,int $idpub){
+            $sql="SELECT * from save where id_user=:id AND id_pub=:idpub";
+            $query= $this->pdo->launchQuery($sql,['id'=>$id,'idpub'=>$idpub]);
+            $verified= $query->fetch();
+            if(!$verified){
+                return false;
+            }
+            return true;
+        }
+
+        public function get_user_liked_pub(int $idpub){
+            $sql="SELECT u.name,u.photo_user from users u,like_pub l where l.id_user=u.iduser and l.id_pub=:id and l.liked=1";
+            $query=$this->pdo->launchQuery($sql,['id'=>$idpub]);
+            return $query->fetchAll();
+        }
+
+        public function name_user_like_pub(int $idpub){
+            $sql="SELECT u.name from users u,like_pub l where l.id_user=u.iduser and l.id_pub=:id and l.liked=1 limit 1";
+            $query=$this->pdo->launchQuery($sql,['id'=>$idpub]);
+            return $query->fetch();
+        }
+
 
         
 

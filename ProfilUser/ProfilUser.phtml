@@ -1,10 +1,25 @@
-       
+       <style>
+summary{
+  display: flex;
+  cursor: pointer;
+ }
+
+ .type{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+  background-color: whitesmoke;
+  border-radius: 25px;
+  font-size: 12px;
+ }
+
+
+       </style>
         <div class="all_story">
-       
           <div class="story-container">
                      <div class="content-add">
                          <div class="img-container">
-                                <img type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" src="../assets/image/add.png" width="70px" height="70px" alt="">
+                                <img type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"  width="70px" height="70px" alt="">
                          </div>
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -30,14 +45,14 @@
                      <?php foreach($all_user as $k=>$str): ?>
                          <?php  if($user->get_user_filter_friend($k,$_SESSION['idUser']) ||  $k==$_SESSION['idUser'] ): ?> 
                           <div class="<?= $k==$_SESSION['idUser'] ? 'content-myself' : 'content' ?>">  
-                            <div class="img-container">
+                             <div class="img-container">
                                    <img data-bs-toggle="modal" data-bs-target="#exampleModal<?=$k?>" src="<?='../'.userFromId($k)['photo_user']?>" width="70px" height="70px" alt="img">
                              </div>
                               <p class="text-container"><?=userFromId($k)['name']?></p>
-                              </div>
+                          </div>
                          <?php  endif;?>
                      <div class="modal fade" id="exampleModal<?=$k?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                     <div class="modal-dialog">
+                      <div class="modal-dialog">
                          <div class="modal-content">
                              <div class="modal-header">
                                  <h5 class="modal-title" id="exampleModalLabel"><?=userFromId($k)['name']?></h5>
@@ -100,7 +115,7 @@
       </div>
       <?php foreach($all_pub as $value): ?>
         <?php if($user->get_user_filter_friend($value['iduser'],$_SESSION['idUser']) ||  $value['iduser']==$_SESSION['idUser'] ): ?>
-                <div class="feeds">
+          <div class="feeds">
                     <div class="feed">
                         <div class="head">
                             <div class="user">
@@ -117,7 +132,7 @@
                                     <div class="modal-dialog">
                                          <div class="modal-content">
                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"> Delete</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                              </div>
                                              <div class="modal-body mx-5" >
@@ -136,6 +151,7 @@
                                  </div>
                                  </div>
                              </div>
+
                         <div class="modal fade" id="exampleModalee<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                          <div class="modal-content">
@@ -199,8 +215,8 @@
                              </div>
                             <?php if( $value['iduser']==$_SESSION['idUser'] ): ?>
                               <div class="reglage_pub">
-                                <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalee<?=$value['id']?>"><i class="fa-solid fa-pen-to-square text-warning"></i></span> 
-                                <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#delete_pub<?=$value['id']?>" class=" px-2"><i class="fa-solid fa-trash text-danger"></i></span> 
+                                <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalee<?=$value['id']?>">x<i class="fa-solid fa-pen-to-square text-warning"></i></span> 
+                                <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#delete_pub<?=$value['id']?>" class=" px-2">w<i class="fa-solid fa-trash text-danger"></i></span> 
                               </div>
                             <?php endif; ?>
                         </div> 
@@ -219,45 +235,142 @@
                         <div class="like_btn">
                           <form action="index.php" method="POST">
                               <input type="hidden" name="idpub" value="<?=$value['id']?>">
-                              <input type="hidden" name="id_user" value="<?=$value['id_user']?>">
-                              <?php $verify=$pub->get_user_liked($_SESSION['idUser'],$value['id']);?>
-                              <?php $nombre=$pub->somme_like($value['id']); ?>
+                              <input type="hidden" name="id_user" value="<?=$value['iduser']?>">
+                              <?php $verify=$user->get_user_liked($_SESSION['idUser'],$value['id']);?>
+                              <?php $nombre=$user->somme_like($value['id']); ?>
                               <button class="btn btn-primary" type="submit" name="like"><i class="<?= $verify==false ? 'fa-regular fa-thumbs-up px-2' : 'fa-solid fa-thumbs-up px-2 '?> "></i><?= !$nombre ? '':$nombre ?></button> 
                           </form>
-                           
+
                         </div>
-                        <div class="comments">
-                            <i   id="comment_btn" class="fa-solid fa-comment "></i>
-                        </div>
+
+                      <div class="comments">
+                         <button class="btn btn-outline-primary position-relative " onclick="toasty()">
+                               <i  class="fa-solid fa-comment "></i>
+                               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                                   <?=$user->somme_comment_by_id_pub($value['id'])?>
+                             </span>
+                         </button>
+                       
+                      </div>
+                      
                         <div class="enregistrer">
                         <form  action="index.php" method="POST">
                             <input type="hidden" name="idpub" value="<?=$value['id']?>">
-                            <?php    $verified = $pub->get_pub_byiduser_idpub($_SESSION['idUser'],$value['id']); ?>
+                            <?php $verified = $user->get_pub_byiduser_idpub($_SESSION['idUser'],$value['id']); ?>
                             <button class="btn btn-info"  name="save_pub"><i class="<?= $verified==false ? 'fa-regular fa-bookmark' : 'fa-sharp fa-solid fa-bookmark'?>" ></i></button>
                         </form> 
                         </div>
                       </div>
                       <div class="liked-by">
-                              <?php $name=$pub->name_user_like_pub($value['id']) ?>
-                               <?php foreach( $pub->get_user_liked_pub($value['id']) as $value) : ?>
-                                 <span><img src="..<?=$value['photo_user']?>" width="70px" height="70px" alt=""></span>
+                              <?php $name=$user->name_user_like_pub($value['id']) ?>
+                               <?php foreach( $user->get_user_liked_pub($value['id']) as $val) : ?>
+                                 <span><img src="..<?=$val['photo_user']?>" width="70px" height="70px" alt=""></span>
                                <?php endforeach; ?>
                                 <p> <?= isset($name['name']) ? '<b>Like by</b> '.$name['name'] : '' ?>  </b> <?= $nombre > 2  ? 'and '. $nombre .' others' : '' ?> </p> 
-                     </div>
+                     </div> 
+                     
                      <div class="all_comments">
+                    
                       <div class="card">
+  <details> 
+    <summary class="d-flex justify-content-center">
+       <div class="type text-center">
+          <p>Comments</p>
+          <p><i class="fa-solid fa-caret-down"></i></p> 
+       </div>
+    </summary>
+    <div class="contenu">
+    
                          <div class="card-header">
                           <form action="index.php" method="POST">
-                               <input type="hidden" name="pub" value="<?=$value['id']?>">
-                               <textarea name="comment"  cols="2" rows="2"></textarea>
-                               <button name="add_comment">Send</button>
-                            </form>
+                               <input type="hidden" name="pub" value="<?=isset($value['id']) ? $value['id'] : ''?>">
+                               <textarea name="comment" required style="width:100%;height:3%"  cols="1" rows="1"></textarea>
+                               <input type="hidden" name="id_user" value="<?=$value['iduser']?>">
+                               <button name="add_comment" class="button">Send</button>
+                         </form>
                          </div>
-                         <div class="card-body">
-                                <div>
-                                    <?php  ?>
-                                </div>
+                     
+                                     <div class="card-body">
+                                         <?php $idpub_current=$value['id']; ?>
+                                              <?php foreach($user->get_comment_idpub($value['id']) as $comment): ?>
+                                                        <?php if($comment['id_user']==$_SESSION['idUser']){ ?>
+                                                            <div class="reglage_pub float-end mb-5">
+                                                            <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#edit_comment<?=$comment['id_comments']?>">dd</span> 
+                                                               <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#delete_comment<?=$comment['id_comments']?>" class=" px-2">ff</span> 
+                                                            </div>
+                                                        <?php ?> 
+                                                        <?php }else{?>
+                                                           <?php if($user->get_iduser_byidpub_created($idpub_current,$_SESSION['idUser'])){  ?>
+                                                            <div class="reglage_pub float-end mb-5">
+                                                               <span style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#delete_comment<?=$comment['id_comments']?>" class=" px-2">ff</span> 
+                                                            </div>
+                                                            <?php }  ?>
+                                                        <?php } ?>
+                                                    <div class="mb-2  d-flex  card_comment gap-5">
+                                                      <div class="profile-photo">
+                                                             <img class="rounded-pill" src="..<?=$comment['photo_user']?>"  width="30px" height="30px" alt="">
+                                                             <h6><?=$comment['name']?></h6>
+                                                      </div>
+                                                      <div class="ingo mt-3  ">
+                                                          <h4 class="desc_comment"><?=$comment['description']?></h4>
+                                                      </div>
+                                                    </div>
+                                                    
+                           <div class="modal fade" id="edit_comment<?=$comment['id_comments']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"> Edit Comment </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                             </div>
+                                             <div class="modal-body mx-5" >
+                                                  <div class="row text-center">
+                                                          <form action="index.php" method="POST">
+                                                              <input type="hidden" name="id_comment" value=<?=$comment['id_comments']?>>
+                                                              <input type="text" class="form-control mb-2" name="desc" value="<?=$comment['description']?>">
+                                                              <button name="edit_comment" class="btn btn-warning">Edit</button>
+                                                          </form>
+                                                  </div>
+                                            </div>  
+                                 <div class="modal-footer">
+                                  <div class="float-end">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                                    </div>
+                                 </div>
+                                 </div>
+                                 </div>
+                             </div>
+                              
+                          
+                             <div class="modal fade" id="delete_comment<?=$comment['id_comments']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                         <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"> Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                             </div>
+                                             <div class="modal-body mx-5" >
+                                                  <div class="row text-center">
+                                                    <div class="col-lg-12"><b><?=$_SESSION['nameUser']?></b></div>
+                                                    <div class="col-lg-12"> Do you want delete this Comment ?</div>
+                                                   
+                                                  </div>
+                                            </div>  
+                                 <div class="modal-footer">
+                                  <div class="float-end">
+                                    <a class="p-2" href="index.php?delete_comment=<?=$comment['id_comments']?>"><button type="button" class="btn btn-danger" >Delete</button></a>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                                    </div>
+                                 </div>
+                                 </div>
+                                 </div>
+                             </div>
+                              <?php endforeach; ?>
                          </div>
+    </div>
+                      </details>
+
+                    
                       </div>
                      </div>
                     </div>
@@ -266,64 +379,69 @@
                 <?php endforeach; ?>
 
     <script>
-        let comments = document.querySelector(".all_comments");
-        let comment_btn = document.querySelector("#comment_btn");
-            comment_btn.addEventListener("click",function(){
-              comments.classList.toggle("active");
+
+      /**:) Finally*/
+let text=document.querySelector(".textarea");
+let desc=document.querySelector("#id_desc"); 
+let color_changer=document.querySelector("#color");
+let color_circle=document.querySelectorAll('.color-circle');
+let color_edit=document.querySelector('#color_edit');
+let color_avatar=document.querySelector('#color_avatar');
+
+color_circle.forEach(color_current=>{
+ color_current.addEventListener('click',function(){
+    color_circle.forEach(color_choice=>{
+       color_choice.classList.remove('active');
+       this.classList.add('active');
+       color=this.classList +" ";
+       choice=color.substr(18,1);
+      if(choice==3){
+          color_changer.value="#2696E8";
+          text.style.backgroundColor="#2696E8";
+          desc.style.backgroundColor="#2696E8";
+          color_avatar.value="#2696E8";
+          color_edit.value="#2696E8";
+      }
+       else if(choice==2){
+          color_changer.value="#ff2d75";
+          text.style.backgroundColor="#ff2d75";
+          desc.style.backgroundColor="#ff2d75";
+          color_edit.value="#ff2d75";
+          color_avatar.value="#ff2d75";
+       }else if(choice==1){  
+          color_changer.value="#fff";
+          text.style.backgroundColor="#fff";
+          desc.style.backgroundColor="#fff";
+          color_avatar.value="#fff";
+          color_edit.value="#fff";
+       }
    })
-       /**:) Finally*/
-                let text=document.querySelector(".textarea");
-                let desc=document.querySelector("#id_desc"); 
-                let color_changer=document.querySelector("#color");
-                let color_circle=document.querySelectorAll('.color-circle');
-                let color_edit=document.querySelector('#color_edit');
-                let color_avatar=document.querySelector('#color_avatar');
-                color_circle.forEach(color_current=>{
-                 color_current.addEventListener('click',function(){
-                    color_circle.forEach(color_choice=>{
-                       color_choice.classList.remove('active');
-                       this.classList.add('active');
-                       color=this.classList +" ";
-                       choice=color.substr(18,1);
-                      if(choice==3){
-                          color_changer.value="#2696E8";
-                          text.style.backgroundColor="#2696E8";
-                          desc.style.backgroundColor="#2696E8";
-                          color_avatar.value="#2696E8";
-                          color_edit.value="#2696E8";
-                      }
-                       else if(choice==2){
-                          color_changer.value="#ff2d75";
-                          text.style.backgroundColor="#ff2d75";
-                          desc.style.backgroundColor="#ff2d75";
-                          color_edit.value="#ff2d75";
-                          color_avatar.value="#ff2d75";
-                       }else if(choice==1){  
-                          color_changer.value="#fff";
-                          text.style.backgroundColor="#fff";
-                          desc.style.backgroundColor="#fff";
-                          color_avatar.value="#fff";
-                          color_edit.value="#fff";
-                       }
-                   })
-                })
-              })
-             
+})
+})
+
 let slideIndex = 0;
-showSlides();
 
 function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("slide");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 2000); 
+let i;
+let slides = document.getElementsByClassName("slide");
+for (i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
 }
+slideIndex++;
+if (slideIndex > slides.length) {slideIndex = 1}
+slides[slideIndex-1].style.display = "block";
+setTimeout(showSlides, 2000); 
+}
+showSlides();
 
+/*
+      let comments = document.querySelector(".all_comments");
+      let comment_btn = document.querySelector("#comment_btn");
+      comment_btn.addEventListener("click",function(){
+      comments.classList.toggle("active");
+})
+                    
+*/
 
 
 </script>

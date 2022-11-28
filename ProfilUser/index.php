@@ -103,18 +103,26 @@
       
     }
 
-
     if(isset($_GET['delete_pub'])){
         $pub->deletePub($_GET['delete_pub']);
-
     }
 
     if(isset($_POST['add_comment'])){
         extract($_POST);
-        $value=(int)$pub;
-       /* var_dump(gettype($value));
-        exit;*/
-        $pub->addComment($_SESSION['idUser'],$comment,$value);
+        if($id_user!=$_SESSION['idUser']){
+            $user->add_notification((int)$id_user,$_SESSION['nameUser'].'comment your pub');
+         }
+        $user->addComment($_SESSION['idUser'],$comment,(int)$pub);
+    }
+
+    if(isset($_GET['delete_comment'])){
+        $user->delete_comment($_GET['delete_comment']);
+    }
+
+
+    if(isset($_POST['edit_comment'])){
+        extract($_POST);
+        $user->update_comment($id_comment,$desc);
     }
     
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
