@@ -15,7 +15,7 @@ window.onload = fadeOut();
 
 /******************** Cursor  ******************/
 
-var timer;
+/*var timer;
 const cursor =document.querySelector('.cursor');
 if(cursor){
 document.addEventListener("mousemove",(e)=>{
@@ -36,7 +36,7 @@ document.addEventListener("mousemove",(e)=>{
 document.addEventListener("mouseout",()=>{
   cursor.style.display="none";
 })
-}
+}*/
 
 /***************************************/
 
@@ -46,12 +46,12 @@ document.addEventListener("mouseout",()=>{
     links.forEach(link=>{
         link.addEventListener('click',function(){
             links.forEach(link_choice=>{
-                link_choice.classList.remove('choise_link');
+                link_choice?.classList.remove('choise_link');
                 this.classList.add('choise_link');
             })
         })
     })
-
+  
 /**********************************/
 
 
