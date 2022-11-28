@@ -20,12 +20,17 @@ function sendmail($name,$email,$subject,$message,$file_name=null){
     $mail->SMTPSecure="ssl";
     /* Contenu De mail de ADMIN*/
     $mail->isHTML(true);                                        //Format de mail html
-    $mail->setFrom("testlibrary05@gmail.com",$name);
+    $mail->setFrom("bizomejri@gmail.com",$name);
     $mail->addAddress("$email");               //Adresse reception
     $mail->Subject=("$subject");                       //Le sujet de l'email
     $mail->Body=$message;     
-   if($file_name!=null){                                   //Le contenu de mail
-      //$mail->addAttachment("../comande_for_all_user/facture/".$file_name);
+   if($file_name!=null){      
+       //Le contenu de mail       
+      $mail->addAttachment('../../certificat/Copie_Certificat/'.$file_name);
+      /** test existance de la fichier  */
+     /* if (file_exists('../../certificat/Copie_Certificat/'.$file_name)){
+        echo "exist fileeee";
+      }*/
    }
     /* Commande pour envoyer le mail */
     if ($mail->send())
