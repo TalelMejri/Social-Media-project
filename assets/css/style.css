@@ -284,6 +284,17 @@ header ul li a.choise_link
   color: #081828 !important;
 }
 
+.box_certificat{
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
+  height: 100%;
+  padding: 60px 30px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.85s;
+  font-size: 20px;
+}
+
 .box{
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
   height: 100%;
@@ -1031,11 +1042,19 @@ form textarea{
 }
 */
 .all_comments{
-  display: none;
+  display: block;
 }
 .all_comments.active{
   display: block;
 }
+.card_comment{
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
+  background-color: whitesmoke;
+  padding:5px 10px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
 @media screen and (max-width:1200px) {
 
   .container-fluid{
@@ -1327,6 +1346,10 @@ form textarea{
 
   .btn_menu{
     display: block;
+  }
+
+  .desc_comment{
+    font-size: 15px;
   }
 
 }
