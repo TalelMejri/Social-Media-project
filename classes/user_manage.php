@@ -198,21 +198,13 @@
             return $value['count(id)'];
          }
 
-
          public function delete_notif_by_id(int $id){
             $sql="DELETE from notification where id=:id";
             $this->pdo->launchQuery($sql,['id'=>$id]);
          }
 
          public function get_all_friend(int $id){   
-            /*$sql="
-              select u.* , u2.* from friends f JOIN      
-                users u on f.id_user1 = u.iduser JOIN     
-                users u2 on f.id_user2 = u2.iduser WHERE         
-              statu = 1 AND (f.id_user1 = :id OR f.id_user2 = :id);        
-            ";*/
-            //$sql="SELECT u.name,u.iduser,u.email from users u,users u1 where u.iduser!=u1.iduser and u1.iduser=:id";
-            $sql="SELECT DISTINCT u.name,u.iduser,u.email from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
          }
@@ -226,6 +218,13 @@
              }else{
                 return false;
              }
+         }
+       
+         public function get_friend(int $id,String $name){
+            $ami="%".$name."%";
+            $sql="SELECT * from users u,friends f where u.iduser=f.id_user1  and u.name like :ami Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1 and u.name like :ami";
+            $query=$this->pdo->launchQuery($sql,['ami'=>$ami]);
+            return $query->fetchAll();
          }
 
          public function addComment(int $id,String $desc,int $pub){
@@ -276,7 +275,6 @@
                 return false;
             }
             return true;
-
         }
 
         public function somme_like(int $id){
@@ -308,8 +306,16 @@
             return $query->fetch();
         }
 
-
-        
+        public function send_message(int $idenvoi,int $idrecu,String $message){
+            $date= date('d/m/y');
+            $sql="INSERT INTO chat (id_envoi,id_recu,message,date) VALUES (:idenvoi,:idrecu,:message,:date)";
+            $this->pdo->launchQuery($sql,[
+                'idenvoi'=>$idenvoi,
+                'idrecu'=>$idrecu,
+                'message'=>$message,
+                'date'=>$date
+            ]);
+        }
 
     }
 ?>
