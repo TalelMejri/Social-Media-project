@@ -1,0 +1,143 @@
+
+<style>
+    .user_selected{
+        background-color: whitesmoke;
+        transition: 0.4s;
+    }
+
+   .envoi{
+    background-color: #f68c09;
+    border-radius: 25px;
+    padding: 10px;
+   }
+
+   .recu{
+    background-color: #b50edf;
+    border-radius: 25px;
+    padding: 10px;
+   }
+
+    .box_user{
+        padding: 7px 5px;
+    }
+
+    .box_chat{
+        z-index: 0;
+
+        background-image: url(./bg.jpeg);
+        max-height:300px;
+        overflow-y:auto;
+    }
+    
+    .footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 60px;
+    }
+    
+textarea{
+    display: block;
+    flex:1;
+    width: 100%;
+    border-radius: 60px;
+    margin:1px;
+    height: 50px;
+    outline: none;
+    font-size: 19px;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right:90px ;
+    border: 2px solid #ccc;
+    color: #555;
+    resize: none;    
+}
+
+</style>
+<p id="text" class="h4 text-center">Chat</p>
+
+
+<div class="col-xl-12 container">
+<div class="row gap-5" >
+    <div class="col-md-6  col-lg-4  text-center">
+            <div class="card">
+                 <div class="card-header">
+                    <form action="index.php?search=<?=isset($_GET['search']) ? $_GET['search'] : ''?>" method="GET">
+                      <input type="text" required name="search" class="form-control mb-2" placeholder="search ami" value="<?=isset($_GET['search']) ? $_GET['search'] : ''?>">
+                      <button class="btn btn-success">search</button>
+                    </form>
+                 </div>
+               
+                 <div style="max-height:500px;overflow:scroll" class="card-body">
+                    <?php if( $all_user=='vide'): ?>
+                         <div class="alert alert-danger">
+                             empty
+                         </div>
+                    <?php else: ?>
+                    <?php foreach($all_user as $user): ?>
+                         <?php if($user['iduser'] != $_SESSION['idUser']) :?>
+
+                         <div  class="box_user  <?=$user['iduser']==isset($_GET['choice_user']) ? 'user_selected' : ''?>">
+                            <a href="?choice_user=<?=$user['iduser']?><?=isset($_GET['search']) ? '&search='.$_GET['search'] : ''?>">
+                             <img class="rounded" src="..<?=$user['photo_user']?>" width="80px" height="80px">
+                             <?=$user['name'].' '.$user['last_name']?>
+                             </a>
+                        </div>
+                        <hr>
+                        <?php endif; ?>
+                      
+                    <?php endforeach; ?>  
+                 </div>
+
+                 <?php endif; ?>
+            </div>
+    </div>
+    <div class="col-lg-6 text-center chat">
+            <?php if(!isset($_GET['choice_user'])): ?>
+                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_w4ncrq9x.json"    speed="1"  style="width: 100%; height: 100%;"  loop  autoplay></lottie-player>
+            <?php else :?>
+                <div class="card ">
+                      <div class="card-header d-flex gap-2  ">
+                            <img class="rounded " src="..<?=$user_choice['photo_user']?>" width="50px" height="50px">
+                            <p class="py-2"><?=$user_choice['name']?></p>
+                      </div>
+                      <div class="card-body box_chat">
+                            <?php foreach($pub->get_messages($_SESSION['idUser'],$user_choice['iduser']) as $message): ?>
+                                <?php if($_SESSION['idUser']==$message['id_envoi']): ?>
+                                    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                                          <div class="d-flex gap-2 w-100 justify-content-between">
+                                        <div>
+                                        <small class="opacity-50 text-nowrap"><?=$message['date']?></small>    
+                                        </div>
+                                             </div>
+                                             <h6  class="mb-0 "><?=$message['message']?></h6>
+                                        <img src="..<?=$_SESSION['avatarUser']?>" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                                 </div>  
+                                    <?php else: ?>  
+                                        <div class="list-group-item float-left list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                                         <img src="..<?=$user_choice['photo_user']?>" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                                          <div class="d-flex gap-2 w-100 justify-content-between">
+                                              <div>
+                                                <h6 class="mb-0"><?=$message['message']?></h6>
+                                              </div>
+                                              <small class="opacity-50 text-nowrap"><?=$message['date']?></small>
+                                         </div>
+                                        </div>
+                                        <?php endif;?>
+                            <?php endforeach; ?>
+                    </div>
+                    <div class="footer">
+                        <form action="index.php?choice_user=<?=$user_choice['iduser']?>" class="d-flex w-100" method="POST">
+                          <input type="hidden" name="iduser_recu" value="<?=$user_choice['iduser']?>">
+                          <textarea type="text" required name="message" class="form-control"></textarea>
+                          <button style="height: 20%;margin-top:7%" name="send_message" class="button">send</button>
+                        </form>
+                    </div>
+                     
+                </div>
+                  
+            <?php endif; ?>
+    </div>
+</div>
+
+</div>
