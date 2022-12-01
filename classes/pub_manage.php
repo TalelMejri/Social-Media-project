@@ -112,6 +112,15 @@
             $this->pdo->launchQuery($sql,['id'=>$id]);
         }
 
+        public function get_messages(int $idenvoi,int $idrecu){
+            $sql="SELECT * from chat  where id_envoi=:idenvoi  and id_recu=:idrecu or id_envoi=:idrecu and  id_recu=:idenvoi";
+            $query=$this->pdo->launchQuery($sql,[
+                'idenvoi'=>$idenvoi,
+                'idrecu'=>$idrecu
+            ]);
+            return $query->fetchAll();
+        }
+
       
        
 
