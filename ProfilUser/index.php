@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
     include "../classes/classes.php";
     if(!isset($_SESSION['nameUser'])){
         header("location:../auth/login");
@@ -57,8 +58,7 @@
         }
     }
 
-    $all_user=$pub->get_all_story();
-    $all_pub=$pub->get_all_pub();
+    
 
     function userFromId($id){
         $user=new user_manager();
@@ -124,10 +124,14 @@
         extract($_POST);
         $user->update_comment($id_comment,$desc);
     }
-    
+ 
+    $all_user=$pub->get_all_story();
+    $all_pub=$pub->get_all_pub();
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
     $show=false;
+    
     $template="ProfilUser";
     $page_titel=$_SESSION['nameUser'];
+   
     include "../layout.phtml";
 ?>
