@@ -6,6 +6,7 @@
         header("location:../auth/login");
         exit;
     }
+
     $user=new user_manager();
     $pub=new pub_manage();
     if(isset($_POST['save'])){
@@ -125,8 +126,8 @@
         $user->update_comment($id_comment,$desc);
     }
  
-    $all_user=$pub->get_all_story();
-    $all_pub=$pub->get_all_pub();
+    $all_user=$user->get_all_story();
+    $all_pub=$user->get_all_pub();
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
     $show=false;
     
