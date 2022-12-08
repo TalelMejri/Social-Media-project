@@ -139,6 +139,7 @@ function toasty(param){
    toastcreate.show();
   }
 }
+
 /*new Swiper('.testimonials-slider', {
     speed: 600,
     loop: true,
