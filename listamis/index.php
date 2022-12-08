@@ -17,6 +17,12 @@ if(empty($all_user_filter)){
     $all_user_filter="vide";
 }
 
+
+if(isset($_GET['id_user_retirer'])){
+    $id=$_GET['id_user_retirer'];
+    $user->delete_ami($id,$_SESSION['idUser']);
+}
+
 $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
 
 $show=false;

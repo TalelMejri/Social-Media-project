@@ -317,5 +317,32 @@
             ]);
         }
 
+        public function delete_invitation(int $id){
+            $sql="DELETE from friends where id=:id";
+            $this->pdo->launchQuery($sql,['id'=>$id]);
+        }
+
+        public function delete_ami(int $id1,int $id2){
+            $sql="DELETE from friends where  id_user1=:id and id_user2=:id1 or id_user1=:id1 and id_user2=:id";
+            $this->pdo->launchQuery($sql,['id'=>$id1,'id1'=>$id2]);
+        }
+
+        public function get_all_story(){
+            $sql="SELECT * from story s,users u where u.iduser=s.id_user ";
+            $query=$this->pdo->launchQuery($sql);
+            $data= $query->fetchAll();
+            $toReturn = array();
+            foreach ($data as $key => $value) {
+                $toReturn[$value['id_user']][] = $value;
+            }
+            return $toReturn;
+         }
+
+         public function get_all_pub(){
+            $sql="SELECT * from pub p,users u where u.iduser=p.id_user order by p.date  ";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetchAll();
+         }
+
     }
 ?>
