@@ -22,28 +22,22 @@
      
       <link rel="stylesheet" href="../assets/css/style.css">
       <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">  
-      <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
       <script src="../assets/js/script.js"></script>
       <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <script src="../assets/vendor/aos/aos.js"></script>
       <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-      <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     
       <?php else: ?>
       <link rel="stylesheet" href="./assets/css/style.css">
       <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">  
-      <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
       <script src="./assets/js/script.js"></script>
       <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <script src="./assets/vendor/aos/aos.js"></script>
       <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-      <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
       <?php endif; ?>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
@@ -463,7 +457,7 @@
 
    <footer data-aos="fade-down" class="container-fluid">
         <div class="row container">
-             <div class="col-md-4 ">
+             <div class="col-md-6 ">
                     <div class="info p-5">
                             <h2>Bizo</h2>
                             <p>Making the world a better place</p>
@@ -480,19 +474,28 @@
                                 </div>
                     </div>
              </div>
-             <div class="col-md-2">
-                    
+             <div class="col-md-4">
+             <div class="info p-5">
+                    <h2>Links</h2>
+                    <ul class="nav flex-column">
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                  </ul>
+             </div>
              </div>
 
              <div class="col-md-2">
-                  
+             <div class="info p-5">
+                     <h2>Resources</h2>
+                     <ul class="nav flex-column">
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Authentification</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
+                  </ul>
              </div>
-
-            <div class="col-md-4">
-                
-            </div>
-          
-             
+             </div>
         </div>
         <hr width="100%"
            size="20" color="#fff"
@@ -610,7 +613,6 @@
                       </div>
               </div>
    
-                    
               <div class="position-fixed bottom-0 end-0 p-2" id="side_profil" style="z-index: 11">
                 <div role="alert" aria-live="assertive" id="profil" aria-atomic="true" class="toast" >
                    <div class="toast-header">
@@ -619,7 +621,8 @@
                     </div>
                    <div class="toast-body">
                      <div class="mosule d-flex justify-content-center">
-                        <img src="..<?=$_SESSION['avatarUser'];?>" width="70px" height="50px" class="rounded img-thumbnail shadow-sm" alt="">
+                 
+                        <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="50px" class="rounded img-thumbnail shadow-sm" alt="">
                          <div class="body py-3 px-2">
                             <p class="m-0"><?=$_SESSION['nameUser'];?><?=$_SESSION['lastnameUser'];?></p>
                              <p class="font-weight-normal text-muted"><?=$_SESSION['emailUser'];?></p>
@@ -633,35 +636,27 @@
                   </button>
                   <div class="collapse show" id="home-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../profiluser"  class="link-dark rounded">Changer Password <i class="fa-solid fa-lock px-2"></i></a></li>
-                      <li><a href="../profiluser"  class="link-dark rounded">Edit Profil<i class="fa-solid fa-pen-to-square px-2"></i></a></li>
+                    <li><a href="../auth/changerPassword"  class="link-dark rounded">Changer Password <i class="fa-solid fa-lock px-2"></i></a></li>
+                      <li><a href="../editProfilUser"  class="link-dark rounded">Edit Profil<i class="fa-solid fa-pen-to-square px-2"></i></a></li>
                       <li><a href="../message"  class="link-dark rounded">Langue<i class="fa-solid fa-globe px-2"></i></a></li>
                     </ul>
                   </div>
                 </li>
            <li class="">
              <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                <span style="font-size:18px"><i class="fa-solid fa-moon px-2"></i>Affichage</span> 
+                <span style="font-size:18px"><i class="fa-solid fa-moon px-2 mb-3"></i>Affichage</span> 
              </button>
              <div class="collapse" id="dashboard-collapse">
-               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                   <form action="../Changervisibilite/" method="POST">
-                          <p style="font-size:15px;text-align:center">Chose Your Mode :</p>
+               <ul class="btn-toggle-nav text-center  list-unstyled fw-normal pb-1 small">
+                    <form action="../Changervisibilite/" method="POST">
                            <input type="hidden" name="id" value="<?=$_SESSION['idUser']?>">
-                           <input type="hidden" id="mode" value=<?=$mode_visibiltes?>>
-                          <div class="text-center mb-2">
-                           <?php if($mode_visibiltes==1): ?> 
-                            <input type="radio" checked  name="mode"> <span class="px-2"><i class="fa-solid fa-moon px-2"></i>Sombre</span> 
-                            <input type="radio"  name="mode"><span class="px-2"><i class="fa-sharp fa-solid fa-lightbulb px-2"></i>Clair</span>
-                          </div>
-                          <?php else:?>
-                            <input type="radio"  name="mode"> <span class="px-2"><i class="fa-solid fa-moon px-2"></i>Sombre</span> 
-                            <input type="radio" checked  name="mode"><span class="px-2"><i class="fa-sharp fa-solid fa-lightbulb px-2"></i>Clair</span>
-                            <?php endif; ?>
-                           <div class="text-center">
-                             <button name="submit" class="btn btn-primary">Changer</button>
-                           </div>
-                   </form>
+                           <input type="hidden" id="mode " value=<?=$mode_visibiltes?>>
+                        <?php if($mode_visibiltes): ?>
+                          <button  name="show_sombre" type="submit" class="btn btn-outline-dark"> <i style="font-size: 18px;text-align:center" class="fa-solid fa-moon"></i></button>
+                        <?php else: ?>
+                          <button  name="show_clair" type="submit"  class="btn btn-outline-dark">   <i  style="font-size: 18px;text-align:center" class="fa-regular fa-moon"></i></button>
+                        <?php endif; ?>
+                    </form>
                </ul>
              </div>           
              </li>
@@ -717,6 +712,8 @@ link_sidebar.forEach(link=>{
 })
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script src="jquery-3.6.1.min.js"></script>
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 </html>
