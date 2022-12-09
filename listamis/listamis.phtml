@@ -1,5 +1,10 @@
 <div class="container py-2 mt-2">
   <h1 class="text-center">List Amis</h1>
+   <?php if($all_user_filter=='vide'): ?>
+         <div class="alert alert-danger">
+               No User FOUND
+         </div>
+      <?php else: ?>
   <div class="row py-4">
   <?php foreach($all_user_filter as $value): ?>
          <div class="col-lg-3">
@@ -30,4 +35,5 @@
          </div>
      <?php endforeach; ?>   
      </div>
+     <?php endif;?>
   </div>
