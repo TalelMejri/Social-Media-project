@@ -8,36 +8,22 @@
     <?php if($show==true): ?>
        <link rel="stylesheet" href="../../assets/css/style.css">
        <link rel="icon" href="../../assets/image/logo_final.png" type="image/x-icon">
-      <link href="../../assets/vendor/aos/aos.css" rel="stylesheet">
-       <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-      <link href="../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-      <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-      <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <script src="../assets/vendor/aos/aos.js"></script>s
-      <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-      <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <?php endif; ?>
     <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?>
      
       <link rel="stylesheet" href="../assets/css/style.css">
       <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">  
-      <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
       <script src="../assets/js/script.js"></script>
-      <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <script src="../assets/vendor/aos/aos.js"></script>
-      <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
     
       <?php else: ?>
       <link rel="stylesheet" href="./assets/css/style.css">
       <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">  
-      <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
       <script src="./assets/js/script.js"></script>
-      <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <script src="./assets/vendor/aos/aos.js"></script>
-      <script src="./assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
       <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
       <?php endif; ?>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
@@ -686,7 +672,6 @@
     
 </body>
 <script>
-  
 let mode=document.querySelector('#mode')?.value;
 let checkUser=document.querySelector('#checkUser')?.value;
 let navbar=document.querySelector('.navbar_user');

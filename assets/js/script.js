@@ -164,7 +164,7 @@ function toasty(param){
     }
 });
 */
-
+/*
 function aos_init() {
     AOS.init({
       duration: 1000,
@@ -180,7 +180,7 @@ function let_it_animated(){
 
 let_it_animated();
 
-new PureCounter();
+new PureCounter();*/
 
 /******************* */
 
