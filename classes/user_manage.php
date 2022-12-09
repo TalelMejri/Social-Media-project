@@ -203,10 +203,38 @@
             $this->pdo->launchQuery($sql,['id'=>$id]);
          }
 
-         public function get_all_friend(int $id){   
-            $sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+         public function get_all_friend(int $id,int $limit=null,int $start=null){   
+            /*$sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetchAll();*/
+            $sql="SELECT  * from users u,friends f where (id_user1=u.iduser and id_user1!=$id  ) or (id_user2=u.iduser and id_user2!=$id  ) limit $start,$limit";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
+         }
+
+         public function countFriend(int $id){   
+            /*$sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetchAll();*/
+            $sql="SELECT  count(*) from users u,friends f where id_user1=u.iduser and id_user1!=$id or id_user2=u.iduser and id_user2!=$id ";
+            $query=$this->pdo->launchQuery($sql);
+            $value=$query->fetch();
+            return $value['count(*)'];
+         }
+
+         public function search_friend_by_name(String $search,int $id,int $limit=null,int $start=null){
+            $name='%'.$search.'%';
+            $sql="SELECT * from users u,friends f where ( id_user1=u.iduser and id_user1!=$id and u.name like :search) or (id_user2=u.iduser and id_user2!=$id and u.name like :search) limit $start,$limit";
+            $query=$this->pdo->launchQuery($sql,['search'=>$name]);
+            return $query->fetchAll();
+         }
+
+         public function count_search_friend(String $search,int $id){
+            $name='%'.$search.'%';
+            $sql="SELECT count(*) from users u,friends f where ( id_user1=u.iduser and id_user1!=$id and u.name like :search) or (id_user2=u.iduser and id_user2!=$id and u.name like :search)";
+            $query=$this->pdo->launchQuery($sql,['search'=>$name]);
+            $value=$query->fetch();
+            return $value['count(*)'];
          }
 
          public function get_user_filter_friend(int $id,int $id2){
