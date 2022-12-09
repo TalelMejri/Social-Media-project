@@ -322,6 +322,22 @@
             $this->pdo->launchQuery($sql,['id'=>$id]);
         }
 
+        public function addCertif(int $id,String $certif){
+            $sql="INSERT INTO certif (id_user,type_certif) VALUES (:id,:type)";
+            $this->pdo->launchQuery($sql,['id'=>$id,'type'=>$certif]);
+        }
+
+        public function get_certif_user(int $id,String $certif){
+            $sql="SELECT * from certif where type_certif=:certif and id_user=:id";
+            $query=$this->pdo->launchQuery($sql,['certif'=>$certif,'id'=>$id]);
+            $user= $query->fetch();
+            if($user){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
         public function delete_ami(int $id1,int $id2){
             $sql="DELETE from friends where  id_user1=:id and id_user2=:id1 or id_user1=:id1 and id_user2=:id";
             $this->pdo->launchQuery($sql,['id'=>$id1,'id1'=>$id2]);
@@ -342,6 +358,34 @@
             $sql="SELECT * from pub p,users u where u.iduser=p.id_user order by p.date  ";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
+         }
+
+         public function edituser(string $name,string $last,string $date,string $avatar='',int $avataruplaod,int $id){
+                if($avataruplaod==1){
+                    $sql="UPDATE users SET name=:name,last_name=:last,photo_user=:photo,date_created=:date where iduser=:id";
+                    $this->pdo->launchQuery($sql,[
+                        'name'=>$name,
+                        'last'=>$last,
+                        'photo'=>$avatar,
+                        'date'=>$date,
+                        'id'=>$id
+                    ]);
+                    $_SESSION['nameUser']=$name;
+                    $_SESSION['lastnameUser']=$last;
+                    $_SESSION['avatarUser']=$avatar;
+                    $_SESSION['dateUser']=$date;
+                }else{
+                    $sql="UPDATE users SET name=:name,last_name=:last,date_created=:date where iduser=:id";
+                    $this->pdo->launchQuery($sql,[
+                        'name'=>$name,
+                        'last'=>$last,
+                        'date'=>$date,
+                        'id'=>$id
+                    ]);
+                    $_SESSION['nameUser']=$name;
+                    $_SESSION['lastnameUser']=$last;
+                    $_SESSION['dateUser']=$date;
+                }
          }
 
     }
