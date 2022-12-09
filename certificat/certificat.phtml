@@ -29,10 +29,11 @@
 
   <div class=" col-lg-6 mb-2 text-center">
      <div class="box_certificat certif1">
-         <div class="img ">
+         <div class="img">
              <img src="../assets/image/html-5-logo-svgrepo-com.svg" width="90px" height="90px" alt="">
             <div class="mt-5">
-              <button class="button"><a  class="text-dark" href="./html/">Test</a></button>
+               <?php $verifier=$user->get_certif_user($_SESSION['idUser'],'html') ?>
+               <button type="button" class="btn btn-primary"  <?=$verifier ? 'disabled ' : '' ?> ><a class="text-dark" href="./html/">Test </a></button>
             </div>
          </div>
      </div>
@@ -43,7 +44,8 @@
          <div class="img ">
              <img src="../assets/image/css-3-logo-svgrepo-com.svg" width="90px" height="90px" alt="">
             <div class="mt-5">
-              <button class="button"><a  class="text-dark" href="./css/">Test</a></button>
+            <?php $verifier=$user->get_certif_user($_SESSION['idUser'],'css') ?>
+              <button  type="button" class="btn btn-primary"  <?=$verifier ? 'disabled ' : ''?> class="button"><a  class="text-dark" href="./css/">Test</a></button>
             </div>
          </div>
      </div>
@@ -54,7 +56,8 @@
          <div class="img ">
              <img src="../assets/image/js-official-svgrepo-com.svg" width="90px" height="90px" alt="">
             <div class="mt-5">
-              <button class="button"> <a  class="text-dark" href="./js/">Test</a></button>
+            <?php $verifier=$user->get_certif_user($_SESSION['idUser'],'js') ?>
+            <button  type="button" class="btn btn-primary"  <?=$verifier ? 'disabled ' : ''?> class="button"><a  class="text-dark" href="./js/">Test</a></button>
             </div>
          </div>
      </div>
@@ -65,7 +68,8 @@
          <div class="img ">
              <img src="../assets/image/php-svgrepo-com.svg" width="90px" height="90px" alt="">
             <div class="mt-5">
-              <button class="button"> <a class="text-dark" href="./php/">Test</a></button>
+            <?php $verifier=$user->get_certif_user($_SESSION['idUser'],'php') ?>
+            <button  type="button" class="btn btn-primary"  <?=$verifier ? 'disabled ' : "class='button'"?> class="button"><a  class="text-dark" href="./php/">Test</a></button>
             </div>
          </div>
      </div>
