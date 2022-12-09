@@ -20,6 +20,7 @@
         }
 */
 $avatarupload=0;
+$avatar="";
 if(strlen($_FILES['avatar']['name'])){
 $array=['jpg','png','jpeg'];
 $type=pathinfo($_FILES['avatar']['name'],PATHINFO_EXTENSION);
