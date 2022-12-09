@@ -1,6 +1,5 @@
 <?php 
 
-
 session_start();
 include "../../classes/classes.php";
 $user=new user_manager();
@@ -16,18 +15,18 @@ if(isset($_POST['Envoyer'])){
   
     extract($_POST);
     $question1='B';
-    $question2='C';
+    $question2='B';
     $question3='B';
     $question4='B';
 
     $score=0;
-    if($q1=='B'){
+    if($q1=='C'){
         $score+=20;
     }
-    if($q2=='C'){
+    if($q2=='B'){
         $score+=20;
     }
-    if($q3=='B'){
+    if($q3=='C'){
         $score+=20;
     }
     if($q4=='B'){
@@ -35,6 +34,7 @@ if(isset($_POST['Envoyer'])){
     }
        
     if($score>60){
+        $user->addCertif($_SESSION['idUser'],'html');
             $show_congrats=1;
             $pdf->AddPage('L','A4');
             $pdf->Image('../Modele/Modele_html.PNG',0,0,300 ,210.8);
@@ -68,6 +68,4 @@ $template="html_test";
 $page_titel="HTML";
 include "../../auth_layout.phtml";
 
-?>
-    
 ?>

@@ -23,7 +23,7 @@ if(isset($_POST['Envoyer'])){
     if($q1=='B'){
         $score+=20;
     }
-    if($q2=='C'){
+    if($q2=='B'){
         $score+=20;
     }
     if($q3=='B'){
@@ -34,6 +34,7 @@ if(isset($_POST['Envoyer'])){
     }
        
     if($score>60){
+        $user->addCertif($_SESSION['idUser'],'js');
             $show_congrats=1;
             $pdf->AddPage('L','A4');
         

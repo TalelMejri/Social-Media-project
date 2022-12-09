@@ -14,26 +14,27 @@
     if(isset($_POST['Envoyer'])){
       
         extract($_POST);
-        $question1='B';
-        $question2='C';
+        $question1='A';
+        $question2='B';
         $question3='B';
-        $question4='B';
+        $question4='A';
 
         $score=0;
-        if($q1=='B'){
+        if($q1=='A'){
             $score+=20;
         }
-        if($q2=='C'){
+        if($q2=='B'){
             $score+=20;
         }
         if($q3=='B'){
             $score+=20;
         }
-        if($q4=='B'){
+        if($q4=='A'){
             $score+=20;
         }
            
         if($score>60){
+               $user->addCertif($_SESSION['idUser'],'css');
                 $show_congrats=1;
                 $pdf->AddPage('L','A4');
             
