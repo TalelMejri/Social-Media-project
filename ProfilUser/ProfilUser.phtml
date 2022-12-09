@@ -40,7 +40,7 @@ summary{
                           </div>
                         </div>
                       </div>
-                          <p class="text-container">Add Story</p>
+                          <p class="text-container" id="text">Add Story</p>
                      </div>
  
                      <?php foreach($all_user as $k=>$str): ?>
@@ -49,7 +49,7 @@ summary{
                              <div class="img-container">
                                    <img data-bs-toggle="modal" data-bs-target="#exampleModal<?=$k?>" src="<?='../'.userFromId($k)['photo_user']?>" width="70px" height="70px" alt="img">
                              </div>
-                              <p class="text-container"><?=userFromId($k)['name']?></p>
+                              <p class="text-container" id="text"><?=userFromId($k)['name']?></p>
                           </div>
                          <?php  endif;?>
                      <div class="modal fade" id="exampleModal<?=$k?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,18 +81,18 @@ summary{
         <div class="wrapper">
           <section class="post">
             <p class="header">
-               <span> Create Post</span>
+               <span id="text"> Create Post</span>
             </p>
             <form action="index.php" method="POST" enctype="multipart/form-data" >
               <div class="content">
                 <img class="rounded" src="..<?=$_SESSION['avatarUser']?>" alt="logo">
                 <div class="details">
-                  <p><?=strtoupper($_SESSION['nameUser'])?></p>
+                  <p  id="text"><?=strtoupper($_SESSION['nameUser'])?></p>
                 </div>
               </div>
            
               <textarea class="textarea" name="description" placeholder="What's on your mind ,<?=($_SESSION['nameUser'])?>"  required></textarea>
-              <p>Theme :</p>
+              <p id="text">Theme :</p>
               <div class="theme d-flex justify-content-center mb-2">
           
                  <span class="color-circle color1">
@@ -124,8 +124,8 @@ summary{
                                        <img class="rounded" src="..<?=$value['photo_user']?>"  width="70px" height="70px" alt="">
                                 </div>
                                 <div class="ingo">
-                                    <h3><?=$value['name']?></h3>
-                                    <small><?=$value['date']?></small>
+                                    <h3 id="text"><?=$value['name']?></h3>
+                                    <small id="text"><?=$value['date']?></small>
                                 </div>
                             </div>
                         <div>
@@ -222,7 +222,7 @@ summary{
                             <?php endif; ?>
                         </div> 
                         </div>     
-                         <div class="decription mt-2 rounded" style="background-color:<?=$value['theme']!='' ? $value['theme'] : ''?>">
+                         <div  class="decription mt-2 rounded" style="background-color:<?=$value['theme']!='' ? $value['theme'] : ''?>">
                              <?=$value['description']?>
                          </div>               
                         <?php if($value['avatar']!=''): ?>
@@ -247,7 +247,7 @@ summary{
                       <div class="comments">
                          <button id="show_comments"  class="btn_show btn btn-outline-primary position-relative" >
                                <i  class="fa-solid fa-comment "></i>
-                               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                               <span  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                                    <?=$user->somme_comment_by_id_pub($value['id'])?>
                              </span>
                          </button>
@@ -266,12 +266,12 @@ summary{
                                <?php foreach( $user->get_user_liked_pub($value['id']) as $val) : ?>
                                  <span><img src="..<?=$val['photo_user']?>" width="70px" height="70px" alt=""></span>
                                <?php endforeach; ?>
-                                <p> <?= isset($name['name']) ? '<b>Like by</b> '.$name['name'] : '' ?>  </b> <?= $nombre > 2  ? 'and '. $nombre .' others' : '' ?> </p> 
+                                <p  id="text"> <?= isset($name['name']) ? '<b>Like by</b> '.$name['name'] : '' ?>  </b> <?= $nombre > 2  ? 'and '. $nombre .' others' : '' ?> </p> 
                      </div> 
                      
                      <div class="all_comments">
                     
-                      <div class="card">
+                      <div class="card comments">
   <details> 
     <summary class="d-flex justify-content-center">
        <div class="type text-center">
@@ -290,7 +290,7 @@ summary{
                          </form>
                          </div>
                      
-                                     <div class="card-body">
+                                     <div class="card-body comment_body">
                                          <?php $idpub_current=$value['id']; ?>
                                               <?php foreach($user->get_comment_idpub($value['id']) as $comment): ?>
                                                         <?php if($comment['id_user']==$_SESSION['idUser']){ ?>
@@ -306,13 +306,13 @@ summary{
                                                             </div>
                                                             <?php }  ?>
                                                         <?php } ?>
-                                                    <div class="mb-2  d-flex  card_comment gap-5">
+                                                    <div class="mb-2   d-flex  card_comment gap-5">
                                                       <div class="profile-photo">
                                                              <img class="rounded-pill" src="..<?=$comment['photo_user']?>"  width="30px" height="30px" alt="">
-                                                             <h6><?=$comment['name']?></h6>
+                                                             <h6 id="text"><?=$comment['name']?></h6>
                                                       </div>
                                                       <div class="ingo mt-3  ">
-                                                          <h4 class="desc_comment"><?=$comment['description']?></h4>
+                                                          <h4 id="text" class="desc_comment"><?=$comment['description']?></h4>
                                                       </div>
                                                     </div>
                                                     
@@ -379,13 +379,26 @@ summary{
                 <?php endforeach; ?>
 
     <script>
-      let btn=document.querySelector(".btn_show");
-      btn.addEventListener('click',function(){
-        $("#show_comments").click()
-    });
 
 
       /**:) Finally*/
+
+let slideIndex = 0;
+
+function showSlides() {
+let i;
+let slides = document.getElementsByClassName("slide");
+for (i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+slideIndex++;
+if (slideIndex > slides.length) {slideIndex = 1}
+slides[slideIndex-1].style.display = "block";
+setTimeout(showSlides, 2000); 
+}
+showSlides();
+
+
 let text=document.querySelector(".textarea");
 let desc=document.querySelector("#id_desc"); 
 let color_changer=document.querySelector("#color");
@@ -423,31 +436,6 @@ color_circle.forEach(color_current=>{
    })
 })
 })
-
-let slideIndex = 0;
-
-function showSlides() {
-let i;
-let slides = document.getElementsByClassName("slide");
-for (i = 0; i < slides.length; i++) {
-slides[i].style.display = "none";
-}
-slideIndex++;
-if (slideIndex > slides.length) {slideIndex = 1}
-slides[slideIndex-1].style.display = "block";
-setTimeout(showSlides, 2000); 
-}
-showSlides();
-
-/*
-      let comments = document.querySelector(".all_comments");
-      let comment_btn = document.querySelector("#comment_btn");
-      comment_btn.addEventListener("click",function(){
-      comments.classList.toggle("active");
-})
-                    
-*/
-
 
 </script>
 

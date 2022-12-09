@@ -557,9 +557,8 @@ footer .all_link :hover{
   /*animation: change_background 2s infinite;*/
 }
 
-#navbar{
-   background-color: #000;
-   box-shadow: 0 0 0 10px #4fc3dc44,0 0 10px #4fc3dc,0 0 15px #4fc3dc !important;
+#navbar_sombre,#sidebar_sombre{
+  background-color: #161b22;
 }
 
 /*@keyframes change_background {
@@ -793,6 +792,30 @@ main .container-fluid .left .profile{
   padding: 10px 10px;
   width: 95%;
   margin: 5px 10px;
+}
+#all_story{
+  background-color: #161b22;
+}
+#container_post{
+  background-color: #161b22;
+}
+#post{
+  background-color: #161b22;
+}
+#feeds{
+  background-color: #161b22;
+}
+#comment_body{
+  background-color: #161b22;
+}
+#card_comment{
+  background-color: #000;
+}
+#profile{
+  background-color: #161b22;
+}
+#edit_user{
+  background-color: #161b22;
 }
 
 .story-container{
@@ -1221,7 +1244,7 @@ form textarea{
  
    .left .sidebar{
     display: flex;
-    background-color: whitesmoke!important;
+    background-color: whitesmoke;
     width: 100% !important;
     justify-content: center;
   }
@@ -1275,7 +1298,7 @@ form textarea{
  
    .left .sidebar{
     display: flex;
-    background-color: whitesmoke!important;
+    background-color: whitesmoke ;
     width: 100% !important;
     justify-content: center;
   }
@@ -1307,7 +1330,7 @@ form textarea{
    .left .sidebar{
     display: flex;
     position: relative;
-    background-color: whitesmoke!important;
+    background-color: whitesmoke;
     justify-content: center;
     margin-left: -15px;
   }

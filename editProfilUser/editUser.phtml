@@ -1,9 +1,9 @@
-<h4 class="p-4 m-4 text-center"><i class="fa-solid fa-user-tie me-2"></i>Personal Info</h4>
+<h4 class="p-4 m-4 text-center" id="text"><i class="fa-solid fa-user-tie me-2" ></i>Personal Info</h4>
 <div class="container d-flex justify-content-center">
+
 <div class="row">
         
-<form class="shadow m-3 p-4 rounded" action="index.php" method="POST"  enctype="multipart/form-data">
-      
+<form  class="shadow m-3 p-4 rounded form_edit" action="index.php" method="POST"  enctype="multipart/form-data">
         <?php if(!empty($errors)): ?>
            <div class="alert alert-danger" role="alert">
                <?=$errors[0];?>
@@ -16,7 +16,7 @@
                 <div class="d-flex flex-column">
                   <div >
                     <img src=".<?=$_SESSION['avatarUser']?>" width="20%" class="mb-2 rounded-circle  shadow-sm" alt="">
-                    <span class="mx-4">Profil Photo</span>
+                    <span id="text" class="mx-4">Profil Photo</span>
                     </div>
                     <div>
                       <input type="file" name="avatar" >
@@ -29,17 +29,17 @@
         <div class="row justify-content-center">
             <div class="col-md-4 py-4">
                      <div class="mb-3">
-                        <label for="exampleFormControlInput1"  class="form-label">Name</label>
+                        <label id="text" for="exampleFormControlInput1"  class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" value=<?=$_SESSION['nameUser']?>>
                      </div>
 
                      <div class="mb-3">
-                        <label for="exampleFormControlInput1"  class="form-label">Last Name</label>
+                        <label id="text" for="exampleFormControlInput1"  class="form-label">Last Name</label>
                         <input type="text" name="last" class="form-control" value=<?=$_SESSION['lastnameUser']?>>
                      </div>
                      
                      <div class="mb-3">
-                        <label  class="form-label">Date</label>
+                        <label id="text"  class="form-label">Date</label>
                         <input type="date" class="form-control" name="date" value=<?=$_SESSION['dateUser']?>>
                      </div>
                         <button type="submit" class="btn btn-outline-success" name="edit">update</button>

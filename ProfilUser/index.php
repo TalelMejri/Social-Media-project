@@ -59,8 +59,6 @@
         }
     }
 
-    
-
     function userFromId($id){
         $user=new user_manager();
         return $user->get_user($id);
@@ -79,10 +77,8 @@
         $pub->save_pub($_SESSION['idUser'],$idpub);
     }
 
-
     if(isset($_POST['edit'])){
         extract($_POST);
-
         $file=new File('./pub_photo/',$_FILES['avatar']);
         $avatarupload=0;
         if(strlen($_FILES['avatar']['name'])){

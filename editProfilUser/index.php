@@ -2,12 +2,12 @@
     session_start();
     include "../classes/classes.php";
     $user=new user_manager();
-    $errors=[];
-    $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
+    $errors=[]; 
+  
 
      if(isset($_POST['edit'])){
         extract($_POST);
-       /* $avataruplaod=0;
+/* $avataruplaod=0;
         if(strlen($_FILES['avatar']['name'])){
             $file=new file('../storage/',$_FILES['avatar']);
             $avatar="/storage/".$file->getfilename();
@@ -38,13 +38,13 @@ if($_FILES['avatar']['size']>99999999){
 $avatar="/storage/".$name_file;
 $avatarupload=true;
 }
-            // var_dump($avataruplaod);
-            // exit;
             $user->edituser($name,$last,$date,$avatar,$avatarupload,$_SESSION['idUser']);
             header("location:../profiluser");
     
      }
-    show:
+
+    show: 
+    $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
     $show=null;
     $template="editUser";
     $page_titel="Edit";

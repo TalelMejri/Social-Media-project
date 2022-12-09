@@ -90,7 +90,18 @@ logo_bizo.addEventListener("click",()=>{
     toastcreate.show();
    }*/
 
- 
+
+
+let link_sidebar=document.querySelectorAll('.menu-item');
+link_sidebar.forEach(link=>{
+    link.addEventListener('click',function(){
+      link_sidebar.forEach(link_choice=>{
+            link_choice.classList.remove('active');
+            this.classList.add('active');
+        })
+    })
+})
+
 /** user theme */
 /*
 let text=document.querySelector(".textarea");
