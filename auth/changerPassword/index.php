@@ -55,6 +55,7 @@
         exit;
     }
   }
+  
   show:
   $template="changerPassword";
   $page_titel="Changer Password";
