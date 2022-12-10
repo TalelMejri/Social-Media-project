@@ -1,19 +1,55 @@
-<table class="table">
-    <thead>
-     <th>
-       <tr>
-         <td>description</td>
-         <td>avatar</td>
-        </tr>
-     </th>
-     </thead>
-     <tbody>
-    <?php foreach($all_pub as $value): ?>
-        <tr>
-            <td><?=$value['description']?></td>
-            <td><?=!$value['avatar'] ? '' : $value['avatar']?></td>
-        </tr>
-    <?php endforeach?>
-    </tbody>
-     
-</table>
+
+<div class="row gap-3">
+  
+    <?php if($all_pub=='vide') :?>
+        <div class="container">
+            <div class=" alert alert-danger">
+                 Empty Saved
+            </div>
+        </div>
+    <?php else:?>
+<?php foreach($all_pub as $value):?>
+<div class="col-lg-4 card card_pub mb-3">
+  <div class=" row g-0">
+    <div class="col-md-4 ">
+      <img src="..<?=userFromId($value['id_user'])['photo_user']?>" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">
+            <?php if($_SESSION['idUser']==userFromId($value['id_user'])['iduser']): ?>
+           <p id="text"> Your Pub</p> 
+            <?php else : ?>
+           <p id="text">  <?=userFromId($value['id_user'])['name'];?></p> 
+            <?php endif;  ?>
+        </h5>  
+        <p class="card-text" id="text"><?=pubFromId($value['id_pub'])['description']?></p>
+        <p class="card-text"><button data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['id']?>" class="btn btn-danger">Delete</button></p>
+      </div>
+
+<div class="modal fade" id="exampleModal<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Pub</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          Do You Want Delete Pub 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="index.php?idpub=<?=$value['id']?>"><button type="button" class="btn btn-danger">Delete Pub</button></a>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</div>
+<?php endforeach?>
+
+<?php endif; ?>
+</div>
