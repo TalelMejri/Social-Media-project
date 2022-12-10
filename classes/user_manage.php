@@ -212,6 +212,12 @@
             return $query->fetchAll();
          }
 
+         public function get_all_friend_daccord(int $id){
+            $sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $query=$this->pdo->launchQuery($sql);
+            return $query->fetchAll();
+         }
+
          public function countFriend(int $id){   
             /*$sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
             $query=$this->pdo->launchQuery($sql);
