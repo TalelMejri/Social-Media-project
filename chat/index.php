@@ -7,9 +7,10 @@
  
     if(isset($_GET['search'])){
        extract($_GET);
+       
        $all_user=$user->get_friend($_SESSION['idUser'],$search);
     }else{
-        $all_user=$user->get_all_friend($_SESSION['idUser']);
+        $all_user=$user->get_all_friend_daccord($_SESSION['idUser']);
     }
 
     if(isset($_GET['choice_user'])){
