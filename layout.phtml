@@ -532,7 +532,7 @@
             
                  <div class="container-fluid p-4">
                     <div class="left">
-                    <a class="profile">
+          <a class="profile" href="../Account_User/index.php?id_user=<?=$_SESSION['idUser']?>">
                 <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
             
             <div id="text" class="handle">
@@ -605,12 +605,13 @@
                     </div>
                    <div class="toast-body">
                      <div class="mosule d-flex justify-content-center">
-                 
+                 <a  href="../Account_User/index.php?id_user=<?=$_SESSION['idUser']?>">   
                         <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="50px" class="rounded img-thumbnail shadow-sm" alt="">
                          <div class="body py-3 px-2">
                              <p class="m-0"><?=$_SESSION['nameUser'];?><?=$_SESSION['lastnameUser'];?></p>
                              <p class="font-weight-normal text-muted"><?=$_SESSION['emailUser'];?></p>
                         </div>
+                        </a>
                     </div>
                     
                  <ul class="list-unstyled flex-column ps-0 mx-5">
@@ -685,7 +686,7 @@
    let all_story=document?.querySelector('.all_story');
    let post=document?.querySelector('.post');
    let main=document.querySelector('main');
-
+   let card_pub=document.querySelectorAll('.card_pub');
    if(mode==1 && checkUser==1 ){
 
    var all_text = document.querySelectorAll("#text");
@@ -693,12 +694,17 @@
     for (var i=0; i<all_text.length; i++) {
      all_text[i].style.color='white';
     }
-
+    
+ 
+    for (var i=0; i<card_pub.length; i++) {
+      card_pub[i].setAttribute('id','card_pub');
+    }
      profile.setAttribute('id','profile');
      navbar.setAttribute('id', 'navbar_sombre');
      sidebar.setAttribute('id','sidebar_sombre');
      document.body.style.backgroundColor = "#000";
      all_story.setAttribute('id', 'all_story');
+    
 
     for (var i=0; i<card_comment.length; i++) {
       card_comment[i].setAttribute('id','card_comment');
