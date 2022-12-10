@@ -31,13 +31,14 @@
   <div class="row py-4">
      
   <?php foreach($all_friends as $value): ?>
-     
          <div class="col-lg-3 mb-4">
             <div class="text-center">
+            <a href="../Account_User/index.php?id_user=<?=$value['iduser']?>">
             <img class="rounded" style="width: 100px !imporant;height:100px !important" src="..<?=$value['photo_user']?>" alt="">
                <p id="text">
                  <?=$value['name']?>
                </p>
+               </a>
                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['iduser']?>"><i class="fa-solid fa-trash"></i></button>
             </div>
               <div class="modal fade" id="exampleModal<?=$value['iduser']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,10 +62,11 @@
      <?php endforeach; ?>   
 
      </div>
-     <nav aria-label="Page navigation example ">
+
+     <nav aria-label="">
   <ul class="pagination justify-content-end">
     <li class="page-item " >
-      <a class="page-link" <?= $previous==$page ? 'disabled' :''?> href="index.php?page=<?=$previous?>&<?=isset($_GET['search']) ? 'search='.$_GET['search'].'&' : '' ?><?=isset($_GET['record']) ? '&record='.$_GET['record'] : '' ?>">Previous</a>
+      <a class="page-link"  <?= $previous==$page ? 'disabled' :''?> href="index.php?page=<?=$previous?>&<?=isset($_GET['search']) ? 'search='.$_GET['search'].'&' : '' ?><?=isset($_GET['record']) ? '&record='.$_GET['record'] : '' ?>">Previous</a>
     </li>
     <?php for($i=1;$i<=$pages;$i++){ 
 
@@ -76,7 +78,7 @@
       
       ?>
             
-          <li class="page-item" <?=$active?> ><a class="page-link" href="index.php?page=<?=$i?>&<?=isset($_GET['search']) ? 'search='.$_GET['search'].'&' : '' ?><?=isset($_GET['record']) ? '&record='.$_GET['record'] : '' ?>"> <?=$i?></a></li>
+          <li class="page-item <?=$active?>" ><a class="page-link" href="index.php?page=<?=$i?>&<?=isset($_GET['search']) ? 'search='.$_GET['search'].'&' : '' ?><?=isset($_GET['record']) ? '&record='.$_GET['record'] : '' ?>"> <?=$i?></a></li>
     <?php  }?>
     <li class="page-item">
       <a class="page-link"href="index.php?page=<?=$next?>&<?=isset($_GET['search']) ? 'search='.$_GET['search'].'&' : '' ?><?=isset($_GET['record']) ? '&record='.$_GET['record'] : '' ?>">Next</a>
