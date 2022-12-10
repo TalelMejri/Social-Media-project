@@ -817,7 +817,13 @@ main .container-fluid .left .profile{
 #edit_user{
   background-color: #161b22;
 }
+#card_pub{
+  background-color: #161b22;
 
+}
+.left{
+  z-index: 999999999999999;
+}
 .story-container{
   display: grid;
   grid-auto-flow: column;
