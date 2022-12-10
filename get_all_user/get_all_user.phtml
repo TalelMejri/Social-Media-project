@@ -15,7 +15,9 @@
     ?>
         <?php $user_inviter=$user->get_user($value['id_user1']); ?>
         <div class="mosule d-flex justify-content-center mb-2">
+          <a   href="../Account_User/index.php?id_user=<?=$user_inviter['id_user1']?>">
                    <img src="..<?=$user_inviter['photo_user'];?>" width="70px" height="40px" class="rounded img-thumbnail shadow-sm" alt="">
+         </a>
                    <div class="body py-3 px-2">
                    <p class="m-0" id="text"><?=$user_inviter['name'];?><?=$user_inviter['last_name'];?></p>
      </div>           
@@ -35,10 +37,13 @@
    <?php if(!$user->check_friend_invi($_SESSION['idUser'],$value['iduser'])) :?>
     
       <div class="mosule d-flex justify-content-center mb-2">
+        <a   href="../Account_User/index.php?id_user=<?=$value['iduser']?>">
+
+      
                      <img src="..<?=$value['photo_user'];?>" width="70px" height="40px" class="rounded img-thumbnail shadow-sm" alt="">
-                      <div class="body py-3 px-2">
+                     </a>
+                     <div class="body py-3 px-2">
                          <p  id="text" class="m-0"><?=$value['name'];?><?=$value['last_name'];?></p>
-                      
                       </div>
      </div>
       <div class="d-flex justify-content-center gap-3">
