@@ -60,14 +60,22 @@
             }
         }
 
-      
+        public function deletePubSave(int $id){
+            $sql="DELETE from save where id=:id";
+            $this->pdo->launchQuery($sql,['id'=>$id]);
+        }
+
+        public function get_pub(int $id){
+            $sql="SELECT * from pub where id=:id";
+            $query= $this->pdo->launchQuery($sql,['id'=>$id]);
+            return $query->fetch();
+        }
+
         public function get_all_pub_save(int $id){
-            $sql="SELECT * from save s,pub p where s.id_pub=p.id and s.id_user=:id";
+            $sql="SELECT * from save where id_user=:id";
             $query=$this->pdo->launchQuery($sql,['id'=>$id]);
             return $query->fetchAll();
         }
-
-       
 
         public function edit_pub(int $id,int $idpub,String $avatar='',String $theme,String $desc,){
                 if($avatar==''){
@@ -76,7 +84,6 @@
                         'id'=>$idpub,
                         'id_user'=>$id,
                         'theme'=>$theme,
-                        
                         'desc'=>$desc
                     ]);
                 }else{
