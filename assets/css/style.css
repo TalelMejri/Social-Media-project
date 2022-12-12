@@ -819,7 +819,9 @@ main .container-fluid .left .profile{
 }
 #card_pub{
   background-color: #161b22;
-
+}
+#card_chat{
+  background-color: #161b22;
 }
 .left{
   z-index: 999999999999999;
@@ -830,6 +832,10 @@ main .container-fluid .left .profile{
   grid-auto-columns: 5rem;
   grid-gap: 2rem;
 }
+
+/** side bar adlin */
+
+
 
 .story-container .content,.story-container .content-myself{
    display: grid;
