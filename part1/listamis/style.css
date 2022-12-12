@@ -1,0 +1,16 @@
+/* .friends-container{
+    background: rgb(126, 126, 126);
+} */
+
+.mycard{
+    background-color: rgb(153, 152, 152);
+    color: black !important;
+
+}
+
+.mycard-content{
+    color: black !important;
+    display: flex;
+    justify-content: space-between!important;
+    align-items: center;    
+}
