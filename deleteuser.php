@@ -1,10 +1,10 @@
 
 <?php 
      session_start();
-     if(!isset($_SESSION['name'])){
-          header("location:../auth/login");
-          exit;
-      }
+    if(!isset($_SESSION['name'])){
+        header("location:./auth/login");
+        exit;
+    }
       if(!array_key_exists('id',$_GET)){
           header("location:../auth/login");
           exit;
