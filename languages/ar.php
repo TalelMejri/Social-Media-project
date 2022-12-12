@@ -1,5 +1,5 @@
 <?php
-    $lang=array(
+   /* $lang=array(
         "titel"=>"arabic",
-    )
+    )*/
 ?>

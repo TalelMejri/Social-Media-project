@@ -5,7 +5,6 @@ include "../classes/classes.php";
 
 $user=new user_manager();
 $count=ceil($user->countFriend($_SESSION['idUser']));
-
 $error=[];
 
 $limit=isset($_GET['record']) &&  is_numeric($_GET['record']) ? $_GET['record'] : 5 ;
@@ -18,7 +17,9 @@ $start=($page-1)*$limit;
 if(isset($_GET['btn_search'])){
    extract($_GET);
    if(empty($search)){
-      $error['search']="filed empty";
+      $error['search']="field empty";
+    $all_friends=$user->get_all_friend($_SESSION['idUser'],$limit,$start);
+
    }else{
      $all_friends=$user->search_friend_by_name($search,$_SESSION['idUser'],$limit,$start);
      if(!$all_friends){
