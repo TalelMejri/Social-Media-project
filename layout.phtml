@@ -784,13 +784,6 @@
     
 </body>
 <script>
-let btn = document.querySelector("#btn1");
-let side_bar = document.querySelector("#sidebar");
-let content = document.querySelector("#content");
-btn.addEventListener("click", function () {
-side_bar.classList.toggle("active");
-content.classList.toggle("active");
-});
 
 
    let mode=document.querySelector('#mode').value;
@@ -846,6 +839,14 @@ content.classList.toggle("active");
 
    }
 
+
+   let btn = document.querySelector("#btn1");
+let side_bar = document.querySelector("#sidebar");
+let content = document.querySelector("#content");
+btn.addEventListener("click", function () {
+side_bar.classList.toggle("active");
+content.classList.toggle("active");
+});
 
 
 
