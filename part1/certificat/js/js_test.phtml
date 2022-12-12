@@ -1,0 +1,172 @@
+<script src="../index.min.js"></script>
+<style>
+    
+.popup-below {
+  position: fixed; 
+  z-index: 999999999;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  animation: animate 1s ease-in-out;
+}
+
+#my-canvas{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes animate {
+  from{
+    opacity: 0;transform: translateY(0);
+  }to{
+    opacity: 1;transform: translateY(20px);
+  }
+}
+
+
+.popup_magasin{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  border-radius: 5%;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  width: 350px;
+  height: min-content;
+  z-index: 999999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 20px;
+  padding: 90px;
+}
+
+    </style>
+     
+    <div class="py-3 bg-white text-center">
+        <div class="container">
+            <h2 class="text-danger display-3 my-4">JS Quiz</h2>
+        </div>
+    </div>
+
+
+    <div class="py-4">
+        <div class="container">
+            <form action="index.php" method="POST" class="text-dark">    
+                <div class="my-5">
+
+                    <p class="lead text-danger font-weight-normal">1.Quel est le bon endroit pour insérer un code JavaScript ?</p>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q1" value="A" >
+                        <label class="form-check-label"> La section <?= htmlentities( '<head>', ENT_QUOTES)?></label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q1" value="B">
+                        <label class="form-check-label"> Les deux sections <?= htmlentities( '<head> et <body>', ENT_QUOTES) ?> sont correctes</label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q1" value="C">
+                        <label class="form-check-label"> La section <?= htmlentities( '<body>', ENT_QUOTES)?> </label>
+                    </div>
+                </div>
+
+                <div class="my-5">
+                    <p class="lead text-danger font-weight-normal">2.Comment écrivez-vous « Hello World » dans une boîte d’alerte ?</p>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q2" value="A">
+                        <label class="form-check-label">msg("Hello World");</label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q2" value="B">
+                        <label class="form-check-label"p>alert("Hello World");</label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q2" value="C">
+                        <label class="form-check-label"p>alertBox("Hello World"); </label>
+                    </div>
+                </div>
+
+                <div class="my-5">
+                    <p class="lead text-danger font-weight-normal">3.Comment écrire une condition IF pour vérifier si « a » n’est PAS égal à 2 ?</p>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q3" value="A">
+                        <label class="form-check-label">if a <> 2</label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q3" value="B">
+                        <label class="form-check-label"p>if (a != 2)</label>
+                    </div>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q3" value="C">
+                        <label class="form-check-label"p>if a =! 2 then</label>
+                    </div>
+                </div>
+
+                <div class="my-5">
+                    <p class="lead  text-danger font-weight-normal">4.Quelle est la syntaxe correcte pour vérifier la valeur de « c »   ?</p>
+                    <div class="form-check my-2 text-dark-50">
+                        <input type="radio" name="q4" value="A">
+                        <label class="form-check-label">if (c == "XYZ") then { } else { }  </label>
+                    </div>
+                    <div class="form-check  my-2 text-dark-50">
+                        <input type="radio" name="q4" value="B">
+                        <label class="form-check-label"p> if (c == "XYZ") { } else { }</label>
+                    </div>
+
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" name="Envoyer" class="btn btn-outline-danger">Envoyer</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <?php if($show_next_time==1): ?>
+        <div class="popup-below">
+            <div class="popup_magasin">
+               <h1>next time</h1>
+              <div>
+                    <div class="contenu_magasin"> 
+                     Votre Score    <?=$score?>  : <?=$_SESSION['nameUser']?>
+                    </div> 
+                <br>
+              </div>
+             </div>
+        </div>
+        <script>
+            
+         setTimeout(()=>window.location.href="../index.php",5000);
+        </script>
+   <?php endif; ?>
+ 
+   <?php if($show_congrats==1) :?>
+    <canvas id="my-canvas"></canvas>
+        <div class="popup-below">
+            <div class="popup_magasin">
+               <h1>Congrats  :</h1>
+                    <div  style="font-size: 25px;" class="contenu_magasin mb-5"> 
+                        <?=$_SESSION['nameUser']?>
+                    </div>
+                 <span class="prix_total" style="font-weight: 600;">Votre Score <?=$score?></span>
+                 <br>
+                 <small>Certificat a envoyer sur cette email <?=$_SESSION['emailUser']?></small>
+                </div>
+   </div>
+   <script>
+            var confettiSettings = { target: 'my-canvas' };
+            var confetti = new ConfettiGenerator(confettiSettings);
+            confetti.render();
+
+        setTimeout(()=>window.location.href="../index.php",4000);
+    </script>
+    
+   <?php endif; ?>

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
+    <?php if($show==true): ?>
+        <link rel="stylesheet" href="../../assets/css/style.css">
+        <script src="../../assets/js/script.js"></script>
+       <link rel="icon" href="../../assets/image/logo_final.png" type="image/x-icon"> 
+    <?php endif; ?>
+    <?php if(isset($_SESSION['id' ]) || isset($_SESSION['idUser'])): ?> 
+         <link rel="stylesheet" href="../assets/css/style.css">
+        <script src="../assets/js/script.js"></script>
+        <link rel="icon" href="../assets/image/logo_final.png" type="image/x-icon">   
+      <?php else: ?>
+         <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="icon" href="./assets/image/logo_final.png" type="image/x-icon">  
+        <script src="./assets/js/script.js"></script> 
+      <?php endif; ?>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title><?=$page_titel?></title>
+
+    <style>
+ .sidebar {
+  min-width: 17rem;
+  width: 17rem;
+  position: fixed;
+  height: 100vh;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: calc(100%-17rem);
+  margin-left: 17rem;
+  transition: all 0.4s;
+}
+
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width:768px) {
+  #sidebar {
+      margin-left: -17rem;
+      position: fixed;
+  }
+
+  #sidebar.active {
+      margin-left: 0;
+  }
+
+  #content {
+      width: 100%;
+      margin: 0;
+  }
+
+  #content.active {
+      margin-left: 17rem;
+      width: calc(100%-17rem);
+  }
+}
+   </style>
+</head>
+<body >
+ 
+ <?php if(!isset($_SESSION['id']) && !isset($_SESSION['idUser']) && !$show): ?>
+  
+  <div class="preloader" >
+        <p class="content-preloader">
+           <span>B</span>
+           <span>I</span>
+           <span>Z</span>
+           <span>O</span>
+        </p>
+    </div>
+     <header>
+        <nav data-aos="fade-down" data-aos-delay="90" class="mb-5 navbar navbar-expand-lg text-uppercase fixed-top ">
+            <div class="container">
+                <div class="circle position-absolute">
+                    <span style="--i:11"></span>
+                    <span style="--i:12"></span>
+                    <span style="--i:24"></span>
+                    <span style="--i:10"></span>
+                    <span style="--i:24"></span>
+                    <span style="--i:23"></span>
+                    <span style="--i:18"></span>
+                    <span style="--i:16"></span>
+                    <span style="--i:19"></span>
+                    <span style="--i:20"></span>
+                    <span style="--i:22"></span>
+                    <span style="--i:25"></span>
+                    <span style="--i:18"></span>
+                    <span style="--i:21"></span>
+                    <span style="--i:15"></span>
+                    <span style="--i:13"></span>
+                    <span style="--i:26"></span>
+                    <span style="--i:17"></span>
+                    <span style="--i:13"></span>
+                    <span style="--i:28"></span>
+                    <span style="--i:17"></span>
+                 </div>
+                <a class="navbar-brand" href="##"><img src="./assets/image/logo_final.png" width="50px" height="50px" alt=""> </a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary  text-primary rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <i style="color:#4fc3dc" class="fas fa-bars"></i>
+                </button>
+                <div  class="collapse navbar-collapse justify-content-end mx-5" id="navbarResponsive">
+                    <ul class="navbar-nav text-center  p-2">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['home']?></a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['service']?></a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#contact_us"><?=$lang['contact']?></a></li>
+                        <li>
+                            <select  name="choice_langue" id="" onchange="location=this.value;">
+                                <option value="changer_langue.php?lang=en">anglais</option>
+                                <option value="changer_langue.php?lang=fr">francais</option>
+                                <option value="changer_langue.php?lang=ar">arabic</option>
+                            </select>
+                          </li>
+                      </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" >
+            <div class="landing-page py-5">
+                    <div class="row py-5 ">
+                            <div class="col-lg-6 py-5" >
+                                <div class="py-4">
+                                <div class="py-5 mt-5" data-aos="fade-down " data-aos-delay="90">
+                                  <div class="intro_text text-center">
+                                    <h1 ><?=$lang['intro']?> </h1>
+                                    <h2 ><?=$lang['intro2']?></h2>
+                                        <h3 > <?=$lang['join']?> </h3>
+                                        <div class="py-4 d-flex  justify-content-center">
+                                            <div class="mx-4">
+                                              <a  href="./auth/login/ "><button  class="button"><?=$lang['signin']?></button></a>
+                                            </div>
+                                           <div  class="">
+                                             <a href="./auth/signup/"><button class="button"><?=$lang['signup']?></button></a>  
+                                          </div> 
+                                        </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-lg-6 d-lg-block d-none text-center">
+                            <lottie-player src="https://assets8.lottiefiles.com/private_files/lf30_1Fy94C.json" data-aos="zoom-out" data-aos-delay="50"   speed="1"  style="width: 100%; height: 100%;"  loop  autoplay></lottie-player>
+                            </div>
+                    </div>
+            </div>
+        </div>    
+    </header>
+   
+    <section class="mb-4">
+    <div class="cursor"></div>
+      <article class="mt-3 py-5 container" id="service" data-aos="fade-up">
+
+           <div class="titre_service text-center">
+                <p class="h5">
+                  <?=$lang['offer']?>
+                </p>
+                <h2 >
+                <?=$lang['our_service']?>
+                </h2>
+           </div>
+
+           <div class="row mt-5 py-5  justify-content-center">
+               <div class="col-md-4 mb-2" data-aos="fade-right" data-aos-delay="400">
+                    <div class="box blue text-center">
+                             <p class="icon">
+                                 <span class="fa-stack fa-2x">
+                                    <i class="fas fa-solid fa-stack-1x fa-comment"></i>
+                                 </span>
+                                </p>
+                             <h3  class="titre_box"><?=$lang['contact_header']?></h3>
+                             <p class="description"><?=$lang['desc_conat']?></p>
+                    </div>
+               </div>
+
+               <div class="col-md-4 mb-2" data-aos="fade-right" data-aos-delay="500">
+                <div class="box orange text-center">
+                         <p class="icon"> 
+                          <span class="fa-stack fa-2x">
+                            <i class="fas fa-sharp fa-stack-1x fa-solid fa-image"></i>
+                         </span>
+                        </p>
+                         <h3  class="titre_box"><?=$lang['add']?></h3>
+                         <p class="description"><?=$lang['desc_add']?></p>
+                </div>
+             </div>
+
+             <div class="col-md-4 mb-2" data-aos="fade-right" data-aos-delay="500">
+                <div class="box orange text-center">
+                         <p class="icon"> 
+                          <span class="fa-stack fa-2x">
+                            <i class="fas fa-sharp fa-stack-1x fa-solid fa-image"></i>
+                         </span>
+                        </p>
+                         <h3  class="titre_box"><?=$lang['certif']?></h3>
+                         <p class="description"><?=$lang['desc_certif']?></p>
+                </div>
+             </div>
+
+           <div class="col-md-4 mb-2" data-aos="fade-right" data-aos-delay="600">
+            <div class="box green text-center">
+                     <p class="icon">
+                        <span class="fa-stack fa-2x">
+                            <i class="fas fa-solid fa-stack-1x fa-thumbs-up"></i>
+                         </span>
+                     </p>
+                     <h3  class="titre_box"><?=$lang['photo']?></h3>
+                     <p class="description"><?=$lang['desc_photo']?></p>
+            </div>
+         </div>
+
+         <div class="col-md-4 mb-1" data-aos="fade-right" data-aos-delay="700">
+            <div class="box red text-center">
+                     <p class="icon">
+                        <span class="fa-stack fa-2x">
+                            <i class="fas fa-solid fa-stack-1x fa-user-group"></i>
+                         </span>
+                     </p>
+                     
+                     <h3  class="titre_box"><?=$lang['add_friend']?>Add friend</h3>
+                     <p class="description"><?=$lang['desc_add_friend']?></p>
+            </div>
+         </div>
+
+         <div class="col-md-4 mb-1" data-aos="fade-right" data-aos-delay="800">
+            <div class="box purpel text-center">
+                     <p class="icon">
+                        <span class="fa-stack fa-2x">
+                            <i class="fas fa-solid fa-stack-1x fa-user-check"></i>
+                         </span>
+                     </p>
+                     <h3  class="titre_box"><?=$lang['check']?> </h3>
+                     <p class="description"><?=$lang['desc_check']?></p>
+            </div>
+         </div>
+           </div>
+      </article>
+
+      <article  class="mb-4" id="counter">
+        <div class="row container-fluid d-flex justify-content-center">
+            <div class="col-lg-2  ">
+                 <div class="box_count text-center">
+                     <i class="fa-solid fa-users" style="color: #ee6c20;"></i>
+                   <div>
+                    <span data-purecounter-start="0" data-purecounter-end="<?=$NbrUser?>" data-purecounter-duration="2" class="purecounter"></span>
+                     <p><?=$lang['our_users']?></p>
+                  </div>
+               </div>
+          </div>
+          <div class="col-lg-2 ">
+            <div class="box_count text-center">
+          
+                <i class="fa-solid fa-photo-film" style="color: #15be56;"></i>
+              <div>
+               <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
+                <p><?=$lang['all_pub']?></p>
+             </div>
+          </div>
+     </div>
+     <div class="col-lg-2 ">
+        <div class="box_count text-center">
+          
+            <i class="fa-solid fa-thumbs-up" style="color: #bb0852;"></i>
+          <div>
+           <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
+            <p><?=$lang['all_liked']?></p>
+         </div>
+      </div>
+ </div>
+
+        </div>
+      </article>
+
+       <article class="container py-5 mt-2 mb-5" data-aos="fade-up">
+          <div class="text-center fw-bolder">
+            <h2>F.A.Q</h2>
+            <p><?=$lang['faq']?></p>
+          </div>
+    <div class="row">
+        <div class="col-lg-6">
+        <div class="accordion accordion-flush text-center" id="faqlist2">
+            <div class="accordion-item ">
+              <h2 class="accordion-header text-center">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                 <?=$lang['q1']?>
+                </button>
+              </h2>
+              <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                <div class="accordion-body">
+                 <?=$lang['rq1']?> 
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header text-center">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-22">
+                   <?=$lang['q2']?>  
+                </button>
+              </h2>
+              <div id="faq-content-22" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                <div class="accordion-body">
+                <?=$lang['yes']?>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="accordion accordion-flush text-center" id="faqlist1" >
+            <div class="accordion-item ">
+              <h2 class="accordion-header text-center">
+                <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                  <?=$lang['q3']?> 
+                </button>
+              </h2>
+              <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                <div class="accordion-body">
+                <?=$lang['rq3']?>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header text-center">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                 <?=$lang['q4']?> 
+                </button>
+              </h2>
+              <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                <div class="accordion-body">
+                <?=$lang['rq4']?> 
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+       </article>
+
+     
+
+      <article  class="py-2" data-aos="fade-up">
+        <div class="container py-5">
+                <div class="text-center py-4">
+                    <h2 class="section-heading text-uppercase"><?=$lang['know']?></h2>
+                    <h3 class="section-subheading text-muted"><?=$lang['front']?></h3>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-12 text-center py-3">
+                            <img class="rounded-circle img-thumbnail shadow-sm" width="30%" height="30%" src="./assets/image/talelmejri.jpg" alt="..." />
+                            <h4><?=$lang['talel_mejri']?></h4>
+                            <p class="text-muted"><?=$lang['follow']?></p>
+                              <a class="button   mx-2" href="#!"><i class="fa-brands fa-youtube"></i></a>
+                              <a class="button   mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                              <a class="button   mx-2" href="#!" ><i class="fab fa-facebook-f"></i></a>
+                              <a class="button   mx-2" href="#!" ><i class="fab fa-linkedin-in"></i></a>
+                   </div>
+                </div>
+       </div>
+    </article>
+
+    <article id="contact_us" class="contact py-1" data-aos="fade-up">
+            <div class="container py-5">
+                        <div class="text-center py-4">
+                            <h2 class=" text-uppercase"><?=$lang['contact']?></h2>
+                        </div>
+                     <form action="contact_us.php" method="post" class="shadow p-4 m-3 rounded">
+                      <h4 class="fw-bolder text-primary"><?=$lang['get']?></h4>
+                      <p class="text-muted-primary"><?=$lang['get_desc']?></p>
+                     <div class="row">
+                       <div class="col-lg-6">
+                      <div class="mb-3">
+                        <input  type="name" name="name" required class="form-control shadow" placeholder="<?=$lang['enter_name']?>"  >
+                      </div>
+                      <div class="mb-3">
+                          <input type="email" name="email" required placeholder="<?=$lang['enter_email']?>" class="shadow form-control shadow" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                      </div>
+                      <div class="mb-3">
+                      <textarea placeholder="<?=$lang['enter_subject']?>" required class="shadow rounded" style="outline:none;border:none;padding:10px" name="messages" cols="20"  rows="10"  ></textarea>
+                    </div>
+                        <button style="width:100%" name="submit" type="submit" class="button"><?=$lang['send']?></button>
+                        </div>  
+                        <div class="col-sm-6 text-center">
+                              <div class="row text-center">
+                                <div class="col-md-12 d-lg-block d-none text-center mb-5">
+                                <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_isbiybfh.json" data-aos="zoom-out" data-aos-delay="50"   speed="1"  style="width: 100%; height: 100%;"  loop  autoplay></lottie-player>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                     <div class="row mb-3 ">
+                                         <div class="col-md-2 ">
+                                         <span class="fa-stack fa-1x">
+                                           <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                           <i class="fas fa-location-dot fa-stack-1x text-white "></i>
+                                        </span>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                              Bahra <span class="text-danger">❤</span> 
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3 ">
+                                         <div class="col-md-2 ">
+                                         <span class="fa-stack fa-1x">
+                                           <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                           <i class="fas fa-phone fa-stack-1x text-white "></i>
+                                        </span>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                              +21629036027
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                         <div class="col-md-2 ">
+                                         <span class="fa-stack fa-1x">
+                                           <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                           <i class="fas fa-envelope fa-stack-1x text-white "></i>
+                                        </span>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                              talelmejri8@gmail.com
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>  
+                        </div>
+                      </div>  
+                      </form>
+                  </div>
+       </article>
+
+       <article class="thank py-4"  >
+      
+        <h3 class="fw-bolder text-center"  data-aos="fade-down" data-aos-delay="400"><?=$lang['thanks']?>🤍</h3>
+        <div class="row container-fluid justify-content-center gap-5 py-4" data-aos="fade-down" data-aos-delay="500">
+    <div class="container_box col-lg-5">
+        <div class="card_box">
+            <img src="./assets/image/chlendi.jpg" alt="">
+        </div>
+
+        <div class="content_box">
+            <h3 style="color:#4fc3dc">Mohamed youssef chlendi</h3>
+            <div class="all_link">
+                <a class=" mx-2" href="#!"><i class="fa-brands fa-instagram"></i></a>
+                <a class="  mx-2" href="#!"><i class="fa-brands fa-github"></i></a>
+                <a class="  mx-2" href="#!" ><i class="fab fa-linkedin-in"></i></a>
+              </div>
+        </div>
+    </div>
+
+    <div class="container_box col-lg-5  ">
+        <div class="card_box">
+            <img src="./assets/image/sabrine.jpg" alt="">
+        </div>
+        <div class="content_box">
+            <h3 style="color:#ff2d75">Sabrine kamkoum</h3>
+            <div class="all_link">
+                <a class=" mx-2" href="#!"><i class="fa-brands fa-instagram"></i></a>
+                <a class="  mx-2" href="#!"><i class="fa-brands fa-github"></i></a>
+                <a class="  mx-2" href="#!" ><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+  </div>
+  </article>
+
+   </section>
+
+   <footer data-aos="fade-down" class="container-fluid">
+        <div class="row container">
+             <div class="col-md-6 ">
+                    <div class="info p-5">
+                            <h2>Bizo</h2>
+                            <p><?=$lang['make']?></p>
+                            <div>
+                                <p class="text-muted "><?=$lang['follow']?></p>
+                                <div class="all_link">
+                                  <a class=" mx-2" href="#!"><i class="fa-brands fa-instagram"></i></a>
+                                  <a class="  mx-2" href="#!"><i class="fa-brands fa-youtube"></i></a>
+                                  <a class="  mx-2" href="#!"><i class="fa-brands fa-github"></i></a>
+                                  <a class="  mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                  <a class="  mx-2" href="#!" ><i class="fab fa-facebook-f"></i></a>
+                                  <a class="  mx-2" href="#!" ><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                                </div>
+                    </div>
+             </div>
+             <div class="col-md-4">
+             <div class="info p-5">
+                    <h2><?=$lang['links']?></h2>
+                    <ul class="nav flex-column">
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                  </ul>
+             </div>
+             </div>
+
+             <div class="col-md-2">
+             <div class="info p-5">
+                     <h2><?=$lang['res']?></h2>
+                     <ul class="nav flex-column">
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Authentification</a></li>
+                          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
+                  </ul>
+             </div>
+             </div>
+        </div>
+        <hr width="100%"
+           size="20" color="#fff"
+        noshade>
+      <div class="end-footer row text-center p-2">
+          <div class="col-lg-6">
+            © 2023 Bizo - <?=$lang['all_rights']?>
+          </div>
+          <div class="col-lg-6">
+            <?=$lang['designed']?>
+        </div>
+      </div>
+   </footer>
+
+   <?php endif;?>
+
+   <?php if( isset($_SESSION['idUser']) && !$show && !isset($_SESSION['id'])):?>
+           <article>
+               <?php
+                // include "./classes/classes.php";
+                    $user=new user_manager();
+                    $all_notif=$user->get_notif($_SESSION['idUser']); 
+                    $length_notif=$user->lenght_notif($_SESSION['idUser']);
+                 ?>
+                 <input type="hidden" id="checkUser" value="<?=isset($_SESSION['idUser']) ? 1 : 0?>">
+                 <input type="hidden" id="mode" value="<?=$mode_visibiltes?>">
+                <div class="navbar_user position-fixed p-2 mb-5 fixed-top shadow-lg container-fluid d-flex justify-content-between">
+                    <div class="mt-3 mx-1">
+                       
+                       <img src="../assets/image/logo_final.png" alt="" width="55px" height="55px">
+                    </div>
+                    <div class="d-flex gap-4 mx-2">
+                        <div class="mt-4">
+                              <span class="px-3 mt-5" style="cursor:pointer;position:relative" > 
+                                  <span class=" position-relative" id="liveToastBtn" onclick="toasty('notif')">
+                                  <i style="font-size:25px" id="text"  class=" fa-solid fa-bell"></i>
+                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                         <?=$length_notif?>
+                                       </span>
+                                 </span>
+                             </span>
+                         
+                             </div>
+                             <div class="mt-4">
+                                <a href="../chat" class="text-decoration-none text-dark"><i  style="font-size:25px" id="text"  class="fa-solid fa-message"></i></a> 
+                             </div>
+                            <div class="d-flex flex-column text-center ">
+                                 <div class="show_profil"> <img  onclick="toasty('profil')" class=" rounded-circle img-thumbnail shadow-sm"  width="60px" height="60px" src="..<?=$_SESSION['avatarUser']?>" > </div>
+                            </div>
+                    </div>
+              </div>
+  
+              <main>
+            
+                 <div class="container-fluid p-4">
+                    <div class="left">
+          <a class="profile" href="../Account_User/index.php?id_user=<?=$_SESSION['idUser']?>">
+                <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="70px" alt="">
+            
+            <div id="text" class="handle">
+                <h4><?=$_SESSION['nameUser'] ." ".$_SESSION['lastnameUser']?></h4>
+            </div>
+          </a>
+
+          <div class="sidebar">
+            <a href="../ProfilUser/" class="menu-item">
+                 <div id="text" class="d-flex"><span><i class="fa-solid fa-house-user p-2  "></i></span><h3>Accueil</h3></div>
+             </a>
+             <a href="../listamis/" class="menu-item ">
+                 <div id="text"  class="d-flex " ><span><i class="fa-solid fa-user p-2 " ></i></span><h3>Amis</h3></div>
+             </a>
+             <a  href="../pub_save/"class="menu-item ">
+                 <div id="text" class="d-flex " ><span><i class="fa-sharp fa-solid fa-bookmark p-2 "></i></span><h3>Enregistrement</h3></div>
+             </a>
+             <a class="menu-item " href="../certificat/">
+                 <div id="text" class="d-flex " ><span><i class="fa-solid fa-certificate p-2 "></i></span><h3>Certificat</h3></div>
+             </a>
+             <a   class="menu-item"  href="../get_all_user/index.php?changer">
+                <div id="text" class="d-flex" ><span><i class="fa-solid fa-user-plus p-2"></i></span><h3>ADD Friend</h3></div>
+             </a>
+          </div>
+          </div>
+                    <div class="middle">
+                    <input type="hidden" id="checkUser" value="<?=isset($_SESSION['idUser']) ? 1 : 0?>">
+                 <input type="hidden" id="mode" value="<?=$mode_visibiltes?>">
+                           <?php include $template.".phtml"; ?>
+                    </div>
+                    <div class="right">
+                        <?php  
+                        if(!isset($_GET['changer'])){
+                            include "../get_all_user/index.php";
+                        }            
+                         ?>
+                    </div>
+                  <?php
+                 $user=new user_manager();
+                 $all_notif=$user->get_notif($_SESSION['idUser']); 
+                 ?>
+              <div class="position-fixed bottom-0 end-0 p-3" id="body_notif" style="z-index: 11">
+                      <div id="liveToast"  class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                          <strong class="me-auto">Notification</strong>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                      <div   id="body_notification">
+                        <div class="toast-body" >
+                        <?php foreach($all_notif as $message):  ?>
+                            <div class="card mb-2">
+                           <div class="card-header">
+                               <?=$message['description']?>
+                              <span style="cursor:pointer" class="float-end ">
+                             <a class="text-decoration-none text-danger" href="../delete_notif.php?id=<?=$message['id']?>">X</a>
+                       </span>
+                    </div>
+              </div>
+        <?php endforeach; ?>
+                        </div>
+                        </div>
+                      </div>
+              </div>
+   
+              <div class="position-fixed bottom-0 end-0 p-2" id="side_profil" style="z-index: 11">
+                <div role="alert" aria-live="assertive" id="profil" aria-atomic="true" class="toast" >
+                   <div class="toast-header">
+                     <strong class="me-auto">Settings </strong>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                   <div class="toast-body">
+                     <div class="mosule d-flex justify-content-center">
+                 <a  href="../Account_User/index.php?id_user=<?=$_SESSION['idUser']?>">   
+                        <img src="..<?=$_SESSION['avatarUser']?>" width="70px" height="50px" class="rounded img-thumbnail shadow-sm" alt="">
+                         <div class="body py-3 px-2">
+                             <p class="m-0"><?=$_SESSION['nameUser'];?><?=$_SESSION['lastnameUser'];?></p>
+                             <p class="font-weight-normal text-muted"><?=$_SESSION['emailUser'];?></p>
+                        </div>
+                        </a>
+                    </div>
+                    
+                 <ul class="list-unstyled flex-column ps-0 mx-5">
+                <li class=" py-2">
+                  <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                      <span style="font-size:18px"> <i class="fa-solid fa-gear px-2"></i>  Parametres </span> 
+                  </button>
+                  <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="../auth/changerPassword"  class="link-dark rounded">Changer Password <i class="fa-solid fa-lock px-2"></i></a></li>
+                      <li><a href="../editProfilUser"  class="link-dark rounded">Edit Profil<i class="fa-solid fa-pen-to-square px-2"></i></a></li>
+                      <li><a href="../message"  class="link-dark rounded">Langue<i class="fa-solid fa-globe px-2"></i></a></li>
+                    </ul>
+                  </div>
+                </li>
+           <li class="">
+             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                <span style="font-size:18px"><i class="fa-solid fa-moon px-2 mb-3"></i>Affichage</span> 
+             </button>
+             <div class="collapse" id="dashboard-collapse">
+             <input type="hidden" id="mode " value=<?=$mode_visibiltes?>>
+               <ul class="btn-toggle-nav text-center  list-unstyled fw-normal pb-1 small">
+                    <form action="../Changervisibilite/" method="POST">
+                           <input type="hidden" name="id" value="<?=$_SESSION['idUser']?>">
+                           <input type="hidden" id="mode " value=<?=$mode_visibiltes?>>
+                        <?php if($mode_visibiltes): ?>
+                          <button  name="show_sombre" type="submit" class="btn btn-outline-dark"> <i style="font-size: 18px;text-align:center" class="fa-solid fa-moon"></i></button>
+                        <?php else: ?>
+                          <button  name="show_clair" type="submit"  class="btn btn-outline-dark">   <i  style="font-size: 18px;text-align:center" class="fa-regular fa-moon"></i></button>
+                        <?php endif; ?>
+                    </form>
+               </ul>
+             </div>           
+             </li>
+             <button class="btn btn-white align-items-center rounded mx-4">
+                <a class="link-dark rounded text-decoration-none" href="../logout.php"><span style="font-size:18px">Log out <i class="fa-solid fa-right-from-bracket"></i> </span> </a>
+             </button>
+            <div class=" py-2">
+      <div class="row mt-2">
+        <div class="col-lg-12 text-center">
+       <a href="##"> Confidentialité  · Conditions générales  · Publicités  · Choix publicitaires   · Cookies  ·   · BIZO © 2022</a>
+             </div>
+            </div>               
+          </div>
+      </div>
+        </div>
+              </div>
+                 </div>
+              </main>
+           
+              </article>
+   <?php endif;?>
+
+   <?php if(isset($_SESSION['id']) && !$show && !isset($_SESSION['idUser'])): ?>
+
+    <div class="sidebar fixed-top" id="sidebar">
+        <div class="py-4 mx-3">
+           <div class="mosule d-flex alig-items-center">
+                <img src="..<?=$_SESSION['avatar']?>" width="100" height="80" class="rounded-circle img-thumbnail shadow-sm" alt="">
+              <div class="body py-3 px-2">
+                 <p class="m-0"><?=$_SESSION['name'];?></p>
+                 <p class="font-weight-normal text-muted">Front End</p>
+              </div>
+          </div>
+       </div>
+
+    <span class="fs-5 fw-semibold px-5 ">Dashboard</span>
+    </a>
+
+    <ul class="list-unstyled flex-column ps-0 mx-4 mt-4">
+
+      <li class="mb-3">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Home
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="../profiladmin" class="link-dark rounded">Overview <i class="fa-solid fa-chart-line px-2"></i></a></li>
+        </div>
+      </li>
+
+
+      <li class="mb-3">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapsee" aria-expanded="false">
+          User Manager
+        </button>
+        <div class="collapse" id="dashboard-collapsee">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="../consulte_user/" class="link-dark rounded">Consulte User <i class="fa-solid fa-clipboard-list px-2"></i></a></li>
+            <li><a href="../consulte_user_blocked/" class="link-dark rounded">Consulte user deleted<i class="fa-solid fa-ban px-1"></i> </a></li>
+          </ul>
+        </div>
+      </li>
+   
+      <div class="py-5 mt-5 px-5">
+          <a class="text-decoration-none text-dark font-weight-bold" href="../logout.php">Log Out <i class="fa-solid fa-right-from-bracket px-2"></i></a>
+      </div>
+    </div>
+
+</div>
+
+ 
+    <div class="page-content" id="content">
+         <div class="bg-info p-3"> 
+         <button class="btn btn-ou  tline-dark mx-1"  id="btn1"><i class="fa-solid fa-list"></i></button>
+           <div class="float-end">
+            <a class="mx-3" style="cursor:pointer;position:relative" > 
+            <button class="btn btn-outline-primary position-relative " onclick="toasty()">
+              <i class="text-dark fa-solid fa-bell"></i>
+               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        5 
+              </span>
+          </button>
+            </a>
+            </div>
+        </div> 
+        <?php include $template.".phtml"; ?>
+    </div>
+
+    <?php endif; ?>
+
+    <?php if($show): ?>
+         <?php include $template.".phtml"; ?>
+    <?php endif; ?>
+    
+</body>
+<script>
+   let btn = document.querySelector("#btn1");
+let side_bar = document.querySelector("#sidebar");
+let content = document.querySelector("#content");
+btn.addEventListener("click", function () {
+side_bar.classList.toggle("active");
+content.classList.toggle("active");
+});
+
+
+   let mode=document.querySelector('#mode').value;
+   let checkUser=document.querySelector('#checkUser').value;
+   let feeds=document.querySelectorAll('.feed');
+   let card_chat=document.querySelector('.card_chat');
+   let summary=document.querySelector('summary');
+   let profile=document.querySelector('.profile');
+   let all_comments=document.querySelector('.comment_body');  
+   let edit_user=document.querySelector('.form_edit');
+   let card_comment=document.querySelectorAll('.card_comment');
+   let navbar=document.querySelector('.navbar_user');
+   let sidebar=document.querySelector('.sidebar');
+   let all_story=document?.querySelector('.all_story');
+   let post=document?.querySelector('.post');
+   let main=document.querySelector('main');
+   let card_pub=document.querySelectorAll('.card_pub');
+   if(mode==1 && checkUser==1 ){
+
+   var all_text = document.querySelectorAll("#text");
+
+    for (var i=0; i<all_text.length; i++) {
+     all_text[i].style.color='white';
+    }
+   
+    for (var i=0; i<card_pub.length; i++) {
+      card_pub[i].setAttribute('id','card_pub');
+    }
+     profile.setAttribute('id','profile');
+     navbar.setAttribute('id', 'navbar_sombre');
+     sidebar.setAttribute('id','sidebar_sombre');
+     document.body.style.backgroundColor = "#000";
+     all_story.setAttribute('id', 'all_story');
+    
+   post.setAttribute('id', 'post');  
+    for (var i=0; i<card_comment.length; i++) {
+      card_comment[i].setAttribute('id','card_comment');
+    }
+
+    for (var i=0; i<feeds.length; i++) {
+      feeds[i].setAttribute('id','feeds');
+    }
+
+     summary.setAttribute('id','summary');
+     all_comments.setAttribute('id','comment_body');
+     main.setAttribute('id','main');
+     edit_user.setAttribute('id','edit_user');
+ 
+     card_chat.setAttribute('id','card_chat');
+   }else{
+
+     document.body.style.backgroundColor = "whitesmoke";
+
+   }
+
+
+
+
+
+   
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
+</html>
