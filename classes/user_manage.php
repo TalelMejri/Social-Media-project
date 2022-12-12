@@ -207,13 +207,30 @@
             /*$sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();*/
-            $sql="SELECT  * from users u,friends f where (id_user1=u.iduser and id_user1!=$id  ) or (id_user2=u.iduser and id_user2!=$id  ) limit $start,$limit";
+            $sql="
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user1
+            WHERE f.id_user2 = $id AND f.statu = 1
+            UNION
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user2
+            WHERE f.id_user1 = $id AND f.statu = 1
+            limit $start,$limit
+            ";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
          }
 
          public function get_all_friend_daccord(int $id){
-            $sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
+            $sql="
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user1
+            WHERE f.id_user2 = $id AND f.statu = 1
+            UNION
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user2
+            WHERE f.id_user1 = $id AND f.statu = 1
+            ";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
          }
@@ -222,7 +239,10 @@
             /*$sql="SELECT DISTINCT u.* from users u,friends f where u.iduser=f.id_user1 Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1";
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();*/
-            $sql="SELECT  count(*) from users u,friends f where id_user1=u.iduser and id_user1!=$id or id_user2=u.iduser and id_user2!=$id ";
+            $sql="
+            SELECT count(*) FROM friends f
+            WHERE( (f.id_user2 = $id and f.id_user1 <> $id) or (f.id_user1 = $id and f.id_user2 <> $id )) AND f.statu = 1
+            ";
             $query=$this->pdo->launchQuery($sql);
             $value=$query->fetch();
             return $value['count(*)'];
@@ -230,14 +250,32 @@
 
          public function search_friend_by_name(String $search,int $id,int $limit=null,int $start=null){
             $name='%'.$search.'%';
-            $sql="SELECT * from users u,friends f where ( id_user1=u.iduser and id_user1!=$id and u.name like :search) or (id_user2=u.iduser and id_user2!=$id and u.name like :search) limit $start,$limit";
+            $sql="
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user1
+            WHERE f.id_user2 = $id AND f.statu = 1 AND u.name like :search
+            UNION
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user2
+            WHERE f.id_user1 = $id AND f.statu = 1 AND u.name like :search
+            limit $start,$limit
+            
+            ";
             $query=$this->pdo->launchQuery($sql,['search'=>$name]);
             return $query->fetchAll();
          }
 
          public function count_search_friend(String $search,int $id){
             $name='%'.$search.'%';
-            $sql="SELECT count(*) from users u,friends f where ( id_user1=u.iduser and id_user1!=$id and u.name like :search) or (id_user2=u.iduser and id_user2!=$id and u.name like :search)";
+            $sql="
+            SELECT count(*) FROM users u
+            JOIN friends f ON u.iduser = f.id_user1
+            WHERE f.id_user2 = $id AND f.statu = 1 AND u.name like :search
+            UNION
+            SELECT count(*) FROM users u
+            JOIN friends f ON u.iduser = f.id_user2
+            WHERE f.id_user1 = $id AND f.statu = 1 AND u.name like :search
+            ";
             $query=$this->pdo->launchQuery($sql,['search'=>$name]);
             $value=$query->fetch();
             return $value['count(*)'];
@@ -256,7 +294,15 @@
        
          public function get_friend(int $id,String $name){
             $ami="%".$name."%";
-            $sql="SELECT * from users u,friends f where u.iduser=f.id_user1  and u.name like :ami Or u.iduser=f.id_user2 and u.iduser!=$id and f.statu=1 and u.name like :ami";
+            $sql="
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user1
+            WHERE f.id_user2 = $id AND f.statu = 1 AND u.name like :ami
+            UNION
+            SELECT u.* FROM users u
+            JOIN friends f ON u.iduser = f.id_user2
+            WHERE f.id_user1 = $id AND f.statu = 1 AND u.name like :ami
+            ";
             $query=$this->pdo->launchQuery($sql,['ami'=>$ami]);
             return $query->fetchAll();
          }
@@ -393,6 +439,85 @@
             $query=$this->pdo->launchQuery($sql);
             return $query->fetchAll();
          }
+
+    public function get_number_all_user(){
+        $sql="SELECT count(*) from users where role=0";
+        $query=$this->pdo->launchQuery($sql);
+        $data=$query->fetch();
+        return $data['count(*)'];
+    }
+
+    public function get_number_all_pub(){
+        $sql="SELECT count(*) from pub";
+        $query=$this->pdo->launchQuery($sql);
+        $data=$query->fetch();
+        return $data['count(*)'];
+    }
+
+    public function get_number_all_story(){
+        $sql="SELECT count(*) from story";
+        $query=$this->pdo->launchQuery($sql);
+        $data=$query->fetch();
+        return $data['count(*)'];
+    }
+
+    public function get_number_all_comment(){
+        $sql="SELECT count(id_comments) from comments";
+        $query=$this->pdo->launchQuery($sql);
+        $data=$query->fetch();
+        return $data['count(id_comments)'];
+    }
+
+    public function get_number_all_like(){
+        $sql="SELECT count(*) from like_pub";
+        $query=$this->pdo->launchQuery($sql);
+        $data=$query->fetch();
+        return $data['count(*)'];
+    }
+
+    
+    public function getbyname(STRING $name,int $limit,int $start){
+        $name_search="%".$name."%";
+        $sql="SELECT * FROM users where role=:rolee AND name like :name limit $start,$limit";
+        $query=$this->pdo->launchQuery($sql,['rolee'=>0,'name'=>$name_search]);
+        return $query->fetchAll();
+    }
+
+    public function countusersearch(string $name){
+        $name_search="%".$name."%";
+        $sql="SELECT count(*) FROM users where role=:rolee AND name like :name";
+        $query=$this->pdo->launchQuery($sql,['rolee'=>0,'name'=>$name_search]);
+        $value=$query->fetch();
+        return $value['count(*)'];
+    }
+
+    public function get_all_user(int $limit,int $start){
+        $sql="SELECT * FROM users where role=:rolee and corbeille=:corb limit $start,$limit";
+        $query=$this->pdo->launchQuery($sql,['rolee'=>0,'corb'=>0]);;
+        return $query->fetchAll();
+    }
+
+    public function block_user(int $id){
+        $sql="UPDATE users SET corbeille=:corb where iduser=:id";
+        $this->pdo->launchQuery($sql,['corb'=>1,'id'=>$id]);
+    }
+
+    public function delete_user(int $id){
+        $sql="DELETE from users where iduser=:id";
+        $this->pdo->launchQuery($sql,['id'=>$id]);
+    }
+
+    public function getalluserdeleted(){
+        $sql="SELECT * FROM users where role=:rolee and corbeille=:corb ";
+        $query=$this->pdo->launchQuery($sql,['rolee'=>0,'corb'=>1]);;
+        return $query->fetchAll();
+    }
+
+    public function unblock_user(int $id){
+        $sql="UPDATE users SET corbeille=:corb where iduser=:id";
+        $this->pdo->launchQuery($sql,['corb'=>0,'id'=>$id]);
+    }
+  
 
          public function edituser(string $name,string $last,string $date,string $avatar='',int $avataruplaod,int $id){
                 if($avataruplaod==1){
