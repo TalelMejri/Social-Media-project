@@ -25,7 +25,7 @@
     <title><?=$page_titel?></title>
 
     <style>
- .sidebar {
+ .sidebar_admin {
   min-width: 17rem;
   width: 17rem;
   position: fixed;
@@ -34,37 +34,37 @@
   transition: all 0.4s;
 }
 
-.page-content {
+.page-content_admin {
   width: calc(100%-17rem);
   margin-left: 17rem;
   transition: all 0.4s;
 }
 
-#sidebar.active {
+#sidebar_admin.active {
   margin-left: -17rem;
 }
 
-#content.active {
+#content_admin.active {
   width: 100%;
   margin: 0;
 }
 
 @media (max-width:768px) {
-  #sidebar {
+  #sidebar_admin {
       margin-left: -17rem;
       position: fixed;
   }
 
-  #sidebar.active {
+  #sidebar_admin.active {
       margin-left: 0;
   }
 
-  #content {
+  #content_admin {
       width: 100%;
       margin: 0;
   }
 
-  #content.active {
+  #content_admin.active {
       margin-left: 17rem;
       width: calc(100%-17rem);
   }
@@ -712,7 +712,7 @@
 
    <?php if(isset($_SESSION['id']) && !$show && !isset($_SESSION['idUser'])): ?>
 
-    <div class="sidebar fixed-top" id="sidebar">
+    <div class="sidebar_admin fixed-top" id="sidebar_admin">
         <div class="py-4 mx-3">
            <div class="mosule d-flex alig-items-center">
                 <img src="..<?=$_SESSION['avatar']?>" width="100" height="80" class="rounded-circle img-thumbnail shadow-sm" alt="">
@@ -759,7 +759,7 @@
 </div>
 
  
-    <div class="page-content" id="content">
+    <div class="page-content_admin" id="content_admin">
          <div class="bg-info p-3"> 
          <button class="btn btn-ou  tline-dark mx-1"  id="btn1"><i class="fa-solid fa-list"></i></button>
            <div class="float-end">
@@ -784,6 +784,16 @@
     
 </body>
 <script>
+  try {
+
+    let btn = document.querySelector("#btn1");
+    let side_bar = document.querySelector("#sidebar_admin");
+    let content = document.querySelector("#content_admin");
+    btn.addEventListener("click", function () {
+      side_bar.classList.toggle("active");
+      content.classList.toggle("active");
+    });
+  }catch (e){}
 
 
    let mode=document.querySelector('#mode').value;
@@ -840,13 +850,6 @@
    }
 
 
-   let btn = document.querySelector("#btn1");
-let side_bar = document.querySelector("#sidebar");
-let content = document.querySelector("#content");
-btn.addEventListener("click", function () {
-side_bar.classList.toggle("active");
-content.classList.toggle("active");
-});
 
 
 

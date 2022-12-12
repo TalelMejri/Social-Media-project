@@ -554,6 +554,7 @@ footer .all_link :hover{
 /**** profil user */
 .navbar_user{
   background-color: whitesmoke ;
+  z-index: 9999;
   /*animation: change_background 2s infinite;*/
 }
 
@@ -682,7 +683,6 @@ main .container-fluid .left .profile{
 }
 
 .left .sidebar .menu-item{
-
   height: 4rem;
   cursor: pointer;
   translate: all 300ms ease-in;
@@ -1349,7 +1349,7 @@ form textarea{
 
   .left .sidebar i{
     font-size: 15px;
-    z-index: 9999999999999999;
+    z-index: 1;
   }
 
   .middle .feed .decription {

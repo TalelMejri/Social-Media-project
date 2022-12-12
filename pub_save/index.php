@@ -3,7 +3,6 @@
 session_start();
 include "../classes/classes.php";
 
-include "../classes/classes.php";
 if(!isset($_SESSION['nameUser'])){
     header("location:../auth/login");
     exit;
