@@ -2,6 +2,12 @@
 
 session_start();
 include "../classes/classes.php";
+
+include "../classes/classes.php";
+if(!isset($_SESSION['nameUser'])){
+    header("location:../auth/login");
+    exit;
+}
 $pub=new pub_manage();
 $user=new user_manager();
 $all_pub=$pub->get_all_pub_save($_SESSION['idUser']);

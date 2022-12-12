@@ -1,9 +1,14 @@
 <?php 
-
+session_start();
+if(!isset($_SESSION['nameUser'])){
+    header("location:../auth/login");
+    exit;
+}
    if(isset($_GET['changer'])){
         include "../classes/classes.php";
         session_start(); 
    }
+ 
 
     $user=new user_manager();
     $all_user=$user->get_all_users($_SESSION['idUser']);

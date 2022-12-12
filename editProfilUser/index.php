@@ -3,7 +3,10 @@
     include "../classes/classes.php";
     $user=new user_manager();
     $errors=[]; 
-  
+    if(!isset($_SESSION['nameUser'])){
+        header("location:../auth/login");
+        exit;
+    }
 
      if(isset($_POST['edit'])){
         extract($_POST);

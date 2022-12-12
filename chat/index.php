@@ -1,6 +1,11 @@
 <?php 
     session_start();
     include "../classes/classes.php";
+
+    if(!isset($_SESSION['nameUser'])){
+        header("location:../auth/login");
+        exit;
+    }
     $user=new user_manager();
     $pub=new pub_manage();
     $mode_visibiltes=$user->getModeAffichage($_SESSION['idUser']);
