@@ -3,10 +3,11 @@
     include "./classes/classes.php";
   
     if(!isset($_SESSION['lang'])){
-        $_SESSION['lang']='fr';
+        $_SESSION['lang']='en';
     }
 
     require_once "./languages/".$_SESSION['lang'].".php";
+    
     $user=new user_manager();
     $NbrUser=$user->countUser();
     $show=false;
