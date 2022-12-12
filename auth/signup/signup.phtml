@@ -29,25 +29,25 @@
                        <div class="row mb-4 ">
                           <div class="col-lg-6">
                             <label>Name</label>
-                            <input type="text" name="name" class="form-control " >
+                            <input type="text" name="name" class="form-control" value="<?=$name?>" >
                             <small class="text-danger" ><?= array_key_exists('name',$error) ? $error['name'] : '' ?></small>
                           </div>
                           <div class="col-lg-6">
                             <label>Last Name</label>
-                            <input type="text" name="prenom" class="form-control ">
+                            <input type="text" name="prenom" class="form-control " value="<?=$prenom?>">
                             <small class="text-danger" ><?= array_key_exists('prenom',$error) ? $error['prenom'] : '' ?></small>
                           </div>
                         </div>
                         <div class="row mb-4">
                           <div class="col-lg-12 mb-3">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control ">
+                            <input type="email" name="email" class="form-control " value="<?=$email?>">
                             <small class="text-danger" ><?= array_key_exists('email',$error) ? $error['email'] : '' ?></small>
                           </div>
                           <div class="col-lg-12">
                           <label>Password </label>
                         <div class="input-group">
-                        <input type="password" id="pass" class="form-control" name="password">
+                        <input type="password" id="pass" class="form-control" name="password" value="<?=$password?>">
                          <span class="input-group-btn">
                            <button id="changer_visible" class="btn btn-primary" type="button">
                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" class="eye hidden">
@@ -73,13 +73,12 @@
                           </div>
                         </div>
                            <div class="form-group text-center py-4">
-							          	<input type="checkbox"  name="agree" id="agree" class="custom-control-input">
-                      
+							          	<input type="checkbox"   name="agree" id="agree" class="custom-control-input">
 								          <label for="agree" class="custom-control-label">I agree to the <a href="#">Terms and Conditions</a></label>
                          <br> <small class="text-danger" ><?= array_key_exists('agree',$error) ? $error['agree'] : '' ?></small>
                         </div>
                         <div class="text-center mt-2">
-                             <button name="signup" class="btn btn-outline-success">Sign Up</button>
+                             <button name="signup" id="signup" class="btn btn-outline-success">Sign Up</button>
                         </div>
                         <div class="mt-4 text-muted text-center">
 							             Already have an account ? <a href="../login">Login</a>
@@ -111,6 +110,20 @@ const eyeOff = document.querySelector('.eyeOff');
         eyeOff.classList.remove('hidden');
       }
  })
+
+ const agree = document.querySelector('#agree');
+ const signup = document.getElementById('signup');
+ signup.disabled = true;
+
+ agree.addEventListener(
+  "change",
+  (e)=>{
+    if(!e.target.checked)
+      signup.disabled = true;
+    else 
+       signup.disabled = false;
+  }
+ );
 
 </script>
 

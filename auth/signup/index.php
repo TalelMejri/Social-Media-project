@@ -4,10 +4,23 @@
  
  include "../../send.php";
  use PHPMailer\PHPMailer\PHPMailer;
-
+$name = "";
+$prenom ="";
+$email = "";
+$password = "";
+$agree = false;
  $error=[];
  if(isset($_POST['signup'])){
-    extract($_POST);
+    // extract($_POST);
+    $name = $_POST["name"];
+    $prenom = $_POST["prenom"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $agree = isset($_POST["agree"])?$_POST["agree"]:false;
+
+    // var_dump($_POST);
+    // exit;
+    
     $file=new File("../../storage/",$_FILES['avatar']);
     if($name==""){
         $error['name']="name required ";
@@ -68,10 +81,8 @@
             $indice=$user->signup($name,$prenom,$email,$password,$avatar,$token,$date);
             $link="<a href='".$_SERVER['HTTP_HOST']."/".explode("/",$_SERVER['PHP_SELF'])[1]."/auth/Verifer_account/index.php?token=".$token."&email=".$email."&name=".$name."'> Click and Verify Email </a>";
             sendmail("BIZO OFFICIEL",$email,"LIEN DE VERIFIACATION","Cliquez sur ce lien pour vérifier l'e-mail ' .$link. '");
-            if(is_int($indice)){
-                header("location:../../confirmation_signup.phtml");
-                exit;
-            }
+            header("location:../../confirm_signup");
+            exit;
          }
       
     }
