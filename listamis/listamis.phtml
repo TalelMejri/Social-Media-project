@@ -1,3 +1,5 @@
+<link href="./style.css" rel="stylesheet" >
+
 <div class="container py-2 mt-2">
   <h1 class="text-center" id="text">List Amis [ <?=$count?> ]</h1>
    <?php if($all_friends=='vide'): ?>
@@ -28,18 +30,21 @@
                  </form>
               </div>
           </div>
-  <div class="row py-4">
+  <div class="row py-4 gap-4 friends-container  justify-content-center align-items-center">
+<?php foreach($all_friends as $value): ?>
      
-  <?php foreach($all_friends as $value): ?>
-         <div class="col-lg-3 mb-4">
-            <div class="text-center">
-            <a href="../Account_User/index.php?id_user=<?=$value['iduser']?>">
-            <img class="rounded" style="width: 100px !imporant;height:100px !important" src="..<?=$value['photo_user']?>" alt="">
+  <div class="col-lg-5 p-0 mb-sm-4 mycard rounded ">
+            <div class="text-center p-2  gap-3 mycard-content justify-content-start">
+            <a class="d-flex gap-3 align-items-center justify-content-center "  href="../Account_User/index.php?id_user=<?=$value['iduser']?>" >
+              <img class="rounded d-inline" style="height:100px !important"
+              src="
+                <?= isset($value['photo_user'])?'..'.$value['photo_user']:'../storage/0b576c554b9fa4a6e2ead6931ea719b7.jpg' ?>
+              " alt="">
                <p id="text">
                  <?=$value['name']?>
                </p>
-               </a>
-               <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['iduser']?>"><i class="fa-solid fa-trash"></i></button>
+            </a>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?=$value['iduser']?>"><i class="fa-solid fa-trash"></i></button>
             </div>
               <div class="modal fade" id="exampleModal<?=$value['iduser']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                <div class="modal-dialog">
@@ -58,9 +63,8 @@
                  </div>
                </div>
               </div>
-         </div>
+     </div>
      <?php endforeach; ?>   
-
      </div>
 
      <nav aria-label="">
