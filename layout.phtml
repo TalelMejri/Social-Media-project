@@ -23,6 +23,53 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title><?=$page_titel?></title>
+
+    <style>
+ .sidebar {
+  min-width: 17rem;
+  width: 17rem;
+  position: fixed;
+  height: 100vh;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: calc(100%-17rem);
+  margin-left: 17rem;
+  transition: all 0.4s;
+}
+
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width:768px) {
+  #sidebar {
+      margin-left: -17rem;
+      position: fixed;
+  }
+
+  #sidebar.active {
+      margin-left: 0;
+  }
+
+  #content {
+      width: 100%;
+      margin: 0;
+  }
+
+  #content.active {
+      margin-left: 17rem;
+      width: calc(100%-17rem);
+  }
+}
+   </style>
 </head>
 <body >
  
@@ -30,7 +77,7 @@
   
   <div class="preloader" >
         <p class="content-preloader">
-           <span >B</span>
+           <span>B</span>
            <span>I</span>
            <span>Z</span>
            <span>O</span>
@@ -68,12 +115,16 @@
                 </button>
                 <div  class="collapse navbar-collapse justify-content-end mx-5" id="navbarResponsive">
                     <ul class="navbar-nav text-center  p-2">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['titel']?></a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service">Service</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#contact_us">Contact</a></li>
-                        <li><a   class="nav-item mx-0 mx-lg-1" href="changer_langue.php?lang=en">anglais</a></li>
-                        <li><a  class="nav-item mx-0 mx-lg-1" href="changer_langue.php?lang=fr">francais</a></li>
-                        <li><a  class="nav-item mx-0 mx-lg-1" href="changer_langue.php?lang=ar">arabic</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['home']?></a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['service']?></a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#contact_us"><?=$lang['contact']?></a></li>
+                        <li>
+                            <select  name="choice_langue" id="" onchange="location=this.value;">
+                                <option value="changer_langue.php?lang=en">anglais</option>
+                                <option value="changer_langue.php?lang=fr">francais</option>
+                                <option value="changer_langue.php?lang=ar">arabic</option>
+                            </select>
+                          </li>
                       </ul>
                 </div>
             </div>
@@ -85,15 +136,15 @@
                                 <div class="py-4">
                                 <div class="py-5 mt-5" data-aos="fade-down " data-aos-delay="90">
                                   <div class="intro_text text-center">
-                                    <h1 >You Make the World a better Place </h1>
-                                    <h2 >Just By being in it</h2>
-                                        <h3 > Join Us </h3>
+                                    <h1 ><?=$lang['intro']?> </h1>
+                                    <h2 ><?=$lang['intro2']?></h2>
+                                        <h3 > <?=$lang['join']?> </h3>
                                         <div class="py-4 d-flex  justify-content-center">
                                             <div class="mx-4">
-                                              <a  href="./auth/login/ "><button  class="button">Sign In</button></a>
+                                              <a  href="./auth/login/ "><button  class="button"><?=$lang['signin']?></button></a>
                                             </div>
                                            <div  class="">
-                                             <a href="./auth/signup/"><button class="button">Sign Up</button></a>  
+                                             <a href="./auth/signup/"><button class="button"><?=$lang['signup']?></button></a>  
                                           </div> 
                                         </div>
                                   </div>
@@ -114,10 +165,10 @@
 
            <div class="titre_service text-center">
                 <p class="h5">
-                    What We Offer
+                  <?=$lang['offer']?>
                 </p>
                 <h2 >
-                    Our Services
+                <?=$lang['our_service']?>
                 </h2>
            </div>
 
@@ -129,8 +180,8 @@
                                     <i class="fas fa-solid fa-stack-1x fa-comment"></i>
                                  </span>
                                 </p>
-                             <h3  class="titre_box">Contact Other</h3>
-                             <p class="description">You can talk with any human in the world with Us </p>
+                             <h3  class="titre_box"><?=$lang['contact_header']?></h3>
+                             <p class="description"><?=$lang['desc_conat']?></p>
                     </div>
                </div>
 
@@ -141,8 +192,8 @@
                             <i class="fas fa-sharp fa-stack-1x fa-solid fa-image"></i>
                          </span>
                         </p>
-                         <h3  class="titre_box">ADD photo</h3>
-                         <p class="description">Share your Photo with your friend</p>
+                         <h3  class="titre_box"><?=$lang['add']?></h3>
+                         <p class="description"><?=$lang['desc_add']?></p>
                 </div>
              </div>
 
@@ -153,8 +204,8 @@
                             <i class="fas fa-sharp fa-stack-1x fa-solid fa-image"></i>
                          </span>
                         </p>
-                         <h3  class="titre_box">Take Certificat</h3>
-                         <p class="description">You wanna certficat in pho,js,html and css</p>
+                         <h3  class="titre_box"><?=$lang['certif']?></h3>
+                         <p class="description"><?=$lang['desc_certif']?></p>
                 </div>
              </div>
 
@@ -165,8 +216,8 @@
                             <i class="fas fa-solid fa-stack-1x fa-thumbs-up"></i>
                          </span>
                      </p>
-                     <h3  class="titre_box">Like photo</h3>
-                     <p class="description">If you like a picture, you can put a like</p>
+                     <h3  class="titre_box"><?=$lang['photo']?></h3>
+                     <p class="description"><?=$lang['desc_photo']?></p>
             </div>
          </div>
 
@@ -178,8 +229,8 @@
                          </span>
                      </p>
                      
-                     <h3  class="titre_box">Add friend</h3>
-                     <p class="description">you can add your friend to your list of friends</p>
+                     <h3  class="titre_box"><?=$lang['add_friend']?>Add friend</h3>
+                     <p class="description"><?=$lang['desc_add_friend']?></p>
             </div>
          </div>
 
@@ -190,8 +241,8 @@
                             <i class="fas fa-solid fa-stack-1x fa-user-check"></i>
                          </span>
                      </p>
-                     <h3  class="titre_box">ckeck profil your friends </h3>
-                     <p class="description">You can see profil , like photo ,block friend</p>
+                     <h3  class="titre_box"><?=$lang['check']?> </h3>
+                     <p class="description"><?=$lang['desc_check']?></p>
             </div>
          </div>
            </div>
@@ -204,44 +255,38 @@
                      <i class="fa-solid fa-users" style="color: #ee6c20;"></i>
                    <div>
                     <span data-purecounter-start="0" data-purecounter-end="<?=$NbrUser?>" data-purecounter-duration="2" class="purecounter"></span>
-                     <p>Our Users</p>
+                     <p><?=$lang['our_users']?></p>
                   </div>
                </div>
           </div>
           <div class="col-lg-2 ">
             <div class="box_count text-center">
-                <i class="fa-solid fa-users" style="color: #15be56;"></i>
+          
+                <i class="fa-solid fa-photo-film" style="color: #15be56;"></i>
               <div>
                <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
-                <p>Our </p>
+                <p><?=$lang['all_pub']?></p>
              </div>
           </div>
      </div>
      <div class="col-lg-2 ">
         <div class="box_count text-center">
-            <i class="fa-solid fa-users" style="color: #bb0852;"></i>
+          
+            <i class="fa-solid fa-thumbs-up" style="color: #bb0852;"></i>
           <div>
            <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
-            <p>Our Clients</p>
+            <p><?=$lang['all_liked']?></p>
          </div>
       </div>
  </div>
- <div class="col-lg-2 ">
-    <div class="box_count text-center">
-        <i class="fa-solid fa-users"></i>
-      <div>
-       <span data-purecounter-start="0" data-purecounter-end="400" data-purecounter-duration="2" class="purecounter"></span>
-        <p>Our Clients</p>
-     </div>
-  </div>
-</div>
+
         </div>
       </article>
 
        <article class="container py-5 mt-2 mb-5" data-aos="fade-up">
           <div class="text-center fw-bolder">
             <h2>F.A.Q</h2>
-            <p>Frequently Asked Questions</p>
+            <p><?=$lang['faq']?></p>
           </div>
     <div class="row">
         <div class="col-lg-6">
@@ -249,12 +294,12 @@
             <div class="accordion-item ">
               <h2 class="accordion-header text-center">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                 question 1 ?
+                 <?=$lang['q1']?>
                 </button>
               </h2>
               <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                 <div class="accordion-body">
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, impedit.
+                 <?=$lang['rq1']?> 
                 </div>
               </div>
             </div>
@@ -262,12 +307,12 @@
             <div class="accordion-item">
               <h2 class="accordion-header text-center">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-22">
-                  question 2?
+                   <?=$lang['q2']?>  
                 </button>
               </h2>
               <div id="faq-content-22" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                 <div class="accordion-body">
-                 Lorem ipsum dolor sit amet.
+                <?=$lang['yes']?>
                 </div>
               </div>
             </div>
@@ -278,12 +323,12 @@
             <div class="accordion-item ">
               <h2 class="accordion-header text-center">
                 <button class="accordion-button collapsed text-center" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                 question 3 ?
+                  <?=$lang['q3']?> 
                 </button>
               </h2>
               <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                 <div class="accordion-body">
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, impedit.
+                <?=$lang['rq3']?>
                 </div>
               </div>
             </div>
@@ -291,12 +336,12 @@
             <div class="accordion-item">
               <h2 class="accordion-header text-center">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                  question 4?
+                 <?=$lang['q4']?> 
                 </button>
               </h2>
               <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                 <div class="accordion-body">
-                 Lorem ipsum dolor sit amet.
+                <?=$lang['rq4']?> 
                 </div>
               </div>
             </div>
@@ -311,14 +356,14 @@
       <article  class="py-2" data-aos="fade-up">
         <div class="container py-5">
                 <div class="text-center py-4">
-                    <h2 class="section-heading text-uppercase">U wanna know us</h2>
-                    <h3 class="section-subheading text-muted">Front-End Developer</h3>
+                    <h2 class="section-heading text-uppercase"><?=$lang['know']?></h2>
+                    <h3 class="section-subheading text-muted"><?=$lang['front']?></h3>
                 </div>
                 <div class="row ">
                     <div class="col-lg-12 text-center py-3">
                             <img class="rounded-circle img-thumbnail shadow-sm" width="30%" height="30%" src="./assets/image/talelmejri.jpg" alt="..." />
-                            <h4>Talel Mejri</h4>
-                            <p class="text-muted">Fllow Me.</p>
+                            <h4><?=$lang['talel_mejri']?></h4>
+                            <p class="text-muted"><?=$lang['follow']?></p>
                               <a class="button   mx-2" href="#!"><i class="fa-brands fa-youtube"></i></a>
                               <a class="button   mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                               <a class="button   mx-2" href="#!" ><i class="fab fa-facebook-f"></i></a>
@@ -331,23 +376,23 @@
     <article id="contact_us" class="contact py-1" data-aos="fade-up">
             <div class="container py-5">
                         <div class="text-center py-4">
-                            <h2 class=" text-uppercase">Contact Us</h2>
+                            <h2 class=" text-uppercase"><?=$lang['contact']?></h2>
                         </div>
                      <form action="contact_us.php" method="post" class="shadow p-4 m-3 rounded">
-                      <h4 class="fw-bolder text-primary">Get In Touch</h4>
-                      <p class="text-muted-primary">we are here for you ! how can we help ?</p>
+                      <h4 class="fw-bolder text-primary"><?=$lang['get']?></h4>
+                      <p class="text-muted-primary"><?=$lang['get_desc']?></p>
                      <div class="row">
                        <div class="col-lg-6">
                       <div class="mb-3">
-                        <input  type="name" name="name" required class="form-control shadow" placeholder="Entre your name"  >
+                        <input  type="name" name="name" required class="form-control shadow" placeholder="<?=$lang['enter_name']?>"  >
                       </div>
                       <div class="mb-3">
-                          <input type="email" name="email" required placeholder="Entrer your email address" class="shadow form-control shadow" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                          <input type="email" name="email" required placeholder="<?=$lang['enter_email']?>" class="shadow form-control shadow" id="exampleInputEmail1" aria-describedby="emailHelp" >
                       </div>
                       <div class="mb-3">
-                      <textarea placeholder="Go ahead , we are listening" required class="shadow rounded" style="outline:none;border:none;padding:10px" name="messages" cols="20"  rows="10"  ></textarea>
+                      <textarea placeholder="<?=$lang['enter_subject']?>" required class="shadow rounded" style="outline:none;border:none;padding:10px" name="messages" cols="20"  rows="10"  ></textarea>
                     </div>
-                        <button style="width:100%" name="submit" type="submit" class="button">Send</button>
+                        <button style="width:100%" name="submit" type="submit" class="button"><?=$lang['send']?></button>
                         </div>  
                         <div class="col-sm-6 text-center">
                               <div class="row text-center">
@@ -399,7 +444,7 @@
 
        <article class="thank py-4"  >
       
-        <h3 class="fw-bolder text-center"  data-aos="fade-down" data-aos-delay="400">I’m so grateful for your help. Thank you 🤍</h3>
+        <h3 class="fw-bolder text-center"  data-aos="fade-down" data-aos-delay="400"><?=$lang['thanks']?>🤍</h3>
         <div class="row container-fluid justify-content-center gap-5 py-4" data-aos="fade-down" data-aos-delay="500">
     <div class="container_box col-lg-5">
         <div class="card_box">
@@ -440,9 +485,9 @@
              <div class="col-md-6 ">
                     <div class="info p-5">
                             <h2>Bizo</h2>
-                            <p>Making the world a better place</p>
+                            <p><?=$lang['make']?></p>
                             <div>
-                                <p class="text-muted ">Fllow Me.</p>
+                                <p class="text-muted "><?=$lang['follow']?></p>
                                 <div class="all_link">
                                   <a class=" mx-2" href="#!"><i class="fa-brands fa-instagram"></i></a>
                                   <a class="  mx-2" href="#!"><i class="fa-brands fa-youtube"></i></a>
@@ -456,7 +501,7 @@
              </div>
              <div class="col-md-4">
              <div class="info p-5">
-                    <h2>Links</h2>
+                    <h2><?=$lang['links']?></h2>
                     <ul class="nav flex-column">
                           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
                           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
@@ -469,7 +514,7 @@
 
              <div class="col-md-2">
              <div class="info p-5">
-                     <h2>Resources</h2>
+                     <h2><?=$lang['res']?></h2>
                      <ul class="nav flex-column">
                           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Authentification</a></li>
                           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Terms of Service</a></li>
@@ -482,10 +527,10 @@
         noshade>
       <div class="end-footer row text-center p-2">
           <div class="col-lg-6">
-            © 2023 Bizo - All Rights Reserved
+            © 2023 Bizo - <?=$lang['all_rights']?>
           </div>
           <div class="col-lg-6">
-            Designed and Developed by Talel Mejri
+            <?=$lang['designed']?>
         </div>
       </div>
    </footer>
@@ -663,8 +708,75 @@
               </main>
            
               </article>
-
    <?php endif;?>
+
+   <?php if(isset($_SESSION['id']) && !$show && !isset($_SESSION['idUser'])): ?>
+
+    <div class="sidebar fixed-top" id="sidebar">
+        <div class="py-4 mx-3">
+           <div class="mosule d-flex alig-items-center">
+                <img src="..<?=$_SESSION['avatar']?>" width="100" height="80" class="rounded-circle img-thumbnail shadow-sm" alt="">
+              <div class="body py-3 px-2">
+                 <p class="m-0"><?=$_SESSION['name'];?></p>
+                 <p class="font-weight-normal text-muted">Front End</p>
+              </div>
+          </div>
+       </div>
+
+    <span class="fs-5 fw-semibold px-5 ">Dashboard</span>
+    </a>
+
+    <ul class="list-unstyled flex-column ps-0 mx-4 mt-4">
+
+      <li class="mb-3">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Home
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="../profiladmin" class="link-dark rounded">Overview <i class="fa-solid fa-chart-line px-2"></i></a></li>
+        </div>
+      </li>
+
+
+      <li class="mb-3">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapsee" aria-expanded="false">
+          User Manager
+        </button>
+        <div class="collapse" id="dashboard-collapsee">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="../consulte_user/" class="link-dark rounded">Consulte User <i class="fa-solid fa-clipboard-list px-2"></i></a></li>
+            <li><a href="../consulte_user_blocked/" class="link-dark rounded">Consulte user deleted<i class="fa-solid fa-ban px-1"></i> </a></li>
+          </ul>
+        </div>
+      </li>
+   
+      <div class="py-5 mt-5 px-5">
+          <a class="text-decoration-none text-dark font-weight-bold" href="../logout.php">Log Out <i class="fa-solid fa-right-from-bracket px-2"></i></a>
+      </div>
+    </div>
+
+</div>
+
+ 
+    <div class="page-content" id="content">
+         <div class="bg-info p-3"> 
+         <button class="btn btn-ou  tline-dark mx-1"  id="btn1"><i class="fa-solid fa-list"></i></button>
+           <div class="float-end">
+            <a class="mx-3" style="cursor:pointer;position:relative" > 
+            <button class="btn btn-outline-primary position-relative " onclick="toasty()">
+              <i class="text-dark fa-solid fa-bell"></i>
+               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        5 
+              </span>
+          </button>
+            </a>
+            </div>
+        </div> 
+        <?php include $template.".phtml"; ?>
+    </div>
+
+    <?php endif; ?>
 
     <?php if($show): ?>
          <?php include $template.".phtml"; ?>
@@ -672,10 +784,19 @@
     
 </body>
 <script>
+let btn = document.querySelector("#btn1");
+let side_bar = document.querySelector("#sidebar");
+let content = document.querySelector("#content");
+btn.addEventListener("click", function () {
+side_bar.classList.toggle("active");
+content.classList.toggle("active");
+});
+
 
    let mode=document.querySelector('#mode').value;
    let checkUser=document.querySelector('#checkUser').value;
    let feeds=document.querySelectorAll('.feed');
+   let card_chat=document.querySelector('.card_chat');
    let summary=document.querySelector('summary');
    let profile=document.querySelector('.profile');
    let all_comments=document.querySelector('.comment_body');  
@@ -694,8 +815,7 @@
     for (var i=0; i<all_text.length; i++) {
      all_text[i].style.color='white';
     }
-    
- 
+   
     for (var i=0; i<card_pub.length; i++) {
       card_pub[i].setAttribute('id','card_pub');
     }
@@ -705,7 +825,7 @@
      document.body.style.backgroundColor = "#000";
      all_story.setAttribute('id', 'all_story');
     
-
+   post.setAttribute('id', 'post');  
     for (var i=0; i<card_comment.length; i++) {
       card_comment[i].setAttribute('id','card_comment');
     }
@@ -716,15 +836,19 @@
 
      summary.setAttribute('id','summary');
      all_comments.setAttribute('id','comment_body');
-     post.setAttribute('id', 'post');  
      main.setAttribute('id','main');
      edit_user.setAttribute('id','edit_user');
-
+ 
+     card_chat.setAttribute('id','card_chat');
    }else{
 
      document.body.style.backgroundColor = "whitesmoke";
 
    }
+
+
+
+
    
 </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
