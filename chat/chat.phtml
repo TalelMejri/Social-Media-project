@@ -60,15 +60,15 @@ textarea{
 <div class="col-xl-12 container">
 <div class="row gap-5" >
     <div class="col-md-6  col-lg-4  text-center">
-            <div class="card">
-                 <div class="card-header">
+            <div class="card ">
+                 <div class="card-header card_chat">
                     <form action="index.php?search=<?=isset($_GET['search']) ? $_GET['search'] : ''?>" method="GET">
                       <input type="text" required name="search" class="form-control mb-2" placeholder="search ami" value="<?=isset($_GET['search']) ? $_GET['search'] : ''?>">
                       <button class="btn btn-success">search</button>
                     </form>
                  </div>
                
-                 <div style="max-height:500px;overflow:scroll" class="card-body">
+                 <div style="max-height:500px;overflow:scroll" class="card-body ">
                     <?php if( $all_user=='vide'): ?>
                          <div class="alert alert-danger">
                              empty
@@ -77,7 +77,7 @@ textarea{
                     <?php foreach($all_user as $user): ?>
                          <?php if($user['iduser'] != $_SESSION['idUser']) :?>
 
-                         <div  class="box_user  <?=$user['iduser']==isset($_GET['choice_user']) ? 'user_selected' : ''?>">
+                         <div id="text"  class="box_user   <?=$user['iduser']==isset($_GET['choice_user']) ? 'user_selected' : ''?>">
                             <a href="?choice_user=<?=$user['iduser']?><?=isset($_GET['search']) ? '&search='.$_GET['search'] : ''?>">
                              <img class="rounded" src="..<?=$user['photo_user']?>" width="80px" height="80px">
                              <?=$user['name'].' '.$user['last_name']?>
