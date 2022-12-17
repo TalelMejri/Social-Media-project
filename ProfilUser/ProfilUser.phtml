@@ -78,6 +78,12 @@ summary{
             </div>
           </div>
       <div class="container_post">
+        
+<?php if(array_key_exists('type',$_GET)): ?>
+        <div class="alert alert-<?=$_GET['type']?>" role="alert">
+             <?=$_GET['msg'] ?>
+        </div>
+    <?php endif;?>
         <div class="wrapper">
           <section class="post">
             <p class="header">

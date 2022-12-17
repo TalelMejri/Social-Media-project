@@ -3,13 +3,13 @@
 session_start();
 
 if(!array_key_exists('id_user',$_GET) or !ctype_digit($_GET['id_user'])){
-    header("location:index.php?type=danger&msg=id incorrect !");
+    header("location:../profilUser?type=danger&msg=id incorrect !");
     exit();
 } 
 include "../classes/classes.php";
 // include "../get_all_user/index.php";
 if(!isset($_SESSION['nameUser'])){
-    header("location:../login");
+    header("location:../auth/login");
     exit;
 }
 $user=new user_manager();
