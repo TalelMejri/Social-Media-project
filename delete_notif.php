@@ -1,6 +1,8 @@
 <?php 
 
     include "./classes/classes.php";
+    session_start();
+    
     if(!isset($_SESSION['nameUser'])){
         header("location:./auth/login");
         exit;
