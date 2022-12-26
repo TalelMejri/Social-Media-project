@@ -7,10 +7,10 @@ if(!array_key_exists('id_user',$_GET) or !ctype_digit($_GET['id_user'])){
     exit();
 } 
 include "../classes/classes.php";
-// include "../get_all_user/index.php";
+
 if(!isset($_SESSION['nameUser'])){
     header("location:../auth/login");
-    exit;
+   
 }
 $user=new user_manager();
 if (isset($_GET['id_user'])){
