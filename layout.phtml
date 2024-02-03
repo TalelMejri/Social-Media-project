@@ -119,11 +119,12 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#service"><?=$lang['service']?></a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link link_navbar text-center px-0 px-lg-3 rounded" href="#contact_us"><?=$lang['contact']?></a></li>
                         <li>
-                            <select  name="choice_langue" id="" onchange="location=this.value;">
-                                <option value="changer_langue.php?lang=en">anglais</option>
-                                <option value="changer_langue.php?lang=fr">francais</option>
-                                <option value="changer_langue.php?lang=ar">arabic</option>
-                            </select>
+                           <input type="hidden" id="current_language" value="<?php echo isset($_GET['lang']) ? $_GET['lang'] : ''; ?>">
+<select class="form-control" name="choice_langue" id="all_langue" onchange="changeLanguage(this.value);">
+    <option value="en">English</option>
+    <option value="fr">French</option>
+    <option value="ar">Arabic</option>
+</select>
                           </li>
                       </ul>
                 </div>
@@ -361,8 +362,8 @@
                 </div>
                 <div class="row ">
                     <div class="col-lg-12 text-center py-3">
-                            <img class="rounded-circle img-thumbnail shadow-sm" width="30%" height="30%" src="./assets/image/talelmejri.jpg" alt="..." />
-                            <h4><?=$lang['talel_mejri']?></h4>
+                            <img class="rounded img-thumbnail shadow-sm" width="300px" height="200px" src="./assets/image/DSC_79945.png" alt="Photo talel" />
+                            <h4 class="mt-2"><?=$lang['talel_mejri']?></h4>
                             <p class="text-muted"><?=$lang['follow']?></p>
                               <a class="button   mx-2" href="#!"><i class="fa-brands fa-youtube"></i></a>
                               <a class="button   mx-2" href="#!"><i class="fab fa-twitter"></i></a>
@@ -784,6 +785,9 @@
     
 </body>
 <script>
+
+
+
   try {
 
     let btn = document.querySelector("#btn1");
@@ -794,6 +798,20 @@
       content.classList.toggle("active");
     });
   }catch (e){}
+
+ 
+  try{
+    let current_language = document.querySelector("#current_language").value;
+    let all_langue = document.querySelectorAll("#all_langue");
+     for(let i=0;i<all_langue.length;i++){
+      console.log(current_language);
+      if(all_langue[i].value===current_language){
+         all_langue[i].setAttribute('selected','selected');
+      }
+   }
+  }catch(e){
+
+  }
 
 
    let mode=document.querySelector('#mode').value;
@@ -849,9 +867,12 @@
 
    }
 
-
-
-
+   function changeLanguage(selectedLang) {
+    var currentLang = document.getElementById('current_language').value;
+    if (selectedLang !== currentLang) {
+        window.location.href = 'changer_langue.php?lang=' + selectedLang;
+    }
+}
 
    
 </script>

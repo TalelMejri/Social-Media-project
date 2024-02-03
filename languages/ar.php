@@ -35,7 +35,7 @@
         'q4'=>"هل يمكنني إضافة موضوع ؟",
         'rq4'=>"نعم يمكنك إضافة موضوع بعد إنشاء حسابك",
         'know'=>"تعرف علينا",
-        'front'=>" Front-End Developer",
+        'front'=>" FullStack Developer",
         "talel_mejri"=>"طلال ماجري",
         'follow'=>"تابعنا",
         'contact'=>"اتصل بنا",

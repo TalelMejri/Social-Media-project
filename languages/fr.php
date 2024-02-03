@@ -35,7 +35,7 @@
         'q4'=>"puis-je ajouter un poste ?",
         'rq4'=>"oui tu peux .",
         'know'=>"vous voulez en savoir plus ?",
-        'front'=>"Front-End Developer",
+        'front'=>"FullStack Developer",
         "talel_mejri"=>"Talel Mejri",
         'follow'=>"suivez nous",
         'contact'=>"Contactez nous",

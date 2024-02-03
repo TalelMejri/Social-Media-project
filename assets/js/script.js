@@ -1,6 +1,6 @@
 /********************** Preloader ***********************/
 
-const loading_val = 1 ;
+const loading_val = 40000 ;
 function loader(){
     document.querySelector('.preloader')?.classList.add('enter-out');
 }

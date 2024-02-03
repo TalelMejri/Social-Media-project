@@ -35,7 +35,7 @@
         'q4'=>"can i add post ?",
         'rq4'=>"yes you can .",
         'know'=>"U wanna know us",
-        'front'=>"Front-End Developer",
+        'front'=>"FullStack Developer",
         "talel_mejri"=>"Talel Mejri",
         'follow'=>"Follow Us",
         'contact'=>"Contact Us",
